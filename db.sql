@@ -113,7 +113,8 @@ create table cars_table (
 	model_number varchar(64) not null, -- dc5
 	year varchar(64) not null, -- 2002
 	complectation varchar(64) not null,
-	price varchar(128) not null -- 600.000тысруб
+	engine_id int primary key, -- 1 -- связь engine_table (engine_id)
+	price varchar(128) not null, -- 600.000тысруб
 );
 
 
@@ -154,9 +155,13 @@ create table car_short_description_table (
 
 
 create table engine_table (
-
-);
-
-create table filters_table (
-	
+	engine_id int unique, -- 1
+	engine_serial_name varchar(64) not null, -- 4g18
+	engine_size int not null, -- 1.6
+	engine_nano varchar(64) not null, -- 196Hm
+	engine_hordse_power varchar(64) not null, -- 98Hp
+	engine_expenditure_city varchar(64) not null, -- 8.0
+	engine_expenditure_track varchar(64) not null, -- 5.6
+	camshaft_system varchar(64) not null, -- dohc, sohc, vtek
+	foreign key (engine_id) references cars_table (engine_id) -- связь cars_table (engine_id)
 );
