@@ -1,3 +1,5 @@
+-- тренировочная база данных (вспомнил связи)
+-- многие ко многим
 create table Employers (
 	employeeId int primary key,
 	employeeName varchar(128) not null,
@@ -20,7 +22,7 @@ insert into positionTable (positionId, positionName) values (2, 'Director');
 insert into positionTable (positionId, positionName) values (3, 'Middle-programmer');
 
 
-
+-- связующая таблица
 create table employeePositions (
     positionId int,
     employeeId int,
@@ -36,6 +38,7 @@ insert into employeePositions (positionId, employeeId) values (3, 3);
 
 
 
+-- однин ко многим
 create table person_table (
 	person_id int primary key,
 	name varchar(64),
@@ -62,7 +65,7 @@ insert into phone_table (phone_id, person_id, phone_number) values (2, 2, '89434
 insert into phone_table (phone_id, person_id, phone_number) values (3, 2, '89324382062');
 
 
-
+-- один к одному (связь на Employers - первую таблицу)
 create table disabled_person_table (
 	disabled_person_id int primary key,
 	employee_id int unique,
@@ -72,10 +75,88 @@ create table disabled_person_table (
 insert into disabled_person_table (disabled_person_id, employee_id) values (1, 1);
 insert into disabled_person_table (disabled_person_id, employee_id) values (2, 3);
 
-
+-- немного запросов
 select * from Employers;
 select * from positionTable;
 select * from employeePositions;
 select * from person_table;
 
+-- join запрос
 select * from Employers join disabled_person_table on Employers.employeeId = disabled_person_table.employee_id;
+
+
+
+-- Для курсовой работы и диплома
+
+create table users_table (
+	user_id int primary key, -- 1 -- связь 1 к 1 roles_table (user_id)
+	name varchar(64) not null, -- Touge
+	surname varchar(64) not null, -- Driver
+	email varchar(64) not null, -- mikhailsemenov47@yandex.ru
+	phone_number varchar(64) null -- 81234567890
+);
+
+
+create table roles_table (
+	role bit primary key,
+	user_id int unique,
+	foreign key (user_id) references users_table (user_id) -- связь 1 к 1
+);
+
+
+create table cars_table (
+	car_id int primary key, -- 1 -- связь car_problems_table car_id -- связь car_short_description_table car_id -- связь user_cars_table car_id
+	concern varchar(64) not null, -- JDM
+	brand varchar(64) not null, -- Honda
+	model_name varchar(64) not null, -- Integra
+	generation varchar(64) not null, -- поколение 5
+	model_number varchar(64) not null, -- dc5
+	year varchar(64) not null, -- 2002
+	complectation varchar(64) not null,
+	price varchar(128) not null -- 600.000тысруб
+);
+
+
+create table problems_table (
+	problem_id int primary key, -- связь car_problems_table problem_id
+	name varchar(128) not null,
+	difficult int not null,
+	price varchar(128) not null,
+	how_to_fixed text not null
+);
+
+
+-- Связующая таблица для cars_table и probems_table
+create table car_problems_table (
+	car_id int,
+	problem_id int,
+	foreign key (car_id) references cars_table (car_id), -- связь cars_table car_id
+	foreign key (problem_id) references problems_table (problem_id), -- связь problems_table problem_id
+	primary key (car_id, problem_id)
+);
+
+
+-- Связующая таблица для user_table и cars_table
+create table user_cars_table (
+	user_id int,
+	car_id int,
+	foreign key (user_id) references users_table (user_id), -- связь user_table user_id
+	foreign key (car_id) references cars_table (car_id), -- связь cars_table car_id
+	primary key (user_id, car_id)
+);
+
+
+create table car_short_description_table (
+	desription text not null,
+	car_id int unique,
+	foreign key (car_id) references cars_table (car_id) -- связь cars_table car_id
+)
+
+
+create table engine_table (
+
+);
+
+create table filters_table (
+	
+);
