@@ -39,8 +39,8 @@ insert into employeePositions (positionId, employeeId) values (3, 3);
 
 
 -- однин ко многим
-create table person_table (
-	person_id int primary key,
+create table person_table ( -- engine_table
+	person_id int primary key, 	-- engine_id
 	name varchar(64),
 	surname varchar(64),
 	age int not null
@@ -53,9 +53,9 @@ insert into person_table (person_id, name, surname, age) values (4, 'Dan', 'Kruk
 
 
 
-create table phone_table (
-	phone_id int primary key,
-	person_id int not null,
+create table phone_table ( -- cars_table
+	phone_id int primary key, -- car_id
+	person_id int not null, -- engine_id
 	phone_number varchar(128) null,
 	foreign key (person_id) references person_table(person_id)
 );
@@ -86,10 +86,11 @@ select * from Employers join disabled_person_table on Employers.employeeId = dis
 
 
 
+
 -- Для курсовой работы и диплома
 
 create table users_table (
-	user_id int primary key, -- 1 -- связь 1 к 1 roles_table (user_id)
+	user_id serial primary key on delete cascade, -- 1 -- связь 1 к 1 roles_table (user_id)
 	name varchar(64) not null, -- Touge
 	surname varchar(64) not null, -- Driver
 	email varchar(64) not null, -- mikhailsemenov47@yandex.ru
@@ -98,14 +99,15 @@ create table users_table (
 
 
 create table roles_table (
-	role bit primary key,
-	user_id int unique,
-	foreign key (user_id) references users_table (user_id) -- связь 1 к 1
+	role_id int primary key, -- 1
+	role_name varchar(64) not null, -- administrator
+	user_id int unique, -- 1
+	foreign key (user_id) references users_table (user_id) -- связь 1 к 1 users_table (user_id)
 );
 
 
 create table cars_table (
-	car_id int primary key, -- 1 -- связь car_problems_table car_id -- связь car_short_description_table car_id -- связь user_cars_table car_id
+	car_id serial primary key, -- 1 -- связь car_problems_table car_id -- связь car_short_description_table car_id -- связь user_cars_table car_id
 	concern varchar(64) not null, -- JDM
 	brand varchar(64) not null, -- Honda
 	model_name varchar(64) not null, -- Integra
@@ -113,13 +115,13 @@ create table cars_table (
 	model_number varchar(64) not null, -- dc5
 	year varchar(64) not null, -- 2002
 	complectation varchar(64) not null,
-	engine_id int primary key, -- 1 -- связь engine_table (engine_id)
+	engine_id int not null, -- 1 -- связь engine_table (engine_id)
 	price varchar(128) not null, -- 600.000тысруб
 );
 
 
 create table problems_table (
-	problem_id int primary key, -- связь car_problems_table problem_id
+	problem_id serial primary key, -- связь car_problems_table problem_id
 	name varchar(128) not null,
 	difficult int not null,
 	price varchar(128) not null,
@@ -155,7 +157,7 @@ create table car_short_description_table (
 
 
 create table engine_table (
-	engine_id int unique, -- 1
+	engine_id serial primary key, -- 1
 	engine_serial_name varchar(64) not null, -- 4g18
 	engine_size int not null, -- 1.6
 	engine_nano varchar(64) not null, -- 196Hm
@@ -163,5 +165,6 @@ create table engine_table (
 	engine_expenditure_city varchar(64) not null, -- 8.0
 	engine_expenditure_track varchar(64) not null, -- 5.6
 	camshaft_system varchar(64) not null, -- dohc, sohc, vtek
-	foreign key (engine_id) references cars_table (engine_id) -- связь cars_table (engine_id)
 );
+alter table cars_table add foreign key (engine_id) references engine_table (engine_id);
+
