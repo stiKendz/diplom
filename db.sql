@@ -117,6 +117,7 @@ create table roles_table (
 	delete from users_table where user_id = 1;
 	
 -- 	update users_table set user_id = 3 where user_id = 2; -- ломающий
+
 	insert into users_table (name, surname, password, email, phone_number) values ('secondAfter', 'administrator', '123456', 'afteruser@gmail.com', 88888888888);
 	insert into roles_table (role_name, user_id) values ('admitistrator', 3);
 	
@@ -140,21 +141,21 @@ create table cars_table (
 	concern varchar(64) not null, -- JDM
 	brand varchar(64) not null, -- Honda
 	model_name varchar(64) not null, -- Integra
-	generation varchar(64) not null, -- поколение 5
+	generation int not null, -- 5
 	model_number varchar(64) not null, -- dc5
-	year varchar(64) not null, -- 2002
-	complectation varchar(64) not null,
+	release_date date not null, -- 2002-01-18
+	end_release_date date not null, -- 2005-01-18
 	engine_id int not null, -- 1 -- связь engine_table (engine_id)
-	price varchar(128) not null -- 600.000тысруб
+	price varchar(128) not null -- 900.000тысруб
 );
 
 
 create table problems_table (
 	problem_id serial primary key, -- связь car_problems_table problem_id
-	name varchar(128) not null,
-	difficult int not null,
-	price varchar(128) not null,
-	how_to_fixed text not null
+	problem_name varchar(128) not null, -- ржавые_арки
+	difficult int not null, -- 1
+	how_to_fixed text not null, -- автосервис
+	price varchar(128) not null -- 100.000тысруб
 );
 
 
@@ -162,39 +163,172 @@ create table problems_table (
 create table car_problems_table (
 	car_id int,
 	problem_id int,
-	foreign key (car_id) references cars_table (car_id), -- связь cars_table car_id
-	foreign key (problem_id) references problems_table (problem_id), -- связь problems_table problem_id
+	foreign key (car_id) references cars_table (car_id) on delete cascade on update cascade, -- связь cars_table car_id
+	foreign key (problem_id) references problems_table (problem_id) on delete cascade on update cascade, -- связь problems_table problem_id
 	primary key (car_id, problem_id)
 );
 
+-- test --
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Honda', 'Integra', 5, 'dc5', '2001-01-18', '2005-01-18', 1, '900.000.тыс.руб');
+insert into problems_table (problem_name, difficult, how_to_fixed, price)
+values ('ржавые_арки', 1, 'автосервис', '100.000тыс.руб');
+insert into car_problems_table (car_id, problem_id) values (1, 1);
 
--- Связующая таблица для user_table и cars_table
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Subaru', 'Impreza', 5, 'gc5', '2001-01-18', '2005-01-18', 1, '900.000.тыс.руб');
+insert into problems_table (problem_name, difficult, how_to_fixed, price)
+values ('гнилые_пороги', 1, 'автосервис', '150.000тыс.руб');
+insert into car_problems_table (car_id, problem_id) values (2, 2);
+insert into car_problems_table (car_id, problem_id) values (1, 2);
+
+delete from cars_table where car_id = 1;
+
+update cars_table set model_name = 'Forester' where car_id = 2;
+
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Honda', 'Integra', 5, 'dc5', '2001-01-18', '2005-01-18', 1, '900.000.тыс.руб');
+insert into car_problems_table (car_id, problem_id) values (3, 2);
+
+update car_problems_table set problem_id = 1 where car_id = 3;
+
+delete from cars_table where car_id = 3;
+
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Subaru', 'Impreza', 5, 'gc5', '2001-01-18', '2005-01-18', 1, '900.000.тыс.руб');
+
+select * from cars_table
+select * from problems_table
+select * from car_problems_table
+
+-- test --
+
+
+-- Связующая таблица для users_table и cars_table
 create table user_cars_table (
 	user_id int,
 	car_id int,
-	foreign key (user_id) references users_table (user_id), -- связь user_table user_id
-	foreign key (car_id) references cars_table (car_id), -- связь cars_table car_id
+	foreign key (user_id) references users_table (user_id) on delete cascade on update cascade, -- связь user_table user_id
+	foreign key (car_id) references cars_table (car_id) on delete cascade on update cascade, -- связь cars_table car_id
 	primary key (user_id, car_id)
 );
 
 
+-- test --
+insert into users_table (name, surname, password, email, phone_number) values ('Main', 'User', '1234', 'mainuser@gmail.com', 89999999999);
+insert into users_table (name, surname, password, email, phone_number) values ('After', 'User', '12345','afteruser@gmail.com', 88888888888);
+
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Honda', 'Integra', 5, 'dc5', '2001-01-18', '2005-01-18', 1, '900.000.тыс.руб');
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Subaru', 'Impreza', 5, 'dc5', '2001-01-18', '2005-01-18', 1, '900.000.тыс.руб');
+
+insert into user_cars_table (user_id, car_id) values (1, 1);
+insert into user_cars_table (user_id, car_id) values (1, 2);
+insert into user_cars_table (user_id, car_id) values (2, 2);
+
+delete from cars_table where car_id = 1;
+
+update cars_table set model_name = 'Forester' where car_id = 2;
+
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Mazda', 'rx', 7, 'FD', '2001-01-18', '2005-01-18', 1, '900.000.тыс.руб');
+
+update user_cars_table set car_id = 3 where user_id = 2;
+
+delete from users_table where user_id = 1;
+delete from cars_table where car_id = 3;
+
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Mazda', 'rx', 7, 'FC', '2001-01-18', '2005-01-18', 1, '1.900.000.тыс.руб');
+insert into user_cars_table (user_id, car_id) values (2, 4);
+
+select * from users_table;
+select * from cars_table;
+select * from user_cars_table;
+-- test --
+
+
 create table car_short_description_table (
-	desription text not null,
+	description text not null,
 	car_id int unique,
-	foreign key (car_id) references cars_table (car_id) -- связь cars_table car_id
+	foreign key (car_id) references cars_table (car_id) on delete cascade on update cascade -- связь cars_table car_id
 );
+
+
+-- test --
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Honda', 'Integra', 5, 'dc5', '2001-01-18', '2005-01-18', 1, '900.000.тыс.руб');
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Subaru', 'Impreza', 5, 'dc5', '2001-01-18', '2005-01-18', 1, '900.000.тыс.руб');
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Mazda', 'rx', 7, 'FD', '2001-01-18', '2005-01-18', 1, '900.000.тыс.руб');
+
+insert into car_short_description_table (description, car_id) values ('история_создания_машины honda', 1);
+insert into car_short_description_table (description, car_id) values ('история_создания_машины subaru', 2);
+insert into car_short_description_table (description, car_id) values ('история_создания_машины mazda', 3);
+
+delete from cars_table where car_id = 3;
+
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Honda', 'Civic', 5, 'VT', '2001-01-18', '2005-01-18', 1, '800.000.тыс.руб');
+insert into car_short_description_table (description, car_id) values ('история_создания_машины honda', 4);
+
+update car_short_description_table set description = 'появилась_в_1995_году' where car_id = 4;
+
+
+select * from cars_table;
+select * from car_short_description_table;
+-- test --
 
 
 create table engine_table (
 	engine_id serial primary key, -- 1
 	engine_serial_name varchar(64) not null, -- 4g18
-	engine_size int not null, -- 1.6
+	engine_size float4 not null, -- 1.6
+	engine_type varchar(64) not null, -- rotor, v, h
 	engine_nano varchar(64) not null, -- 196Hm
-	engine_hordse_power varchar(64) not null, -- 98Hp
+	engine_horse_power varchar(64) not null, -- 98Hp
 	engine_expenditure_city varchar(64) not null, -- 8.0
 	engine_expenditure_track varchar(64) not null, -- 5.6
 	camshaft_system varchar(64) not null -- dohc, sohc, vtek
 );
-alter table cars_table add foreign key (engine_id) references engine_table (engine_id);
+alter table cars_table add foreign key (engine_id) references engine_table (engine_id) on delete cascade on update cascade;
+
+
+-- test --
+insert into engine_table (engine_id, engine_serial_name, engine_size, engine_type, engine_nano, engine_horse_power, 
+engine_expenditure_city, engine_expenditure_track, camshaft_system)
+values (1, '4g18', 1.6, 'h', '196Hm', '98Hp', '8.0', '5.6', 'dohc');
+insert into engine_table (engine_id, engine_serial_name, engine_size, engine_type, engine_nano, engine_horse_power, 
+engine_expenditure_city, engine_expenditure_track, camshaft_system)
+values (2, '4g18', 1.6, 'v', '196Hm', '98Hp', '8.0', '5.6', 'dohc');
+insert into engine_table (engine_id, engine_serial_name, engine_size, engine_type, engine_nano, engine_horse_power, 
+engine_expenditure_city, engine_expenditure_track, camshaft_system)
+values (3, '4g18', 1.6, 'rotor', '196Hm', '98Hp', '8.0', '5.6', 'sohc');
+
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Honda', 'Integra', 5, 'dc5', '2001-01-18', '2005-01-18', 1, '900.000.тыс.руб');
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Subaru', 'Impreza', 5, 'dc5', '2001-01-18', '2005-01-18', 1, '900.000.тыс.руб');
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Mazda', 'rx', 7, 'FD', '2001-01-18', '2005-01-18', 1, '900.000.тыс.руб');
+
+delete from engine_table where engine_id = 1;
+
+insert into cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price)
+values ('JDM', 'Mazda', 'rx', 7, 'FC', '2001-01-18', '2005-01-18', 2, '900.000.тыс.руб');
+
+update cars_table set engine_id = 3 where model_name = 'rx';
+update engine_table set engine_size = 2.0 where engine_id = 3;
+
+delete from cars_table where engine_id = 3;
+
+select * from cars_table;
+select * from engine_table;
+-- test --
+-- для корректной работы последних тестов, нужно скачала создать таблицу cars_table, затем engine table и потом вызвать конструкцию --
+-- alter table, insert данных производить сначала в таблицу engine_table затем в cars_table вводя соответствующий engine_id (проверять)
+
 
 
