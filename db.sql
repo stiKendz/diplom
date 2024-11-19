@@ -89,21 +89,50 @@ select * from Employers join disabled_person_table on Employers.employeeId = dis
 
 -- Для курсовой работы и диплома
 
+
 create table users_table (
-	user_id serial primary key on delete cascade, -- 1 -- связь 1 к 1 roles_table (user_id)
+	user_id serial primary key, -- 1 -- связь 1 к 1 roles_table (user_id)
 	name varchar(64) not null, -- Touge
 	surname varchar(64) not null, -- Driver
+	password varchar(128) unique not null,
 	email varchar(64) not null, -- mikhailsemenov47@yandex.ru
 	phone_number varchar(64) null -- 81234567890
 );
 
 
 create table roles_table (
-	role_id int primary key, -- 1
-	role_name varchar(64) not null, -- administrator
+	role_id serial primary key, -- 1
+	role_name varchar(64) not null default 'user', -- administrator
 	user_id int unique, -- 1
-	foreign key (user_id) references users_table (user_id) -- связь 1 к 1 users_table (user_id)
+	foreign key (user_id) references users_table (user_id) on delete cascade on update cascade -- связь 1 к 1 users_table (user_id)
 );
+
+-- test --
+	insert into users_table (name, surname, password, email, phone_number) values ('Main', 'User', '1234', 'mainuser@gmail.com', 89999999999);
+	insert into users_table (name, surname, password, email, phone_number) values ('After', 'User', '12345','afteruser@gmail.com', 88888888888);
+	
+	insert into roles_table ( user_id) values (1);
+	insert into roles_table ( user_id) values (2);
+	
+	delete from users_table where user_id = 1;
+	
+-- 	update users_table set user_id = 3 where user_id = 2; -- ломающий
+	insert into users_table (name, surname, password, email, phone_number) values ('secondAfter', 'administrator', '123456', 'afteruser@gmail.com', 88888888888);
+	insert into roles_table (role_name, user_id) values ('admitistrator', 3);
+	
+	delete from users_table where user_id = 3;
+	
+	insert into users_table (name, surname, password, email, phone_number) values ('secondAfter', 'administrator', '1234567','afteruser@gmail.com', 88888888888);
+	insert into roles_table (user_id) values (4);
+	
+	update users_table set email = 'togedribfrer@yandex.ru' where user_id = 2;
+	
+	insert into users_table (name, surname, password, email, phone_number) values ('bade', 'user', '12345678', 'bade@gmail.com', 88888888888);
+	insert into roles_table (role_name, user_id) values ('administrator', 5);
+	
+	select * from users_table;
+	select * from roles_table;
+-- test --
 
 
 create table cars_table (
@@ -116,7 +145,7 @@ create table cars_table (
 	year varchar(64) not null, -- 2002
 	complectation varchar(64) not null,
 	engine_id int not null, -- 1 -- связь engine_table (engine_id)
-	price varchar(128) not null, -- 600.000тысруб
+	price varchar(128) not null -- 600.000тысруб
 );
 
 
@@ -153,7 +182,7 @@ create table car_short_description_table (
 	desription text not null,
 	car_id int unique,
 	foreign key (car_id) references cars_table (car_id) -- связь cars_table car_id
-)
+);
 
 
 create table engine_table (
@@ -164,7 +193,8 @@ create table engine_table (
 	engine_hordse_power varchar(64) not null, -- 98Hp
 	engine_expenditure_city varchar(64) not null, -- 8.0
 	engine_expenditure_track varchar(64) not null, -- 5.6
-	camshaft_system varchar(64) not null, -- dohc, sohc, vtek
+	camshaft_system varchar(64) not null -- dohc, sohc, vtek
 );
 alter table cars_table add foreign key (engine_id) references engine_table (engine_id);
+
 
