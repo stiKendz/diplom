@@ -331,4 +331,127 @@ select * from engine_table;
 -- alter table, insert данных производить сначала в таблицу engine_table затем в cars_table вводя соответствующий engine_id (проверять)
 
 
+-- final tests --
+-- Добавление данных в таблицы
+-- Заполнение таблицы engine_table
+INSERT INTO engine_table (engine_serial_name, engine_size, engine_type, engine_nano, engine_horse_power, engine_expenditure_city, engine_expenditure_track, camshaft_system) VALUES
+    ('4g63', 2.0, 'inline', '4TfH', '300Hp', '10.0', '7.0', 'dohc'),
+    ('ej25', 2.5, 'boxer', '12kL', '280Hp', '11.0', '8.0', 'dohc'),
+    ('5.0 V8', 5.0, 'v', 'L2jM', '430Hp', '15.0', '10.0', 'dohc'),
+    ('3.0 Turbo', 3.0, 'v', '19dW', '350Hp', '12.0', '8.0', 'dohc'),
+    ('3.6 V6', 3.6, 'v', 'H12x', '285Hp', '13.0', '9.0', 'dohc');
+	
+INSERT INTO users_table (name, surname, password, email, phone_number) VALUES
+    ('Иван', 'Иванов', 'pass123', 'ivanov@example.com', '1234567890'),
+    ('Мария', 'Петрова', 'password456', 'mpetrova@example.com', '9876543210'),
+    ('Алексей', 'Сидоров', 'qwerty', 'asidorov@example.com', '5556667777'),
+    ('Елена', 'Козлова', 'password1', 'ekozlova@example.com', '3332221111'),
+    ('Павел', 'Никитин', 'nikitin123', 'pnikitin@example.com', '9998887777');
+
+-- Заполнение таблицы roles_table
+INSERT INTO roles_table (role_name, user_id) VALUES
+    ('admin', 1),
+    ('user', 2),
+    ('user', 3),
+    ('user', 4),
+    ('user', 5);
+
+-- Заполнение таблицы cars_table
+INSERT INTO cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, price) VALUES
+    ('JDM', 'Honda', 'Civic', 10, 'fk2', '2017-02-20', '2021-02-20', 1, '1200.000тысруб'),
+    ('JDM', 'Subaru', 'Impreza', 5, 'gc8', '2000-06-15', '2003-06-15', 2, '950.000тысруб'),
+    ('Muscle Car', 'Ford', 'Mustang', 6, 'gt500', '2010-03-25', '2013-03-25', 3, '1500.000тысруб'),
+    ('Luxury', 'Mercedes-Benz', 'E-Class', 8, 'w213', '2016-09-10', '2021-09-10', 4, '2500.000тысруб'),
+    ('SUV', 'Jeep', 'Wrangler', 4, 'jk', '2012-11-08', '2017-11-08', 5, '1800.000тысруб');
+
+-- Заполнение таблицы problems_table
+INSERT INTO problems_table (problem_name, difficult, how_to_fixed, price) VALUES
+    ('Потеря мощности', 2, 'Заменить фильтр топлива', '200.000тысруб'),
+    ('Проблемы с тормозами', 3, 'Заменить тормозные колодки', '300.000тысруб'),
+    ('Неисправность стартера', 4, 'Заменить стартер', '400.000тысруб'),
+    ('Протечка масла', 2, 'Заменить сальник картера', '250.000тысруб'),
+    ('Неисправность свечей зажигания', 3, 'Заменить свечи зажигания', '150.000тысруб');
+
+-- Заполнение таблицы car_problems_table
+INSERT INTO car_problems_table (car_id, problem_id) VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5);
+
+-- Заполнение таблицы user_cars_table
+INSERT INTO user_cars_table (user_id, car_id) VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5);
+
+-- Заполнение таблицы car_short_description_table
+INSERT INTO car_short_description_table (description, car_id) VALUES
+    ('Экономичный автомобиль с хорошей управляемостью', 1),
+    ('Спортивный седан с мощным мотором', 2),
+    ('Иконический американский маслкар', 3),
+    ('Бизнес-седан с роскошным интерьером', 4),
+    ('Легендарный внедорожник с высоким клиренсом', 5);
+
+
+-- Запросы к таблицам
+-- Получение всех пользователей и их автомобилей
+SELECT u.name, u.surname, c.brand, c.model_name
+FROM users_table u
+JOIN user_cars_table uc ON u.user_id = uc.user_id
+JOIN cars_table c ON uc.car_id = c.car_id;
+
+-- Получение всех проблем с автомобилями и способов их решения
+SELECT c.brand, c.model_name, p.problem_name, p.how_to_fixed
+FROM cars_table c
+JOIN car_problems_table cp ON c.car_id = cp.car_id
+JOIN problems_table p ON cp.problem_id = p.problem_id;
+
+-- Получение списка всех автомобилей и связанных с ними проблем
+SELECT c.brand, c.model_name, string_agg(p.problem_name, ', ') AS problems
+FROM cars_table c
+LEFT JOIN car_problems_table cp ON c.car_id = cp.car_id
+LEFT JOIN problems_table p ON cp.problem_id = p.problem_id
+GROUP BY c.brand, c.model_name;
+
+-- Добавление нового пользователя и связанного с ним автомобиля
+INSERT INTO users_table (name, surname, password, email, phone_number)
+VALUES ('Новое имя', 'Новая фамилия', 'новый_пароль', 'новый_email@domain.com', '1234567890');
+
+INSERT INTO user_cars_table (user_id, car_id)
+VALUES (6, 3);
+
+
+-- Обновление описания автомобиля
+UPDATE car_short_description_table
+SET description = 'Развалюха'
+WHERE car_id = 3;
+
+-- Удаление проблемы и всех связей с автомобилями
+DELETE FROM problems_table
+WHERE problem_id = 2;
+
+DELETE FROM car_problems_table
+WHERE problem_id = 3;
+
+-- Получение информации о двигателе для конкретной модели автомобиля
+SELECT c.brand, c.model_name, e.engine_serial_name, e.engine_size
+FROM cars_table c
+JOIN engine_table e ON c.engine_id = e.engine_id
+WHERE c.model_name = 'Impreza';
+
+-- Получение списка пользователей с их ролями
+SELECT u.name, u.surname, r.role_name
+FROM users_table u
+LEFT JOIN roles_table r ON u.user_id = r.user_id;
+
+
+truncate users_table, roles_table, cars_table, problems_table, car_problems_table, car_short_description_table, engine_table, user_cars_table cascade;
+select * from roles_table;
+select * from users_table;
+select * from car_short_description_table;
+-- final tests --
 
