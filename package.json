@@ -1,7 +1,6 @@
 {
   "name": "diplom",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "scsscompilate": "sass -w ./src/frontend/css/main.scss ./src/frontend/css/style.css"
@@ -10,7 +9,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "expres": "^0.0.5",
+    "express": "^4.21.1",
+    "pg": "^8.13.1",
+    "postgres": "^3.4.5",
     "sass": "^1.81.0",
     "scss": "^0.2.4"
+  },
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
   }
 }
