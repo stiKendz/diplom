@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@mixin flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin baseBody {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-block-size: 100dvh;
+}
+
+@mixin baseButton {
+    @include flexCenter;
+    min-width: 200px;
+    padding: 10px 0px;
+
+    outline: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+body {
+    @include baseBody;
+}
+
+button {
+    @include baseButton;
+}
+
+header {
+    position: sticky;
+
+    @include flexCenter;
+    height: 100px;
+}
+
+main {
+
+}
+
+footer {
+    @include flexCenter;
+    height: 100px;
+}

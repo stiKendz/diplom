@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-block-size: 100dvh;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  padding: 10px 0px;
+  outline: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+header {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+/*# sourceMappingURL=style.css.map */

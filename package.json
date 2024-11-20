@@ -1,0 +1,16 @@
+{
+  "name": "diplom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "scsscompilate": "sass -w ./src/frontend/css/main.scss ./src/frontend/css/style.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sass": "^1.81.0",
+    "scss": "^0.2.4"
+  }
+}
