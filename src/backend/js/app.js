@@ -7,7 +7,8 @@ import bcrypt from 'bcryptjs';
 import http from 'http';
 import pool from './db.js';
 
-// код прилоджения
+// код приложения
+// запуск сервера
 const app = express();
 
 app.use(cors());
@@ -21,5 +22,14 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
+});
+
+// подключение бд к серверу
+pool.connect((err) => {
+    if (err) {
+        console.error(`Error connecting to database: ${err.stack}`);
+        return;
+    }
+    console.log('Connected to database');
 });
 
