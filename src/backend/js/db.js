@@ -6,7 +6,7 @@ const { Pool } = pg;
 
 const pool = new Pool({
     user: 'postgres',
-    database: 'cardb',
+    database: 'car_help',
     password: '12345',
     host: 'localhost',
     port: 5432

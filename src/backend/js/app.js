@@ -33,3 +33,42 @@ pool.connect((err) => {
     console.log('Connected to database');
 });
 
+// запросы
+app.post('/register', async (req, res) => {
+    const {name, surname, password, email} = req.body;
+
+    if (!name || !surname || !password || !email) {
+        return res.status(400).json({message: 'Все поля должны быть заполнены'});
+    }
+
+    const hashedPassword = bcrypt.hashSync(password, 8);
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const exitingUser = await client.query('SELECT user_id FROM users_table WHERE email = $1', [email]);
+
+            if (exitingUser.rowCount > 0) {
+                return res.status(409).json({message: 'Пользователь с таким адресом электронной почты уже зарегистрирован'})
+            }
+
+            const result = await client.query(
+                'INSERT INTO users_table (name, surname, password, email) VALUES ($1, $2, $3, $4) RETURNING user_id',
+                [name, surname, password, email]
+            );
+
+            res.status(201).json({
+                message: 'Пользователь успешно зарегистрирован',
+                userId: result.rows[0].user_id,
+            });
+
+        } finally {
+            client.release()
+        }
+    } catch (err) {
+        console.error('Ошибка в регистрации пользователя:', err.message);
+        res.status(500).json({message: 'Регистрация упала из-за ошибки на сервере'})
+    }
+});
+

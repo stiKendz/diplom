@@ -2,7 +2,7 @@
   "name": "diplom",
   "version": "1.0.0",
   "main": "index.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "scsscompilate": "sass -w ./src/frontend/css/main.scss ./src/frontend/css/style.css",
     "server-run": "node ./src/backend/js/app.js"
