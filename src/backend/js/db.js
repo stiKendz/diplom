@@ -12,4 +12,4 @@ const pool = new Pool({
     port: 5432
 });
 
-export default db;
+export default pool;
