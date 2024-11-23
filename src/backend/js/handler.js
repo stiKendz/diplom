@@ -1,6 +1,7 @@
 // регистрация пользователя
 const singUpButton = document.querySelector('.sing-up-button');
 const singInButton = document.querySelector('.sing-in-button');
+const addCarsButton = document.querySelector('.add-cars-button').style.display = 'none';
 
 if (singUpButton) {
     singUpButton.addEventListener('click', async () => {
@@ -40,15 +41,17 @@ if (singInButton) {
             })
             .then(response => response.json());
 
-            
+
             window.localStorage.setItem('token', data.token);
             window.localStorage.setItem('email', data.email);
 
             // админ или нет? обработка
             if (data.role === 'admin') {
                 alert('Вы вошли как администратор');
-            } else {
+            } else if (data.role === 'user'){
                 alert('Добро пожаловать !');
+            } else {
+                alert('Неверный логин или пароль');
             };
 
             console.log(data);

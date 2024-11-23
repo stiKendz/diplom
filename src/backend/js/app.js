@@ -129,7 +129,7 @@ app.post('/login', async (req, res) => {
             role: role
         }, SECRET_KEY);
         res.json({token, email, role});
-
+        
     } catch (err) {
         console.error('Ошибка входа в аккаунт', err.message);
         res.status(500).json({message: 'Произошла другая ошибка'});
