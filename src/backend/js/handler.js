@@ -40,11 +40,20 @@ if (singInButton) {
             })
             .then(response => response.json());
 
+            
             window.localStorage.setItem('token', data.token);
             window.localStorage.setItem('email', data.email);
+
+            // админ или нет? обработка
+            if (data.role === 'admin') {
+                alert('Вы вошли как администратор');
+            } else {
+                alert('Добро пожаловать !');
+            };
+
             console.log(data);
         } catch (error) {
             console.error('Ошибка при выполнении запроса:', error);
         }
     });
-}
+};

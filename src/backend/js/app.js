@@ -60,12 +60,21 @@ app.post('/register', async (req, res) => {
                 [name, surname, hashedPassword, email]
             );
 
-            // вcтака данных в таюлицу roles_table, где role_name имеет default 'user'
+            // вcтака данных в таблицу roles_table, где role_name имеет default 'user'
             const userId = result.rows[0].user_id;
-            await client.query(
-                'INSERT INTO roles_table (user_id) VALUES ($1)',
-                [userId]
-            );
+            if (email === 'admin@yandex.ru') {
+                const role_name = 'admin';
+                await client.query(
+                    'INSERT INTO roles_table (role_name, user_id) VALUES ($1, $2)',
+                    [role_name, userId]
+                );
+            } else {
+                await client.query(
+                    'INSERT INTO roles_table (user_id) VALUES ($1)',
+                    [userId]
+                );
+            };
+
             // завершение транзацкии
             await client.query(
                 'COMMIT'
@@ -98,7 +107,7 @@ app.post('/login', async (req, res) => {
 
     try {
         const result = await pool.query('SELECT * FROM users_table WHERE email = $1', [email]);
-        const user = result.rows[0];
+        const user = result.rows[0]; // !!! записть в переменную user результата поиска по бд который лежит в result
         if (!user) {
                 return res.status(401).json({message: 'Неверный логин или пароль'});
         }
@@ -108,11 +117,19 @@ app.post('/login', async (req, res) => {
             return res.status(401).json({message: 'Неверный логин или пароль'});
         }
 
+        const roleSearch = await pool.query('SELECT * FROM roles_table WHERE user_id = $1', [user.user_id]);
+        const role = roleSearch.rows[0] ? roleSearch.rows[0].role_name : 'user'; 
+        // если role_name присутствует -(всегда присутствует, просто когда email проходит проверку из /register на админа, то я добавляю role_name,
+        // если не проходит, то не добавляю, роль в виде user сама генерируется на уровне бд тк default у role_name = 'user')-
+        // в roles_table следовательно role_name = 'admin', если нет то 'user';
+
         const token = jwt.sign({
             userId: user.user_id,
-            email: user.email
+            email: user.email,
+            role: role
         }, SECRET_KEY);
-        res.json({token, email});
+        res.json({token, email, role});
+
     } catch (err) {
         console.error('Ошибка входа в аккаунт', err.message);
         res.status(500).json({message: 'Произошла другая ошибка'});
