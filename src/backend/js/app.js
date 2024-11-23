@@ -49,8 +49,8 @@ app.post('/register', async (req, res) => {
         const client = await pool.connect();
 
         try {
+            // втавка данных в таблицу users_table
             const exitingUser = await client.query('SELECT user_id FROM users_table WHERE email = $1', [email]);
-
             if (exitingUser.rowCount > 0) {
                 return res.status(409).json({message: 'Пользователь с таким адресом электронной почты уже зарегистрирован'})
             }
@@ -60,11 +60,25 @@ app.post('/register', async (req, res) => {
                 [name, surname, hashedPassword, email]
             );
 
+            // вcтака данных в таюлицу roles_table, где role_name имеет default 'user'
+            const userId = result.rows[0].user_id;
+            await client.query(
+                'INSERT INTO roles_table (user_id) VALUES ($1)',
+                [userId]
+            );
+            // завершение транзацкии
+            await client.query(
+                'COMMIT'
+            );
+
             res.status(201).json({
                 message: 'Пользователь успешно зарегистрирован',
                 userId: result.rows[0].user_id,
             });
-
+        // обработка ошибки вставки данных, и отмена транзакции
+        } catch (err) {
+            await client.query('ROLLBACK');
+            throw err;
         } finally {
             client.release()
         }

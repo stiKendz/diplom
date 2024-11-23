@@ -2,8 +2,8 @@ create table users_table (
 	user_id serial primary key, -- 1 -- связь 1 к 1 roles_table (user_id)
 	name varchar(64) not null, -- Touge
 	surname varchar(64) not null, -- Driver
-	password varchar(128) unique not null,
-	email varchar(64) not null, -- mikhailsemenov47@yandex.ru
+	password varchar(128) not null,
+	email varchar(64) unique not null, -- mikhailsemenov47@yandex.ru
 	phone_number varchar(64) null -- 81234567890
 );
 
