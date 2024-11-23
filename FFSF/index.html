@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-Pinterest</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="125.png" alt="Логотип Mini-Pinterest">
+        </div>
+        
+        <button id="openAddImageModal">Создать карточку</button>
+        
+        <nav>
+            <ul>
+                <li><a href="#">Главная</a></li>
+                <li><a href="#ideas">Идеи</a></li>
+                <li><a href="#trends">Тенденции</a></li>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#" id="openAuthModal">Вход</a></li>
+          
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="imageBoard" class="image-board">
+            <div class="image-card">
+                <img src="ESTETIK.jpg" alt="Описание изображения 1">
+                <button class="saveBtn">Сохранить</button>
+            </div>
+            <div class="image-card">
+                <img src="ESTETIK.jpg" alt="Описание изображения 2">
+                <button class="saveBtn">Сохранить</button>
+            </div>
+            <div class="image-card">
+                <img src="ESTETIK.jpg" alt="Описание изображения 1">
+                <button class="saveBtn">Сохранить</button>
+            </div>
+            <div class="image-card">
+                <img src="ESTETIK.jpg" alt="Описание изображения 2">
+                <button class="saveBtn">Сохранить</button>
+            </div><div class="image-card">
+                <img src="ESTETIK.jpg" alt="Описание изображения 1">
+                <button class="saveBtn">Сохранить</button>
+            </div>
+            <div class="image-card">
+                <img src="ESTETIK.jpg" alt="Описание изображения 2">
+                <button class="saveBtn">Сохранить</button>
+            </div><div class="image-card">
+                <img src="ESTETIK.jpg" alt="Описание изображения 1">
+                <button class="saveBtn">Сохранить</button>
+            </div>
+            <div class="image-card">
+                <img src="ESTETIK.jpg" alt="Описание изображения 2">
+                <button class="saveBtn">Сохранить</button>
+            </div><div class="image-card">
+                <img src="ESTETIK.jpg" alt="Описание изображения 1">
+                <button class="saveBtn">Сохранить</button>
+            </div>
+            <div class="image-card">
+                <img src="ESTETIK.jpg" alt="Описание изображения 2">
+                <button class="saveBtn">Сохранить</button>
+            </div>
+        </div>
+        </div>
+        <section id="ideas" class="ideas-section">
+            <h2>Идеи для использования Mini-Pinterest</h2>
+            <div class="ideas-container">
+                <div class="idea-card">
+                    <h3>1. Организация мероприятий</h3>
+                    <p>Создавайте доски с идеями для мероприятий, таких как свадьбы, дни рождения или корпоративы. Сохраняйте вдохновляющие изображения, планируйте оформление.</p>
+                </div>
+                <div class="idea-card">
+                    <h3>2. Декор дома</h3>
+                    <p>Собирайте идеи по декорированию вашего дома. Сохраните изображения интерьеров, которые вас вдохновляют.</p>
+                </div>
+                <div class="idea-card">
+                    <h3>3. Рецепты</h3>
+                    <p>Храните рецепты и изображения блюд, которые хотите попробовать. Создайте коллекцию ваших любимых рецептов.</p>
+                </div>
+                <div class="idea-card">
+                    <h3>4. Мода и стиль</h3>
+                    <p>Сохраняйте фотографии модных образов и нарядов, которые вам нравятся. Создайте свои собственные модные доски.</p>
+                </div>
+                <div class="idea-card">
+                    <h3>5. Путешествия</h3>
+                    <p>Собирайте вдохновение для будущих поездок, сохраняя фотографии мест, которые хотите посетить.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="trends" class="trends-section">
+            <h2>Тенденции</h2>
+            <div class="trends-container">
+                <div class="trend-card">
+                    <h3>1. Минимализм</h3>
+                    <p>Минималистичный подход в дизайне. Меньше деталей, больше пространства.</p>
+                </div>
+                <div class="trend-card">
+                    <h3>2. Эко-дизайн</h3>
+                    <p>Использование натуральных материалов и экологически чистых решений.</p>
+                </div>
+                <div class="trend-card">
+                    <h3>3. Яркие цвета</h3>
+                    <p>Энергия ярких цветов и смелые решения! Создавайте контрастные комбинации.</p>
+                </div>
+                <div class="trend-card">
+                    <h3>4. Интерактивные элементы</h3>
+                    <p>Добавление интерактивных элементов для повышения вовлеченности пользователей.</p>
+                </div>
+                <div class="trend-card">
+                    <h3>5. Персонализация</h3>
+                    <p>Создание уникального контента для каждой целевой аудитории.</p>
+                </div>
+            </div>
+        </section>
+        <section id="about" class="about-section">
+            <h2>О нас</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Mini-Pinterest - это платформа, которая позволяет вам собирать и делиться вдохновением. Наш сервис создан для людей, которые любят находить, сохранять и вдохновляться идеями по всему миру. Мы предлагаем вам создать свои собственные коллекции изображений и делиться ими с другими.</p>
+                    <p>Наша миссия - дать каждому возможность легко находить и сохранять вдохновение, будь то идеи для свадеб, рецепты, идеи для оформления и многое другое. Присоединяйтесь к нам и станьте частью вдохновляющего сообщества!</p>
+                </div>
+                
+            </div>
+        </section>
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="#" class="social-icon">🐦</a>
+                    <a href="#" class="social-icon">🐦</a>
+                    <a href="#" class="social-icon">🐦</a>
+                    <a href="#" class="social-icon">🐦</a>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Политика конфиденциальности</a>
+                    <a href="#">Условия использования</a>
+                    <a href="#">Связаться с нами</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Mini-Pinterest. Все права защищены.</p>
+            </div>
+        </footer>
+    </main>
+    <div id="addImageModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2>Добавить изображение</h2>
+            <form id="addImageForm">
+                <input type="text" id="imageUrl" placeholder="URL изображения" required>
+                <button type="submit">Добавить изображение</button>
+            </form>
+        </div>
+    </div>
+
+   <!-- Элемент входа -->
+<div id="authModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalTitle">Вход</h2>
+        <form id="authForm">
+            <input type="text" id="username" placeholder="Имя пользователя" required>
+            <input type="password" id="password" placeholder="Пароль" required autocomplete="off">
+            <button type="submit">Подтвердить</button>
+            <p id="toggleAuthText">У вас нет аккаунта? <a href="#" id="toggleToRegister">Зарегистрироваться</a></p>
+        </form>
+    </div>
+</div>
+
+<!-- Элемент регистрации -->
+<div id="registerModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Регистрация</h2>
+        <form id="registerForm">
+            <input type="text" id="regUsername" placeholder="Имя пользователя" required autocomplete="off">
+            <input type="email" id="regEmail" placeholder="Email" required autocomplete="off">
+            <input type="password" id="regPassword" placeholder="Пароль" required autocomplete="off">
+            <button type="submit" id="submitRegistration">Зарегистрироваться</button>
+        </form>
+    </div>
+</div>
+    <script src="script.js"></script>
+</body>
+</html>

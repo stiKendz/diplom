@@ -1,0 +1,377 @@
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #fce4f1; /* Светлый фон для контраста */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    background: linear-gradient(135deg, #ff4c7c, #e60023); /* Градиентный фон */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 4px solid #ff4c7c; /* Тень снизу для шапки */
+}
+
+.logo img {
+    height: 50px; /* Высота логотипа */
+    margin-right: 30px; /* Отступ после логотипа */
+}
+
+header input {
+    margin: 10px;
+    padding: 10px 15px;
+    border: 2px solid #ff4c7c;
+    border-radius: 25px;
+    max-width: 300px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+header input:focus {
+    outline: none;
+    border-color: #55232a; /* Цвет рамки при фокусе */
+}
+
+header button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background-color: #fff;
+    color: #e60023;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-weight: bold;
+}
+
+header button:hover {
+    background-color: #ff4c7c;
+    color: white;
+    transform: translateY(-2px); /* Легкая анимация при наведении */
+}
+
+nav {
+    margin-left: auto;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #52373b;
+}
+
+
+/* Стили для модального окна */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px; /* Ширина модального окна */
+    border-radius: 10px; /* Закругление углов */
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"]{
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 90%;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #ff4c7c;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff77a0;
+}
+
+#toggleAuthText {
+    margin-top: 10px;
+}
+
+#toggleAuthText a {
+    color: #e60023;
+    text-decoration: none;
+}
+
+
+.image-board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 колонок */
+    gap: 20px;
+    padding: 20px;
+}
+
+.image-card {
+    position: relative;
+    overflow: hidden; /* Обрезаем изображение по границам карточки */
+    border-radius: 15px; /* Закругленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень для карточки */
+    height: 300px; /* Высота карточки */
+}
+
+.image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Обеспечиваем, чтобы изображение заполнило карточку */
+    border-radius: 15px; /* Закругленные углы для изображения */
+    transition: transform 0.3s; /* Плавный эффект при наведении */
+}
+
+.image-card:hover img {
+    transform: scale(1.05); /* Увеличиваем изображение при наведении */
+}
+
+.saveBtn {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный фон для кнопки */
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none; /* Скрываем кнопку по умолчанию */
+    transition: background-color 0.3s; /* Плавный переход фона */
+}
+
+.image-card:hover .saveBtn {
+    display: block; /* Показываем кнопку при наведении */
+}
+
+.saveBtn:hover {
+    background-color: rgba(255, 255, 255, 1); /* Изменение цвета фона при наведении на кнопку */
+}
+
+.ideas-section {
+    padding: 50px;
+    background: linear-gradient(to bottom right, #ffeef8 0%, #f9d6e0 100%); /* Градиент от светлого розового к более темному */
+    border-radius: 15px; /* Закругленные углы для секции идей */
+    margin: 20px; /* Отступ снаружи */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.ideas-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    color: #d5006d; /* Яркий оттенок розового для заголовка */
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8); /* Легкая тень для заголовка */
+}
+
+.idea-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s;
+}
+
+.idea-card:hover {
+    transform: translateY(-3px); /* Легкое приподнимание карточки при наведении */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); /* Увеличение тени при наведении */
+}
+
+.idea-card h3 {
+    margin: 0;
+    font-size: 1.8em;
+    color: #c2185b; /* Яркий розовый для заголовков идей */
+}
+
+.idea-card p {
+    color: #666; /* Более светлый текст */
+}
+.trends-section h2{
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    color: #d5006d; /* Яркий оттенок розового для заголовка */
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8); /* Легкая тень для заголовка */
+}
+ .trends-container {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет карточкам переходить на следующую строку, если не хватает места */
+    justify-content: center; /* Центрируем карточки внутри контейнера */
+    margin: 0 -10px; /* Отрицательный отступ для компенсации отступов карточек */
+}
+
+.trend-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px; /* Отступ между карточками */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s; /* Плавный эффект при наведении */
+    flex: 1 1 calc(30% - 20px); /* Позволяет карточкам занимать 30% ширины контейнера минус отступы */
+    max-width: 300px; /* Максимальная ширина карточек */
+}
+.trend-card:hover {
+    transform: translateY(-2px); /* Легкое приподнимание карточки при наведении */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Увеличение тени при наведении */
+}
+
+.trend-card h3 {
+    margin: 0;
+    font-size: 1.75em;
+    color: #ff1770; /* Яркий розовый для заголовков */
+}
+
+.trend-card p {
+    color: #555;
+}
+.about-section {
+    padding: 50px;
+    background-color: #fce4ec; /* Светло-розовый фон, как в предыдущих разделах */
+    border-radius: 10px; /* Закругленные углы */
+    margin: 20px; /* Отступ снаружи */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    color: #c2185b; /* Яркий розовый для заголовка */
+}
+
+.about-content {
+    display: flex;
+    flex-direction: row; /* Выравнивание текста и изображения рядом */
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap; /* Поддержка адаптивности */
+}
+
+.about-text {
+    width: 60%; /* Устанавливаем ширину для текстовой части */
+    margin: 20px; /* Отступы для лучшего восприятия */
+}
+
+.about-text p {
+    color: #555; /* Темный текст для удобочитаемости */
+    line-height: 1.6; /* Междустрочный интервал */
+    font-size: 1.2em;
+}
+
+
+.footer {
+    background-color: #ff77a1; /* Яркий розовый фон для подвала */
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px; /* Отступ снизу */
+}
+
+.social-links {
+    margin-bottom: 10px; /* Отступ снизу для социальных иконок */
+}
+
+.social-icon {
+    margin: 0 15px; /* Отступ между иконками */
+    text-decoration: none;
+    font-size: 1.5em;
+    color: white; /* Цвет иконок */
+    transition: transform 0.2s; /* Плавный эффект при наведении */
+}
+
+.social-icon:hover {
+    transform: scale(1.2); /* Увеличение иконки при наведении */
+}
+
+.footer-links {
+    margin-bottom: 10px; /* Отступ снизу для ссылок */
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: white; /* Белый цвет для ссылок */
+    margin: 0 10px; /* Отступ между ссылками */
+    transition: text-decoration 0.3s; /* Плавный переход подчеркивания */
+}
+
+.footer-links a:hover {
+    text-decoration: underline; /* Подчеркивание ссылок при наведении */
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    padding-top: 10px; /* Отступ сверху для нижней части подвала */
+}
+
+.footer-bottom p {
+    margin: 0; /* Убираем отступ для текста */
+    font-size: 0.9em; /* Уменьшаем размер шрифта */
+}
