@@ -1,7 +1,9 @@
-let toSingInButton = document.querySelector('.to-sing-in-page');
-let toSingUnButton = document.querySelector('.to-sing-up-page');
-let toUserCarsPage = document.querySelector('.to-user-cars-page');
-let mainPageButton = document.querySelector('.main-page-button');
+const toSingInButton = document.querySelector('.to-sing-in-page');
+const toSingUnButton = document.querySelector('.to-sing-up-page');
+const toUserCarsPage = document.querySelector('.to-user-cars-page');
+const mainPageButton = document.querySelector('.main-page-button');
+const adminPageButton = document.querySelector('.admin-page-button');
+const previousPageButton = document.querySelector('.previous-page-button');
 
 
 if (toSingInButton) {
@@ -28,5 +30,16 @@ if (mainPageButton) {
     });
 };
 
+if (adminPageButton) {
+    adminPageButton.addEventListener('click', () => {
+        window.location.href = '../frontend/admin-page.html';
+    });
+};
+
+if (previousPageButton) {
+    previousPageButton.addEventListener('click', () => {
+        window.history.go(-1);
+    });
+};
 
 

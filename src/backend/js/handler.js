@@ -1,8 +1,12 @@
-// регистрация пользователя
 const singUpButton = document.querySelector('.sing-up-button');
 const singInButton = document.querySelector('.sing-in-button');
-const addCarsButton = document.querySelector('.add-cars-button').style.display = 'none';
+// кнопка для перехода на страницу администратора
+// небъяснимая пока что ошибка -- при adminPageButton ругается на первую строку файла, и говорит что такая переменная уже существует
+// при других значениях все работает исправно
+const adminPageBtn = document.querySelector('.admin-page-button');
+adminPageBtn.style.display = 'none';
 
+// регистрация пользователя
 if (singUpButton) {
     singUpButton.addEventListener('click', async () => {
         const name = document.querySelector('.name-input').value;
@@ -29,6 +33,7 @@ if (singInButton) {
         const password = document.querySelector('.password-input').value;
         const email = document.querySelector('.email-input').value;
 
+        // для проверки, отслеживания вводимых данных
         console.log('Email:', email, 'Password:', password);
 
         try {
@@ -47,12 +52,21 @@ if (singInButton) {
 
             // админ или нет? обработка
             if (data.role === 'admin') {
+                adminPageBtn.style.display = 'block';
                 alert('Вы вошли как администратор');
             } else if (data.role === 'user'){
+                adminPageBtn.style.display = 'none';
                 alert('Добро пожаловать !');
             } else {
                 alert('Неверный логин или пароль');
             };
+
+            if (window.localStorage.getItem(data.token)){
+                const singInWindow = document.querySelector('.sing-in-window-container');
+                singInWindow.style.display = 'none';
+            } else {
+                console.log('не авторизован');
+            }
 
             console.log(data);
         } catch (error) {
