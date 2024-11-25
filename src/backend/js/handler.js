@@ -1,36 +1,6 @@
 const singUpButton = document.querySelector('.sing-up-button');
 const singInButton = document.querySelector('.sing-in-button');
-
-// функции для проверки условий, для отображдения/скрытия контента на странице
-// небъяснимая пока что ошибка -- при adminPageButton ругается на первую строку файла, и говорит что такая переменная уже существует
-// при других значениях все работает исправно
-// проверка, является ли администратором авторизованный пользователь || отображать/не отображать кнопку страицы администратора
-const checkAdmin = () => {
-    const admin = window.localStorage.getItem('role');
-    const adminPageBtn = document.querySelector('.admin-page-button');
-
-    if (admin === 'admin') {
-        adminPageBtn ? adminPageBtn.style.display = 'block' : null;
-    } else {
-        adminPageBtn ? adminPageBtn.style.display = 'none' : null;
-    }
-};
-
-// проверка, лежит ли в localstorage токен, нужно для скрытия окна входа/показа кнопки выхода из аккаунта
-const checkAutorize = () => {
-    const token = window.localStorage.getItem('token');
-    const logOutButton = document.querySelector('.log-out-button');
-
-    if (token) {
-        const singInWindow = document.querySelector('.sing-in-window-container');
-        singInWindow ? singInWindow.style.display = 'none' : null;
-
-        logOutButton ? logOutButton.style.display = 'block' : null;
-    } else {
-        logOutButton ? logOutButton.style.display = 'none' : null;
-        console.log('пользователь не авторизован');
-    }
-};
+const logOutButton = document.querySelector('.log-out-button');
 
 // регистрация пользователя
 if (singUpButton) {
@@ -107,5 +77,49 @@ if (singInButton) {
     });
 };
 
+// функции для проверки условий, для отображдения/скрытия контента на странице
+// небъяснимая пока что ошибка -- при adminPageButton ругается на первую строку файла, и говорит что такая переменная уже существует
+// при других значениях все работает исправно
+// проверка, является ли администратором авторизованный пользователь || отображать/не отображать кнопку страицы администратора
+const checkAdmin = () => {
+    const admin = window.localStorage.getItem('role');
+    const adminPageBtn = document.querySelector('.admin-page-button');
+
+    if (admin === 'admin') {
+        adminPageBtn ? adminPageBtn.style.display = 'block' : null;
+    } else {
+        adminPageBtn ? adminPageBtn.style.display = 'none' : null;
+    }
+};
+
+// проверка, лежит ли в localstorage токен, нужно для скрытия окна входа/показа кнопки выхода из аккаунта
+const checkAutorize = () => {
+    const token = window.localStorage.getItem('token');
+    const logOutButton = document.querySelector('.log-out-button');
+
+    if (token) {
+        const singInWindow = document.querySelector('.sing-in-window-container');
+        singInWindow ? singInWindow.style.display = 'none' : null;
+
+        logOutButton ? logOutButton.style.display = 'block' : null;
+    } else {
+        logOutButton ? logOutButton.style.display = 'none' : null;
+        console.log('пользователь не авторизован');
+    }
+};
+
+// фукция для кнопки выхода из аккаунта
+const logOut = () => {
+    window.localStorage.removeItem('token');
+    window.localStorage.removeItem('email');
+    window.localStorage.removeItem('role');
+
+    alert('Вы вышли из аккаунта');
+
+    window.location.reload();
+}
+// кнопка выхода
+logOutButton ? logOutButton.addEventListener('click', logOut) : console.log('Ошибка с кнопкой выхода из аккаунта');
+// обновление окон
 window.addEventListener('DOMContentLoaded', checkAdmin);
 window.addEventListener('DOMContentLoaded', checkAutorize);
