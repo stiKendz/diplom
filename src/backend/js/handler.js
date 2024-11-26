@@ -19,6 +19,8 @@ if (singUpButton) {
         });
     
         const data = await response.json();
+        data ? alert('Вы успешно зарегистрировались') : console.log('Вы зарегистрировались не успешо');
+
         console.log(data);
     });
 };
@@ -63,7 +65,8 @@ if (singInButton) {
             };
             
             // для показа/скрытия окна входа при нажатии
-            if (window.localStorage.getItem('token')){          
+            const token = window.localStorage.getItem('token');
+            if (token && token !== 'undefined'){          
                 singInWindow.style.display = 'none';
                 logOutButton.style.display = 'block';
             } else {
@@ -97,7 +100,7 @@ const checkAutorize = () => {
     const token = window.localStorage.getItem('token');
     const logOutButton = document.querySelector('.log-out-button');
 
-    if (token) {
+    if (token && token !== 'undefined') {
         const singInWindow = document.querySelector('.sing-in-window-container');
         singInWindow ? singInWindow.style.display = 'none' : null;
 
@@ -118,8 +121,10 @@ const logOut = () => {
 
     window.location.reload();
 }
-// кнопка выхода
-logOutButton ? logOutButton.addEventListener('click', logOut) : console.log('Ошибка с кнопкой выхода из аккаунта');
+// кнопка выхода // попробовал тернарный оператор
+logOutButton ? logOutButton.addEventListener('click', logOut)  // if
+: !logOutButton || logOutButton && !logOutButton.style.display === 'block' ? console.log('Кнопки выхода нет на странице или она не отображается') // else if
+: console.log('Ошибка с кнопкой выхода из аккаунта'); // else
 // обновление окон
 window.addEventListener('DOMContentLoaded', checkAdmin);
 window.addEventListener('DOMContentLoaded', checkAutorize);

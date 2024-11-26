@@ -25,6 +25,9 @@ create table cars_table (
 	release_date date not null, -- 2002-01-18
 	end_release_date date not null, -- 2005-01-18
 	engine_id int not null, -- 1 -- связь engine_table (engine_id)
+	gearbox varchar(64) not null, -- manual, automatic, variator
+	car_vehicle varchar(64) not null, -- awd, fwd, rwd
+	body_type varchar(64) not null, -- hatchback, sedan, universal and other
 	price varchar(128) not null -- 900.000тысруб
 );
 
@@ -32,6 +35,7 @@ create table cars_table (
 create table problems_table (
 	problem_id serial primary key, -- связь car_problems_table problem_id
 	problem_name varchar(128) not null, -- ржавые_арки
+	problem_short_description text null,
 	difficult int not null, -- 1
 	how_to_fixed text not null, -- автосервис
 	price varchar(128) not null -- 100.000тысруб
@@ -65,7 +69,7 @@ create table engine_table (
 	engine_id serial primary key, -- 1
 	engine_serial_name varchar(64) not null, -- 4g18
 	engine_size float4 not null, -- 1.6
-	engine_type varchar(64) not null, -- rotor, v, h
+	engine_type varchar(64) not null, -- rotary, inline, opposite, v-model 
 	engine_nano varchar(64) not null, -- 196Hm
 	engine_horse_power varchar(64) not null, -- 98Hp
 	engine_expenditure_city varchar(64) not null, -- 8.0
