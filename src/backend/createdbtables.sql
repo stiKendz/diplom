@@ -77,3 +77,11 @@ create table engine_table (
 	camshaft_system varchar(64) not null -- dohc, sohc, vtek
 );
 alter table cars_table add foreign key (engine_id) references engine_table (engine_id) on delete cascade on update cascade;
+
+create table images_table (
+	image_id serial primary key,
+	src varchar(256) null,
+	position int null,
+	for_car varchar(64) null
+);
+alter table cars_table add foreign key (image_id) references images_table (image_id) on delete cascade on update cascade;

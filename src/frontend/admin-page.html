@@ -15,16 +15,29 @@
     </header>
     <main>
         <div class="main-container">
+            <div class="warning-messages-container">
+                <p class="warning-message">Обратите внимание, что перед добавлением автомобиля, необходимо добавить двигатель от него, 
+                    если таковой имеется, приступить к добавлению автомбиля</p>
+                <p class="ps-message">Список всех двигателей и их id можно вывести по нажатию кнопки - "Просмотреть все двигатели"</p>
+                <p class="ps-message-cars">Список всех автомобилей и их id можно вывести по нажатию кнопки - "Просмотреть все автомобили"</p>
+            </div>
+            <div class="cars-engines-buttons-container">
+                <button type="button" class="show-engine-button">Просмотреть все двигатели</button>
+                <button type="button" class="show-car-button">Просмотреть все автомобили</button>
+            </div>
             <div class="engine-add-container">
                 <div class="engine-parameters-container">
+                    <h2>Добавление двигателя</h2>
                     <div class="engine-parameter serial-name">
                         Серийный номер двигателя
                         <input type="text" class="serial-number-input" placeholder="Серийный номер двигателя:">
                     </div>
                 </div>
+                <button type="button" class="add-engine-button">Добавить автомобить</button>
             </div>
             <div class="add-car-container">
                 <div class="car-parameters-container">
+                    <h2>Добавление автомобиля</h2>
                     <div class="car-parameter concern">
                         Концерн
                         <input type="text" class="concern-input" placeholder="Концерн автомобиля:">
@@ -73,6 +86,7 @@
                 <div class="car-description-container">
                     <p class="car-decsription">Описание автомобиля</p>
                 </div>
+                <button type="button" class="add-car-button">Добавить автомобить</button>
             </div>
         </div>
     </main>
