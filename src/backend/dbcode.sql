@@ -39,8 +39,8 @@ insert into employeePositions (positionId, employeeId) values (3, 3);
 
 
 -- однин ко многим
-create table person_table ( -- engine_table
-	person_id int primary key, 	-- engine_id
+create table person_table ( -- car table
+	person_id int primary key, 	-- car_id
 	name varchar(64),
 	surname varchar(64),
 	age int not null
@@ -53,9 +53,9 @@ insert into person_table (person_id, name, surname, age) values (4, 'Dan', 'Kruk
 
 
 
-create table phone_table ( -- cars_table
-	phone_id int primary key, -- car_id
-	person_id int not null, -- engine_id
+create table phone_table ( -- images_table
+	phone_id int primary key, -- image_id
+	person_id int not null, -- car_id
 	phone_number varchar(128) null,
 	foreign key (person_id) references person_table(person_id)
 );

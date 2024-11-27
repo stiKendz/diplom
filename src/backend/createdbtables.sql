@@ -78,10 +78,29 @@ create table engine_table (
 );
 alter table cars_table add foreign key (engine_id) references engine_table (engine_id) on delete cascade on update cascade;
 
+-- создание таблицы с картинками и её тестирование
 create table images_table (
 	image_id serial primary key,
-	src varchar(256) null,
-	position int null,
-	for_car varchar(64) null
+	car_id int not null,
+	src bytea null, -- blob тип данных
+	for_car varchar(64) not null, -- subaru
+	foreign key (car_id) references cars_table (car_id) on delete cascade on update cascade
 );
-alter table cars_table add foreign key (image_id) references images_table (image_id) on delete cascade on update cascade;
+
+INSERT INTO engine_table (engine_serial_name, engine_size, engine_type, engine_nano, engine_horse_power, engine_expenditure_city, engine_expenditure_track, camshaft_system)
+VALUES ('4g18', 1.6, 'inline', '196Hm', '98Hp', '8.0', '5.6', 'sohc'),
+       ('RB26DETT', 2.6, 'inline', '250Hm', '280Hp', '12.5', '9.2', 'dohc'),
+       ('EJ25', 2.5, 'opposite', '240Hm', '224Hp', '10.2', '7.8', 'sohc');
+
+INSERT INTO cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, gearbox, car_vehicle, body_type, price)
+VALUES ('JDM', 'Honda', 'Integra', 5, 'dc5', '2002-01-18', '2005-01-18', 1, 'manual', 'fwd', 'hatchback', '900.000тысруб'),
+       ('JDM', 'Toyota', 'Supra', 4, 'A80', '1993-05-11', '2002-08-17', 2, 'manual', 'rwd', 'coupe', '1.500.000тысруб'),
+       ('Euro', 'Volkswagen', 'Golf', 7, 'Mk7', '2012-11-14', '2019-12-30', 3, 'automatic', 'fwd', 'hatchback', '1.200.000тысруб');
+
+INSERT INTO images_table (car_id, src, for_car)
+VALUES (1, '123456789', 'honda'),
+       (2, '', 'toyota'),
+	   (3, '', 'vw');
+
+delete from images_table where car_id = 2;
+select * from cars_table ut right join images_table it on ut.car_id = it.car_id;
