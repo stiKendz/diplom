@@ -6,6 +6,7 @@ import cors from 'cors';
 import bcrypt from 'bcryptjs';
 import http from 'http';
 import pool from './db.js';
+import multer from 'multer';
 
 // код приложения
 // запуск сервера
@@ -58,7 +59,7 @@ app.post('/register', async (req, res) => {
             const result = await client.query(
                 'INSERT INTO users_table (name, surname, password, email) VALUES ($1, $2, $3, $4) RETURNING user_id',
                 [name, surname, hashedPassword, email]
-            );
+            ); // возращает user_id
 
             // вcтака данных в таблицу roles_table, где role_name имеет default 'user'
             const userId = result.rows[0].user_id;
@@ -132,7 +133,33 @@ app.post('/login', async (req, res) => {
         
     } catch (err) {
         console.error('Ошибка входа в аккаунт', err.message);
-        res.status(500).json({message: 'Произошла другая ошибка'});
+        res.status(500).json({message: 'Произошла ошибка на сервере'});
     };
 });
 
+// загрузка фотографии
+const storage = multer.memoryStorage();
+const uploadImage = multer({ storage: storage });
+
+app.post('/uploadimage', uploadImage.single('image'), async (req, res) => {
+    try {
+        const {carId, modelName} = req.body;
+        const image = req.file.buffer; // получение изображения из буфера multer
+        
+        const result = await pool.query(
+            'INSERT INTO images_table (car_id, src, for_car_name) VALUES ($1, $2, $3) RETURNING image_id, car_id', 
+            [carId, image, modelName]
+        ); 
+        // добавить пояснялку на страницу, что нужен НОМЕР модели в поле ввода названия модели-- w204, gc8, ek2, b240
+        
+        const uploadIds = {
+            imageId: result.rows[0].image_id,
+            whatCarId: result.rows[0].car_id
+        }
+
+        res.json({message: 'Изображение успешно загружено', uploadIds});
+    } catch (err){
+        console.error('Ошибка загрузки изображения', err.message);
+        res.status(500).json({message: 'Произошла ошибка на сервере'});
+    }
+})

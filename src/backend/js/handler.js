@@ -1,6 +1,7 @@
 const singUpButton = document.querySelector('.sing-up-button');
 const singInButton = document.querySelector('.sing-in-button');
 const logOutButton = document.querySelector('.log-out-button');
+const uploadImageButton = document.querySelector('.upload-image-button');
 
 // регистрация пользователя
 if (singUpButton) {
@@ -128,3 +129,25 @@ logOutButton ? logOutButton.addEventListener('click', logOut)  // if
 // обновление окон
 window.addEventListener('DOMContentLoaded', checkAdmin);
 window.addEventListener('DOMContentLoaded', checkAutorize);
+
+// загрузка фотографии
+if (uploadImageButton) {
+    uploadImageButton.addEventListener('click', async () => {
+        const image = document.querySelector('.add-image-input').value;
+        const carId = document.querySelector('.car-id-input').value;
+        const carModelname = document.querySelector('.car-model-name').value;
+
+        // интересно, что выводится в консоль
+        console.log(image);
+
+        const response = await fetch('http://localhost:3000/uploadimage', {
+            method: 'POST',
+            header: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({image, carId, carModelname})
+        })
+        
+        const data = await response.json();
+    });
+};

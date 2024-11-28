@@ -87,12 +87,14 @@
                     <p class="car-decsription">Описание автомобиля</p>
                 </div>
                 <div class="add-photo-container">
-                    <div class="add-photo-window">
-                        <input type="file" class="add-image-input" multiple>
-                        <label for="add-image-input" class="focus">Выберите фотографию автомобиля, или перетащите её сюда</label>
+                    <div class="add-photo-window" enctype="multipart/form-data">
+                        <input type="file" class="add-image-input" enctype="multipart/form-data">
+                        <input type="number" class="car-id-input" placeholder="id автомобиля для добавления к нему фотографии">
+                        <input type="text" class="car-model-name" placeholder="Введите название номера модели"> <!-- пояснялка про номера моделей (w204, gc8, ek2, b240) -->
+                        <button type="button" class="upload-image-button">Загрузить изображение</button>
                     </div>
                 </div>
-                <button type="button" class="add-car-button">Добавить автомобить</button>
+                <button type="button" class="add-car-button">Добавить автомобиль</button>
             </div>
         </div>
     </main>
