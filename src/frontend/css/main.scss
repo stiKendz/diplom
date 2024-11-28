@@ -3,6 +3,9 @@
     padding: 0;
 }
 
+$mainColor: #ccccff;
+$afterColor: #c0d6e4;
+
 @mixin flexCenter {
     display: flex;
     align-items: center;
@@ -38,13 +41,66 @@ header {
 
     @include flexCenter;
     height: 100px;
+    width: 100%;
+
+    background-color: $mainColor;
 }
 
 main {
+    width: 100%;
 
+    background-color: $afterColor;
+
+
+    .add-car-container {
+
+
+        .add-photo-container {
+            @include flexCenter;
+            height: 100px;
+
+            background-color: white;
+
+            outline: 2px dashed #5d5d5d;
+            // outline-offset: -12px;
+
+            .add-photo-window {
+                position: relative;
+                z-index: 5;
+
+                label {
+                    font-weight: 900;
+
+
+                    &:hover {
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                }
+
+                input {
+                    position: absolute;
+                    z-index: -1;
+
+                    width: 1px;
+                    height: 1px;
+
+                    opacity: 0;
+
+                    &:focus + label {
+                        outline: 1px solid green;
+                        outline: -webkit-focus-ring-color 3px solid red; // для chrome или opera
+                    }
+                }
+            }
+        }
+    }
 }
 
 footer {
     @include flexCenter;
     height: 100px;
+    width: 100%;
+
+    background-color: $mainColor;
 }

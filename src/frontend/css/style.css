@@ -26,6 +26,43 @@ header {
   align-items: center;
   justify-content: center;
   height: 100px;
+  width: 100%;
+  background-color: #ccccff;
+}
+
+main {
+  width: 100%;
+  background-color: #c0d6e4;
+}
+main .add-car-container .add-photo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  background-color: white;
+  outline: 2px dashed #5d5d5d;
+}
+main .add-car-container .add-photo-container .add-photo-window {
+  position: relative;
+  z-index: 5;
+}
+main .add-car-container .add-photo-container .add-photo-window label {
+  font-weight: 900;
+}
+main .add-car-container .add-photo-container .add-photo-window label:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+main .add-car-container .add-photo-container .add-photo-window input {
+  position: absolute;
+  z-index: -1;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+main .add-car-container .add-photo-container .add-photo-window input:focus + label {
+  outline: 1px solid green;
+  outline: -webkit-focus-ring-color 3px solid red;
 }
 
 footer {
@@ -33,6 +70,8 @@ footer {
   align-items: center;
   justify-content: center;
   height: 100px;
+  width: 100%;
+  background-color: #ccccff;
 }
 
 /*# sourceMappingURL=style.css.map */

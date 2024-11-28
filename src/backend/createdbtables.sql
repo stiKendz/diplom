@@ -83,7 +83,7 @@ create table images_table (
 	image_id serial primary key,
 	car_id int not null,
 	src bytea null, -- blob тип данных
-	for_car varchar(64) not null, -- subaru
+	for_car_name varchar(64) not null, -- subaru
 	foreign key (car_id) references cars_table (car_id) on delete cascade on update cascade
 );
 
@@ -97,7 +97,7 @@ VALUES ('JDM', 'Honda', 'Integra', 5, 'dc5', '2002-01-18', '2005-01-18', 1, 'man
        ('JDM', 'Toyota', 'Supra', 4, 'A80', '1993-05-11', '2002-08-17', 2, 'manual', 'rwd', 'coupe', '1.500.000тысруб'),
        ('Euro', 'Volkswagen', 'Golf', 7, 'Mk7', '2012-11-14', '2019-12-30', 3, 'automatic', 'fwd', 'hatchback', '1.200.000тысруб');
 
-INSERT INTO images_table (car_id, src, for_car)
+INSERT INTO images_table (car_id, src, for_car_name)
 VALUES (1, '123456789', 'honda'),
        (2, '', 'toyota'),
 	   (3, '', 'vw');
