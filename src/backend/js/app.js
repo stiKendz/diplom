@@ -139,27 +139,36 @@ app.post('/login', async (req, res) => {
 
 // загрузка фотографии
 const storage = multer.memoryStorage();
-const uploadImage = multer({ storage: storage });
+const upload = multer({ storage: storage });
 
-app.post('/uploadimage', uploadImage.single('image'), async (req, res) => {
+app.post('/uploadimage', upload.single('image'), async (req, res) => {
     try {
-        const {carId, modelName} = req.body;
         const image = req.file.buffer; // получение изображения из буфера multer
+        const {carId, carModelName} = req.body;
         
+        if (!carId || !carModelName || !image) {
+            // return res.status(400).json({message: 'все поля должны быть заполены'})
+            console.log('одно из полей не заполнено')
+        }
+
         const result = await pool.query(
             'INSERT INTO images_table (car_id, src, for_car_name) VALUES ($1, $2, $3) RETURNING image_id, car_id', 
-            [carId, image, modelName]
+            [carId, image, carModelName]
         ); 
         // добавить пояснялку на страницу, что нужен НОМЕР модели в поле ввода названия модели-- w204, gc8, ek2, b240
         
+        if(result.rows.length === 0) {
+            // return res.status(400).json({message: 'Изображение не было загружено'});
+            console.log('в result ничего нет')
+        }
+
         const uploadIds = {
             imageId: result.rows[0].image_id,
             whatCarId: result.rows[0].car_id
         }
 
-        res.json({message: 'Изображение успешно загружено', uploadIds});
+        console.log('Изображение успешно загружено');
     } catch (err){
         console.error('Ошибка загрузки изображения', err.message);
-        res.status(500).json({message: 'Произошла ошибка на сервере'});
-    }
-})
+    };
+});
