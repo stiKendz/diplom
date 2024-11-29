@@ -161,15 +161,28 @@ if (addEngineButton) {
 // просмотр всех двигателей
 if (showEnginesButton) {
     showEnginesButton.addEventListener('click', async () => {
-        const allEnginesWindow = document.querySelector('.all-engines-window');
+        const overlay = document.querySelector('.overlay');
+        const engineModalWindow = document.querySelector('.engine-modal-window'); // модалка
+        const engineModalCloseButton = document.querySelector('.engine-modal-close-button'); // кнопка в модалке
+        const engineWindowContent = document.querySelector('.engine-window-content'); // контент внутри модалки
 
         const response = await fetch('http://localhost:3000/getengines', {
             method: 'GET'
         });
 
         const data = await response.json();
+        if (data) {
+            engineModalWindow ? engineModalWindow.style.display = 'block' : null;
+            overlay ? overlay.classList.add('show') : null; // добавляет display: block;
+            engineWindowContent.innerHTML = JSON.stringify(data, null, 2);
+        } else {
+            engineModalWindow ? engineModalWindow.style.display = 'none' : null;
+        }
 
-        allEnginesWindow.innerHTML = JSON.stringify(data, null, 2);
+        engineModalCloseButton.addEventListener('click', () => {
+            engineModalWindow ? engineModalWindow.style.display = 'none' : null;
+            overlay ? overlay.classList.remove('show') : null;
+        });
 
         console.log(data);
     });
