@@ -1,6 +1,7 @@
 const singUpButton = document.querySelector('.sing-up-button');
 const singInButton = document.querySelector('.sing-in-button');
 const logOutButton = document.querySelector('.log-out-button');
+const addEngineButton = document.querySelector('.add-engine-button');
 const uploadImageButton = document.querySelector('.upload-image-button');
 
 // регистрация пользователя
@@ -129,6 +130,33 @@ logOutButton ? logOutButton.addEventListener('click', logOut)  // if
 // обновление окон
 window.addEventListener('DOMContentLoaded', checkAdmin);
 window.addEventListener('DOMContentLoaded', checkAutorize);
+
+// добавление двигателя (на странице администратора)
+if (addEngineButton) {
+    addEngineButton.addEventListener('click', async () => {
+        const engine_serial_name = document.querySelector('.serial-number-input').value;
+        const size = document.querySelector('.engine-size-input').value;
+        const type = document.querySelector('.engine-type-input').value;
+        const nano = document.querySelector('.engine-nano-input').value;
+        const horsePower = document.querySelector('.engine-horse-power-input').value;
+        const expeditureCity = document.querySelector('.engine-expenditure-city-input').value;
+        const expeditureTrack = document.querySelector('.engine-expenditure-track-input').value;
+        const camshaftSystem = document.querySelector('.camshaft-system-input').value;
+
+        const response = await fetch('http://localhost:3000/addengine', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({engine_serial_name, size, type, nano, horsePower, expeditureCity, expeditureTrack, camshaftSystem})
+        });
+
+        const data = await response.json();
+        data ? alert('Двигатель успешно добавлен') : alert('Двигатель не добавлен');
+
+        console.log(data);
+    })
+}
 
 // загрузка фотографии
 if (uploadImageButton) {

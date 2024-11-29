@@ -67,7 +67,7 @@ create table car_short_description_table (
 
 create table engine_table (
 	engine_id serial primary key, -- 1
-	engine_serial_name varchar(64) not null, -- 4g18
+	engine_serial_name varchar(64) unique not null, -- 4g18
 	engine_size float4 not null, -- 1.6
 	engine_type varchar(64) not null, -- rotary, inline, opposite, v-model 
 	engine_nano varchar(64) not null, -- 196Hm

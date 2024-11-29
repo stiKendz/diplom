@@ -7,6 +7,7 @@ import bcrypt from 'bcryptjs';
 import http from 'http';
 import pool from './db.js';
 import multer from 'multer';
+import fileUpload from 'express-fileupload';
 
 // код приложения
 // запуск сервера
@@ -136,6 +137,58 @@ app.post('/login', async (req, res) => {
         res.status(500).json({message: 'Произошла ошибка на сервере'});
     };
 });
+
+// добавление двигателя (на странице администратор: admin-page.html) 
+app.post('/addengine', async (req, res) => {
+    const engineParams = {
+        engine_serial_name, 
+        engine_size, 
+        engine_size,
+        engine_nano,
+        engine_horse_power,
+        engine_expediture_city,
+        engine_expediture_track,
+        camshaft_system
+    } = req.body;
+
+    for(key in engineParams) {
+        if (!key) {
+            res.status(400).json({message: 'Все поля должны быть заполнены'});
+            return alert('Все поля должны быть заполнены');
+        }
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            exitingEngine = await client.query('SELECT * FROM engine_table WHERE engine_serial_name = $1',[engine_serial_name]);
+            if (exitionEngine.rows > 0) {
+                res.status(409).json({message: 'Двигатель с таким названием уже присутствует в базе данных'});
+                return alert('Двигатель с таким названием уже присутствует в базе данных');
+            }
+            
+
+            const result = await client.query(
+                'INSERT INTO engine_table (engine_serial_name, engine_size, engine_size, engine_nano, engine_horse_power, engine_expediture_city, engine_expediture_track, camshaft_system) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING engine_id',
+                [engine_serial_name, engine_size, engine_size, engine_nano, engine_horse_power, engine_expediture_city, engine_expediture_track, camshaft_system]
+            )
+            const engineId = result.rows[0].engine_id;
+
+            res.status(201).json({
+                message: 'Двигатель успешно добавлен',
+                engineId: engineId
+            });
+        } catch (err) {
+            console.error(`Произошла в запросе при добавлении двигателя: ${err.message}`);
+            res.status(500).json({message: 'ошибка при добавлении двигателя из-за ошибки в зопросе'})
+        }
+    } catch (err) {
+        console.error(`Произошла ошибка при добавлении двигателя: ${err.message}`);
+        res.status(500).json({message: 'Произошла ошибка при добавлении двигателя из-за ошибки на сервере'})
+    }
+})
+
 
 // загрузка фотографии
 const storage = multer.memoryStorage();
