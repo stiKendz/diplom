@@ -140,39 +140,52 @@ app.post('/login', async (req, res) => {
 
 // добавление двигателя (на странице администратор: admin-page.html) 
 app.post('/addengine', async (req, res) => {
-    const engineParams = {
+    const {
         engine_serial_name, 
         engine_size, 
-        engine_size,
+        engine_type,
         engine_nano,
         engine_horse_power,
-        engine_expediture_city,
-        engine_expediture_track,
+        engine_expenditure_city,
+        engine_expenditure_track,
         camshaft_system
     } = req.body;
 
-    for(key in engineParams) {
-        if (!key) {
-            res.status(400).json({message: 'Все поля должны быть заполнены'});
-            return alert('Все поля должны быть заполнены');
+    const engineParams = {
+        engine_serial_name, 
+        engine_size, 
+        engine_type,
+        engine_nano,
+        engine_horse_power,
+        engine_expenditure_city,
+        engine_expenditure_track,
+        camshaft_system
+    }
+
+    for(let key in engineParams) {
+        if (!engineParams[key]) {
+            return res.status(400).json({message: 'Все поля должны быть заполнены'});
         }
     }
+
+    // if (!engine_serial_name || !engine_size || !engine_type || !engine_nano || !engine_horse_power || !engine_expenditure_city || !engine_expenditure_track || !camshaft_system) {
+    //     return res.status(400).json({message: 'Все поля должны быть заполнены'});
+    // }   
 
     try {
         const client = await pool.connect();
 
         try {
-            exitingEngine = await client.query('SELECT * FROM engine_table WHERE engine_serial_name = $1',[engine_serial_name]);
-            if (exitionEngine.rows > 0) {
-                res.status(409).json({message: 'Двигатель с таким названием уже присутствует в базе данных'});
-                return alert('Двигатель с таким названием уже присутствует в базе данных');
-            }
+            const exitingEngine = await client.query('SELECT * FROM engine_table WHERE engine_serial_name = $1',[engine_serial_name]);
+            if (exitingEngine.rowCount > 0) {
+                return res.status(409).json({message: 'Двигатель с таким названием уже присутствует в базе данных'});
+            };
             
 
             const result = await client.query(
-                'INSERT INTO engine_table (engine_serial_name, engine_size, engine_size, engine_nano, engine_horse_power, engine_expediture_city, engine_expediture_track, camshaft_system) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING engine_id',
-                [engine_serial_name, engine_size, engine_size, engine_nano, engine_horse_power, engine_expediture_city, engine_expediture_track, camshaft_system]
-            )
+                'INSERT INTO engine_table (engine_serial_name, engine_size, engine_type, engine_nano, engine_horse_power, engine_expenditure_city, engine_expenditure_track, camshaft_system) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING engine_id',
+                [engine_serial_name, engine_size, engine_type, engine_nano, engine_horse_power, engine_expenditure_city, engine_expenditure_track, camshaft_system]
+            );
             const engineId = result.rows[0].engine_id;
 
             res.status(201).json({
@@ -182,12 +195,38 @@ app.post('/addengine', async (req, res) => {
         } catch (err) {
             console.error(`Произошла в запросе при добавлении двигателя: ${err.message}`);
             res.status(500).json({message: 'ошибка при добавлении двигателя из-за ошибки в зопросе'})
-        }
+        };
     } catch (err) {
         console.error(`Произошла ошибка при добавлении двигателя: ${err.message}`);
         res.status(500).json({message: 'Произошла ошибка при добавлении двигателя из-за ошибки на сервере'})
-    }
-})
+    };
+});
+
+// вывод всех двигателей (на странице администратора)
+app.get('/getengines', async (req, res) => {
+    try {
+        const client = await pool.connect();
+
+        try {
+            const response = await client.query(
+                'SELECT * FROM engine_table'
+            )
+
+            const result = response.rows;
+    
+            res.json({
+                message: 'все двигатели',
+                allEngines: result
+            })
+        } catch (err) {
+            console.log(`Ошибка вывода всех пользователей ${err.message}`);
+            res.status(500).json({message: 'Ошибка вывода всех пользователей на стороне запроса'});
+        }
+    } catch (err) {
+        console.log(`Ошибка вывода всех пользователей ${err.message}`);
+        res.status(500).json({message: 'Ошибка вывода всех пользователей на стороне сервера'});
+    };
+});
 
 
 // загрузка фотографии
@@ -202,7 +241,7 @@ app.post('/uploadimage', upload.single('image'), async (req, res) => {
         if (!carId || !carModelName || !image) {
             // return res.status(400).json({message: 'все поля должны быть заполены'})
             console.log('одно из полей не заполнено')
-        }
+        };
 
         const result = await pool.query(
             'INSERT INTO images_table (car_id, src, for_car_name) VALUES ($1, $2, $3) RETURNING image_id, car_id', 
@@ -213,12 +252,12 @@ app.post('/uploadimage', upload.single('image'), async (req, res) => {
         if(result.rows.length === 0) {
             // return res.status(400).json({message: 'Изображение не было загружено'});
             console.log('в result ничего нет')
-        }
+        };
 
         const uploadIds = {
             imageId: result.rows[0].image_id,
             whatCarId: result.rows[0].car_id
-        }
+        };
 
         console.log('Изображение успешно загружено');
     } catch (err){

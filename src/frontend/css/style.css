@@ -34,7 +34,16 @@ main {
   width: 100%;
   background-color: #c0d6e4;
 }
-main .add-car-container .add-photo-container {
+main .main-container .all-engines-cars-container {
+  height: 100px;
+}
+main .main-container .all-engines-cars-container .all-engines-container {
+  height: 100%;
+}
+main .main-container .all-engines-cars-container .all-engines-container .all-engines-window {
+  height: 100%;
+}
+main .main-container .add-car-container .add-photo-container {
   display: flex;
   align-items: center;
   justify-content: center;

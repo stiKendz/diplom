@@ -50,19 +50,33 @@ main {
     width: 100%;
 
     background-color: $afterColor;
+    
+    .main-container {
 
-
-    .add-car-container {
-
-
-        .add-photo-container {
-            @include flexCenter;
+        .all-engines-cars-container {
             height: 100px;
 
-            background-color: $mainColor;
+            .all-engines-container {
+                height: 100%;
 
-            outline: 2px dashed #5d5d5d;
-            // outline-offset: -12px;
+                .all-engines-window {
+                    height: 100%;
+                }
+            }
+        }
+
+        .add-car-container {
+
+
+            .add-photo-container {
+                @include flexCenter;
+                height: 100px;
+    
+                background-color: $mainColor;
+    
+                outline: 2px dashed #5d5d5d;
+                // outline-offset: -12px;
+            }
         }
     }
 }

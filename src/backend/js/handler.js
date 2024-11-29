@@ -2,6 +2,7 @@ const singUpButton = document.querySelector('.sing-up-button');
 const singInButton = document.querySelector('.sing-in-button');
 const logOutButton = document.querySelector('.log-out-button');
 const addEngineButton = document.querySelector('.add-engine-button');
+const showEnginesButton = document.querySelector('.show-engines-button');
 const uploadImageButton = document.querySelector('.upload-image-button');
 
 // регистрация пользователя
@@ -135,28 +136,44 @@ window.addEventListener('DOMContentLoaded', checkAutorize);
 if (addEngineButton) {
     addEngineButton.addEventListener('click', async () => {
         const engine_serial_name = document.querySelector('.serial-number-input').value;
-        const size = document.querySelector('.engine-size-input').value;
-        const type = document.querySelector('.engine-type-input').value;
-        const nano = document.querySelector('.engine-nano-input').value;
-        const horsePower = document.querySelector('.engine-horse-power-input').value;
-        const expeditureCity = document.querySelector('.engine-expenditure-city-input').value;
-        const expeditureTrack = document.querySelector('.engine-expenditure-track-input').value;
-        const camshaftSystem = document.querySelector('.camshaft-system-input').value;
+        const engine_size = document.querySelector('.engine-size-input').value;
+        const engine_type = document.querySelector('.engine-type-input').value;
+        const engine_nano = document.querySelector('.engine-nano-input').value;
+        const engine_horse_power = document.querySelector('.engine-horse-power-input').value;
+        const engine_expenditure_city = document.querySelector('.engine-expenditure-city-input').value;
+        const engine_expenditure_track = document.querySelector('.engine-expenditure-track-input').value;
+        const camshaft_system = document.querySelector('.camshaft-system-input').value;
 
         const response = await fetch('http://localhost:3000/addengine', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify({engine_serial_name, size, type, nano, horsePower, expeditureCity, expeditureTrack, camshaftSystem})
+            body: JSON.stringify({engine_serial_name, engine_size, engine_type, engine_nano, engine_horse_power, engine_expenditure_city, engine_expenditure_track, camshaft_system})
         });
 
         const data = await response.json();
-        data ? alert('Двигатель успешно добавлен') : alert('Двигатель не добавлен');
 
         console.log(data);
-    })
-}
+    });
+};
+
+// просмотр всех двигателей
+if (showEnginesButton) {
+    showEnginesButton.addEventListener('click', async () => {
+        const allEnginesWindow = document.querySelector('.all-engines-window');
+
+        const response = await fetch('http://localhost:3000/getengines', {
+            method: 'GET'
+        });
+
+        const data = await response.json();
+
+        allEnginesWindow.innerHTML = JSON.stringify(data, null, 2);
+
+        console.log(data);
+    });
+};
 
 // загрузка фотографии
 if (uploadImageButton) {
