@@ -43,6 +43,12 @@
                     <pre class="engine-window-content">Вывод всех двигателей теперь будет здесь</pre>
                 </div>
             </div>
+            <div class="car-modal-window">
+                <div class="window-content">
+                    <button type="button" class="car-modal-close-button">Закрыть окно</button>
+                    <pre class="car-window-content">Вывод всех двигателей теперь будет здесь</pre>
+                </div>
+            </div>
             <!-- модеальное окно для двигателей -->
             <div class="engine-add-container">
                 <div class="engine-parameters-container">
@@ -117,6 +123,10 @@
                         ID двигателя
                         <input type="text" class="engine-id-input" placeholder="ID двигателя автомобиля:">
                     </div>
+                    <div class="car-parameter gearbox">
+                        Тип КПП (коробка переключения передач)
+                        <input type="text" class="gearbox-input" placeholder="КПП автомобиля:">
+                    </div>
                     <div class="car-parameter car-vehicle">
                         Привод автомбиля
                         <input type="text" class="car-vehicle-input" placeholder="Привод автомобиля:">
@@ -133,16 +143,42 @@
                 <div class="car-description-container">
                     <p class="car-decsription">Описание автомобиля</p>
                 </div>
-                <div class="add-photo-container">
-                    <div class="add-photo-window" enctype="multipart/form-data">
-                        <img class="uploaded-image" src="" enctype="">
-                        <input type="file" name="file" class="add-image-input" enctype="">
-                        <input type="number" class="car-id-input" placeholder="id автомобиля для добавления к нему фотографии">
-                        <input type="text" class="car-model-name" placeholder="Введите название номера модели"> <!-- пояснялка про номера моделей (w204, gc8, ek2, b240) -->
-                        <button type="button" class="upload-image-button">Загрузить изображение</button>
+                <button type="button" class="add-car-button">Добавить автомобиль</button>
+            </div>
+            <div class="add-problem-container">
+                <h2>Добавление проблемы автомобиля</h2>
+                <div class="add-problem-window">
+                    <div class="problem-parameter name">
+                        Название проблемы
+                        <input type="text" class="promlem-input">
+                    </div>
+                    <div class="problem-parameter description">
+                        Краткое описание проблемы
+                        <input type="text" class="description-input">
+                    </div>
+                    <div class="problem-parameter difficult">
+                        Сложность устранения (от 1 до 5)
+                        <input type="number" class="difficult-input">
+                    </div>
+                    <div class="problem-parameter how-to-fixed">
+                        Описание решения проблемы
+                        <input type="text" class="how-to-fixed-input">
+                    </div>
+                    <div class="problem-parameter price">
+                        Цена решения проблемы (тыс.руб)
+                        <input type="text" class="price-input">
                     </div>
                 </div>
-                <button type="button" class="add-car-button">Добавить автомобиль</button>
+                <button type="button" class="add=problem-button">Добавить автомобиль</button>
+            </div>
+            <div class="add-photo-container">
+                <div class="add-photo-window" enctype="multipart/form-data">
+                    <img class="uploaded-image" src="" enctype="">
+                    <input type="file" name="file" class="add-image-input" enctype="">
+                    <input type="number" class="car-id-input" placeholder="id автомобиля для добавления к нему фотографии">
+                    <input type="text" class="car-model-name" placeholder="Введите название номера модели"> <!-- пояснялка про номера моделей (w204, gc8, ek2, b240) -->
+                    <button type="button" class="upload-image-button">Загрузить изображение</button>
+                </div>
             </div>
         </div>
     </main>

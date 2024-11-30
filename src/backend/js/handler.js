@@ -2,6 +2,7 @@ const singUpButton = document.querySelector('.sing-up-button');
 const singInButton = document.querySelector('.sing-in-button');
 const logOutButton = document.querySelector('.log-out-button');
 const addEngineButton = document.querySelector('.add-engine-button');
+const addCarButton = document.querySelector('.add-car-button');
 const showEnginesButton = document.querySelector('.show-engines-button');
 const uploadImageButton = document.querySelector('.upload-image-button');
 
@@ -187,6 +188,25 @@ if (showEnginesButton) {
         console.log(data);
     });
 };
+
+// добавление автомобиля (на странице администратора)
+if (addCarButton) {
+    addCarButton.addEventListener('click', async () => {
+        const concern = document.querySelector('concern-input');
+        const brand = document.querySelector('brand-input');
+        const model_name = document.querySelector('model-input');
+        const generation = document.querySelector('generation-input');
+        const model_number = document.querySelector('model-number-input');
+        const release_date = document.querySelector('release-date-input');
+        const end_release_date = document.querySelector('end-release-date-input');
+        const engine_id = document.querySelector('engine-id-input');
+        const gearbox = document.querySelector('gearbox-input');
+        const car_vehicle = document.querySelector('vehicle-input');
+        const body_type = document.querySelector('car-body-type-input');
+        const price = document.querySelector('price-input');
+    })
+
+}
 
 // загрузка фотографии
 if (uploadImageButton) {

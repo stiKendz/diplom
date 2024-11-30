@@ -91,7 +91,8 @@ main {
             }
         }
 
-        .engine-modal-window {
+        .engine-modal-window,
+        .car-modal-window {
             position: fixed;
             z-index: 9999;
             left: 50%;
@@ -120,7 +121,6 @@ main {
         }
 
         .add-car-container {
-
 
             .add-photo-container {
                 @include flexCenter;

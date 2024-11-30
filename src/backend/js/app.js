@@ -8,6 +8,7 @@ import http from 'http';
 import pool from './db.js';
 import multer from 'multer';
 import fileUpload from 'express-fileupload';
+import { error } from 'console';
 
 // код приложения
 // запуск сервера
@@ -225,6 +226,85 @@ app.get('/getengines', async (req, res) => {
     } catch (err) {
         console.log(`Ошибка вывода всех пользователей ${err.message}`);
         res.status(500).json({message: 'Ошибка вывода всех пользователей на стороне сервера'});
+    };
+});
+
+// добавление автомобиля
+app.post('/addcar', async (req, res) => {
+    const {
+        concern,
+        brand,
+        model_name,
+        generation,
+        model_number,
+        release_date,
+        end_release_date,
+        engine_id,
+        gearbox,
+        car_vehicle,
+        body_type,
+        price
+    } = req.body;
+
+    const carParams = {
+        concern,
+        brand,
+        model_name,
+        generation,
+        model_number,
+        release_date,
+        end_release_date,
+        engine_id,
+        gearbox,
+        car_vehicle,
+        body_type,
+        price
+    };
+
+    for (let key in carParams) {
+        if (!carParams[key]) {
+            return res.status(400).json({message: 'Все поля должны быть заполнены'})
+        };
+    };
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const exitingCar = await client.query(
+                'SELECT * FROM cars_table WHERE model_number = $1', [model_number]
+            )
+            if(exitingCar.rowCount > 0) {
+                return res.status(409).json({message: 'Автомобиль с таким названием модели уже присутствует в базе двнных'});
+            }
+
+            // проверка на ноль в таблице engine_table
+            const engineCount = await client.query(
+                'SELECT * FROM engine_table where engine_id = $1', [engine_id]
+            )
+            if(engineCount.rowCount < 1) {
+                res.status(400).json({message:'В базе данных нет ни одного двигателя'})
+            }
+
+            const response = await client.query(
+                'INSERT INTO cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, gearbox, car_vehicle, body_type, price) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING car_id, engine_id',
+                [concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, gearbox, car_vehicle, body_type, price]
+            )
+            const carId = response.rows[0].car_id;
+            const engineId = response.rows[0].engine_id;
+
+            res.status(201).json({
+                message: 'двигатель успешно добавлен',
+                carId: carId,
+                engineId: engineId
+            });
+        } catch(err) {
+            console.error(`Ошибка добавления автомобиля ${err.message}`);
+            res.status(500).json({message:'Ошибка добавления автомобиля из-за ошибки в запросе'});
+        }
+    } catch(err) {
+        console.error(`Ошибка добавления автомобиля ${err.message}`);
+        res.status(500).json({message:'Ошибка добавления автомобиля из-за ошибки на сервере'});
     };
 });
 
