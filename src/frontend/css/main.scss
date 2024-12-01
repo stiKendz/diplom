@@ -92,7 +92,8 @@ main {
         }
 
         .engine-modal-window,
-        .car-modal-window {
+        .car-modal-window,
+        .problem-modal-window {
             position: fixed;
             z-index: 9999;
             left: 50%;

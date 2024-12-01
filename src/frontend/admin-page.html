@@ -19,29 +19,39 @@
             <div class="warning-messages-container">
                 <p class="warning-message">Обратите внимание, что перед добавлением автомобиля, необходимо добавить двигатель от него, 
                     если таковой имеется, приступить к добавлению автомбиля.</p>
-                <p class="ps-message">Список всех двигателей и их id можно вывести по нажатию кнопки - "Просмотреть все двигатели"</p>
-                <p class="ps-message-cars">Список всех автомобилей и их id можно вывести по нажатию кнопки - "Просмотреть все автомобили"</p>
+                <p class="ps-message">Список всех двигателей и их данные можно вывести по нажатию кнопки - "Просмотреть все двигатели"</p>
+                <p class="ps-message-cars">Список всех автомобилей и их данные можно вывести по нажатию кнопки - "Просмотреть все автомобили"</p>
+                <p class="ps-message-problems">Список всех проблем и их данные можно вывести по нажатию кнопки - "Просмотреть все автомобили"</p>
             </div>
             <div class="cars-engines-buttons-container">
                 <button type="button" class="show-engines-button">Просмотреть все двигатели</button>
                 <button type="button" class="show-cars-button">Просмотреть все автомобили</button>
+                <button type="button" class="show-problems-button">Просмотреть все проблемы</button>
             </div>
-            <!-- модеальное окно для двигателей -->
+            <!-- модальное окно для двигателей -->
             <div class="engine-modal-window">
                 <div class="window-content">
                     <button type="button" class="engine-modal-close-button">Закрыть окно</button>
                     <pre class="engine-window-content">Вывод всех двигателей теперь будет здесь</pre>
                 </div>
             </div>
-            <!-- модеальное окно для двигателей -->
-            <!-- модеальное окно для автомобилей -->
+            <!-- модальное окно для двигателей -->
+            <!-- модальное окно для автомобилей -->
             <div class="car-modal-window">
                 <div class="window-content">
                     <button type="button" class="car-modal-close-button">Закрыть окно</button>
                     <pre class="car-window-content">Вывод всех автомобилей теперь будет здесь</pre>
                 </div>
             </div>
-            <!-- модеальное окно для автомобилей -->
+            <!-- модальное окно для автомобилей -->
+            <!-- модальное окно для проблем -->
+            <div class="problem-modal-window">
+                <div class="window-content">
+                    <button type="button" class="problem-modal-close-button">Закрыть окно</button>
+                    <pre class="problem-window-content">Вывод всех проблем теперь будет здесь</pre>
+                </div>
+            </div>
+            <!-- модальное окно для проблем -->
             <div class="engine-add-container">
                 <div class="engine-parameters-container">
                     <h2>Добавление двигателя</h2>
@@ -105,11 +115,11 @@
                     </div>
                     <div class="car-parameter release-date">
                         Дата запуска производства
-                        <input type="text" class="release-date-input" placeholder="Дата запуска производства автомобиля:">
+                        <input type="date" class="release-date-input" placeholder="Дата запуска производства автомобиля:">
                     </div>
                     <div class="car-parameter end-release-date">
                         Дата окончания производства
-                        <input type="text" class="end-release-date-input" placeholder="Дата окончания производства автомобиля:">
+                        <input type="date" class="end-release-date-input" placeholder="Дата окончания производства автомобиля:">
                     </div>
                     <div class="car-parameter engine-id">
                         ID двигателя
@@ -131,37 +141,47 @@
                         Цена автомобиля
                         <input type="text" class="price-input" placeholder="Цена автомобиля:">
                     </div>
+                    <button type="button" class="add-car-button">Добавить автомобиль</button>
                 </div>
                 <div class="car-description-container">
                     <h2 class="car-decsription">Описание автомобиля</h2>
+                    <input type="text" placeholder="Краткое описание автомобиля, его истории">
+                    <button type="button" class="add-description-button">Добавить автомобиль</button>
                 </div>
-                <button type="button" class="add-car-button">Добавить автомобиль</button>
             </div>
             <div class="add-problem-container">
                 <h2>Добавление проблемы автомобиля</h2>
                 <div class="add-problem-window">
                     <div class="problem-parameter name">
                         Название проблемы
-                        <input type="text" class="promlem-input">
+                        <input type="text" class="problem-name-input">
                     </div>
                     <div class="problem-parameter description">
                         Краткое описание проблемы
-                        <input type="text" class="description-input">
+                        <input type="text" class="problem-description-input">
                     </div>
                     <div class="problem-parameter difficult">
                         Сложность устранения (от 1 до 5)
-                        <input type="number" class="difficult-input">
+                        <input type="number" class="problem-difficult-input">
                     </div>
                     <div class="problem-parameter how-to-fixed">
                         Описание решения проблемы
-                        <input type="text" class="how-to-fixed-input">
+                        <input type="text" class="problem-how-to-fixed-input">
                     </div>
                     <div class="problem-parameter price">
                         Цена решения проблемы (тыс.руб)
-                        <input type="text" class="price-input">
+                        <input type="text" class="problem-price-input">
                     </div>
                 </div>
-                <button type="button" class="add=problem-button">Добавить автомобиль</button>
+                <button type="button" class="add-problem-button">Добавить проблему</button>
+            </div>
+            <div class="car-promlems-container">
+                <h1>Добавление проблемы автомобилю</h1>
+                <div class="car-problems-window">
+                    <input type="number" class="add-problem-to-car-carid-input" placeholder="Введите ID автомобиля">
+                    <input type="number" class="add-problem-to-car-problemid-input" placeholder="Введите ID проблемы">
+                    <button type="button" class="add-problem-to-car-button">Добавить проблему</button>
+                </div>
             </div>
             <div class="add-photo-container">
                 <div class="add-photo-window" enctype="multipart/form-data">

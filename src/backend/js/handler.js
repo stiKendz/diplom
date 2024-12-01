@@ -2,9 +2,12 @@ const singUpButton = document.querySelector('.sing-up-button');
 const singInButton = document.querySelector('.sing-in-button');
 const logOutButton = document.querySelector('.log-out-button');
 const addEngineButton = document.querySelector('.add-engine-button');
-const addCarButton = document.querySelector('.add-car-button');
 const showEnginesButton = document.querySelector('.show-engines-button');
+const addCarButton = document.querySelector('.add-car-button');
 const showCarsButton = document.querySelector('.show-cars-button');
+const addProblemButton = document.querySelector('.add-problem-button');
+const showProblemsButton = document.querySelector('.show-problems-button');
+const addProblemToCarButton = document.querySelector('.add-problem-to-car-button')
 const uploadImageButton = document.querySelector('.upload-image-button');
 
 // регистрация пользователя
@@ -225,6 +228,7 @@ if (addCarButton) {
     });
 };
 
+// просмотр всех автомобилей (на странице администратора)
 if (showCarsButton) {
     showCarsButton.addEventListener('click', async () => {
         const overlay = document.querySelector('.overlay');
@@ -255,6 +259,76 @@ if (showCarsButton) {
     });
 };
 
+// добавление проблемы (на странице администратора)
+if (addProblemButton) {
+    addProblemButton.addEventListener('click', async () => {
+        const problem_name = document.querySelector('.problem-name-input').value;
+        const problem_short_description = document.querySelector('.problem-description-input').value;
+        const difficult = document.querySelector('.problem-difficult-input').value;
+        const how_to_fixed = document.querySelector('.problem-how-to-fixed-input').value;
+        const price = document.querySelector('.problem-price-input').value;
+
+        const response = await fetch('http://localhost:3000/addproblem', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({problem_name, problem_short_description, difficult, how_to_fixed, price})
+        });
+        const data = await response.json();
+
+        console.log(data);
+    });
+};
+
+// просмотр всех проблем (на странице администратора)
+if (showProblemsButton) {
+    showProblemsButton.addEventListener('click', async () => {
+        const overlay = document.querySelector('.overlay');
+        const problemModalCloseButton = document.querySelector('.problem-modal-close-button');
+        const problemModalWindow = document.querySelector('.problem-modal-window');
+        const problemWindowContent = document.querySelector('.problem-window-content');
+
+        const response = await fetch('http://localhost:3000/getproblems', {
+            method: 'GET'
+        });
+        const data = await response.json();
+
+        if (data) {
+            overlay ? overlay.classList.add('show') : null;
+            problemModalWindow ? problemModalWindow.style.display = 'block' : null;
+            problemWindowContent.innerHTML = JSON.stringify(data, null, 2);  
+        } else {
+            overlay ? overlay.classList.remove('show') : null;
+        }
+
+        problemModalCloseButton.addEventListener('click', () => {
+            overlay ? overlay.classList.remove('show') : null;
+            problemModalWindow ? problemModalWindow.style.display = 'none' : null;
+        });
+
+        console.log(data);
+    });
+};
+
+// добавление проблемы автомобилю
+if (addProblemToCarButton) {
+    addProblemToCarButton.addEventListener('click', async () => {
+        const car_id = document.querySelector('.add-problem-to-car-carid-input').value;
+        const problem_id = document.querySelector('.add-problem-to-car-problemid-input').value;
+
+        const response = await fetch('http://localhost:3000/addproblemtocar', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({car_id, problem_id})
+        });
+        const data = await response.json();
+
+        console.log(data);
+    });
+};
 // загрузка фотографии
 if (uploadImageButton) {
     uploadImageButton.addEventListener('click', async () => {

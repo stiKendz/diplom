@@ -335,7 +335,136 @@ app.get('/getcars', async (req, res) => {
 });
 
 // добавление проблемы (на странице администратора)
+app.post('/addproblem', async (req, res) => {
+    const {
+        problem_name,
+        problem_short_description,
+        difficult,
+        how_to_fixed,
+        price
+    } = req.body;
 
+    const problemParts = {
+        problem_name,
+        problem_short_description,
+        difficult,
+        how_to_fixed,
+        price
+    };
+
+    for(let key in problemParts) {
+        if(!problemParts[key]) {
+            return res.status(204).json({message: 'Все поля должны быть заполнены'});
+        };
+    };
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const exitingProblem = await client.query(
+                'SELECT * FROM problems_table WHERE problem_name = $1',
+                [problem_name]
+            )
+            if (exitingProblem.rowCount > 0) {
+                return res.status(409).json({message: 'В базе данных уже имеется проблема с таким названием'});
+            };
+
+            const result = await client.query(
+                'INSERT INTO problems_table (problem_name, problem_short_description, difficult, how_to_fixed, price) VALUES ($1, $2, $3, $4, $5) RETURNING problem_id, problem_name',
+                [problem_name, problem_short_description, difficult, how_to_fixed, price]
+            );
+            const problemId = result.rows[0].problem_id;
+            const problemName = result.rows[0].problem_name;
+
+            res.status(201).json({
+                message: 'Проблема успешно добавлена',
+                problemId: problemId,
+                problemName: problemName,
+            });
+        } catch(err) {
+            console.error(`Произошла ошибка при добавлении проблемы: ${err.message}`);
+            res.status(500).json({message: 'Произошла ошибка при добавлении проблемы из-за ошибки в запросе'});
+        }
+    } catch(err) {
+        console.error(`Произошла ошибка при добавлении проблемы: ${err.message}`);
+        res.status(500).json({message: 'Произошла ошибка при добавлении проблемы из-за ошибки на сервере'});
+    };
+});
+
+// вывод всех проблем (на странице администратора)
+app.get('/getproblems', async (req, res) => {
+    try {
+        const client = await pool.connect();
+
+        try {
+            const response = await client.query(
+                'SELECT * FROM problems_table'
+            )
+
+            const result = response.rows;
+            
+            res.status(201).json({
+                message: 'Все автомобили',
+                allProblems: result
+            });
+        } catch(err) {
+            console.error(`Ошибка при выводе всех проблем из-за ошибки в запросе: ${err.message}`);
+            res.status(500).json({message: 'Ошибка при выводе всех проблем из-за ошибки в запросе'});
+        }
+    } catch(err) {
+        console.error(`Ошибка при выводе всех проблем из-за ошибки на сервере: ${err.message}`);
+        res.status(500).json({message: 'Ошибка при выводе всех проблем из-за ошибки на сервере'});
+    };
+});
+
+// добавление проблемы автомобилю
+app.post('/addproblemtocar', async (req, res) => {
+    const {car_id, problem_id} = req.body;
+
+    if (!car_id || !problem_id) {
+        res.status(204).json({message: 'Все поля должны быть заполнены'})
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const carRequire = await client.query(
+                'SELECT * FROM cars_table where car_id = $1', [car_id]
+            )
+            if (carRequire.rowCount < 1) {
+                res.status(409).json({message: `В базе данных не существует двигателя с таким id: ${car_id}`});
+            }
+
+            const problemRequire = await client.query(
+                'SELECT * FROM problems_table where problem_id = $1', [problem_id]
+            )
+            if (problemRequire.rowCount < 1) {
+                res.status(409).json({message: `В базе данных не существует проблемы с таким id: ${problem_id}`});
+            }
+
+            const result = await client.query(
+                'INSERT INTO car_problems_table (car_id, problem_id) VALUES ($1, $2) RETURNING car_id, problem_id',
+                [car_id, problem_id]
+            )
+            const carId = result.rows[0].car_id;
+            const problemId = result.rows[0].problem_id;
+
+            res.status(201).json({
+                message: 'Проблемы и автомобили',
+                carId: carId,
+                problemId: problemId
+            });
+        } catch(err) {
+            console.error(`Ошибка при добавлении проблемы автомобилю из-за ошибки в запросе: ${err.message}`);
+            res.status(500).json({message: 'Ошибка при добавлении проблемы автомобилю из-за ошибки в запросе'});
+        };
+    } catch(err) {
+        console.error(`Ошибка при добавлении проблемы автомобилю из-за ошибки на сервере: ${err.message}`);
+        res.status(500).json({message: 'Ошибка при добавлении проблемы автомобилю из-за ошибки на сервере'});
+    };
+});
 
 // загрузка фотографии
 const storage = multer.memoryStorage();

@@ -62,7 +62,8 @@ main .main-container .all-engines-cars-container .all-engines-container .all-eng
   height: 100%;
 }
 main .main-container .engine-modal-window,
-main .main-container .car-modal-window {
+main .main-container .car-modal-window,
+main .main-container .problem-modal-window {
   position: fixed;
   z-index: 9999;
   left: 50%;
@@ -79,7 +80,8 @@ main .main-container .car-modal-window {
   overflow-y: scroll;
 }
 main .main-container .engine-modal-window .window-content,
-main .main-container .car-modal-window .window-content {
+main .main-container .car-modal-window .window-content,
+main .main-container .problem-modal-window .window-content {
   display: flex;
   align-items: center;
   flex-direction: column;
