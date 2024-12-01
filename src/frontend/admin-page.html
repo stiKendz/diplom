@@ -26,16 +26,6 @@
                 <button type="button" class="show-engines-button">Просмотреть все двигатели</button>
                 <button type="button" class="show-cars-button">Просмотреть все автомобили</button>
             </div>
-            <!-- модалки заменят это -->
-            <div class="all-engines-cars-container">
-                <div class="all-engines-container">
-                    <pre class="all-engines-window">Вывод всех двигателей</pre>
-                </div>
-                <div class="all-cars-container">
-                    <div class="all-cars-window">Вывод всех машин</div>
-                </div>
-            </div>
-             <!-- модалки заменят это -->
             <!-- модеальное окно для двигателей -->
             <div class="engine-modal-window">
                 <div class="window-content">
@@ -43,13 +33,15 @@
                     <pre class="engine-window-content">Вывод всех двигателей теперь будет здесь</pre>
                 </div>
             </div>
+            <!-- модеальное окно для двигателей -->
+            <!-- модеальное окно для автомобилей -->
             <div class="car-modal-window">
                 <div class="window-content">
                     <button type="button" class="car-modal-close-button">Закрыть окно</button>
-                    <pre class="car-window-content">Вывод всех двигателей теперь будет здесь</pre>
+                    <pre class="car-window-content">Вывод всех автомобилей теперь будет здесь</pre>
                 </div>
             </div>
-            <!-- модеальное окно для двигателей -->
+            <!-- модеальное окно для автомобилей -->
             <div class="engine-add-container">
                 <div class="engine-parameters-container">
                     <h2>Добавление двигателя</h2>
@@ -129,11 +121,11 @@
                     </div>
                     <div class="car-parameter car-vehicle">
                         Привод автомбиля
-                        <input type="text" class="car-vehicle-input" placeholder="Привод автомобиля:">
+                        <input type="text" class="vehicle-input" placeholder="Привод автомобиля:">
                     </div>
                     <div class="car-parameter car-body-type">
                         Кузов автомбиля
-                        <input type="text" class="car-body-type-input" placeholder="Кузов автомобиля:">
+                        <input type="text" class="body-type-input" placeholder="Кузов автомобиля:">
                     </div>
                     <div class="car-parameter price">
                         Цена автомобиля
@@ -141,7 +133,7 @@
                     </div>
                 </div>
                 <div class="car-description-container">
-                    <p class="car-decsription">Описание автомобиля</p>
+                    <h2 class="car-decsription">Описание автомобиля</h2>
                 </div>
                 <button type="button" class="add-car-button">Добавить автомобиль</button>
             </div>

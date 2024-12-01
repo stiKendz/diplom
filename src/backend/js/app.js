@@ -259,7 +259,7 @@ app.post('/addcar', async (req, res) => {
         car_vehicle,
         body_type,
         price
-    };
+    }
 
     for (let key in carParams) {
         if (!carParams[key]) {
@@ -283,7 +283,7 @@ app.post('/addcar', async (req, res) => {
                 'SELECT * FROM engine_table where engine_id = $1', [engine_id]
             )
             if(engineCount.rowCount < 1) {
-                res.status(400).json({message:'В базе данных нет ни одного двигателя'})
+                res.status(400).json({message:`В базе данных нет двигателя с таким id: ${engine_id}`})
             }
 
             const response = await client.query(
@@ -294,7 +294,7 @@ app.post('/addcar', async (req, res) => {
             const engineId = response.rows[0].engine_id;
 
             res.status(201).json({
-                message: 'двигатель успешно добавлен',
+                message: 'Автомбиль успешно добавлен',
                 carId: carId,
                 engineId: engineId
             });
@@ -307,6 +307,34 @@ app.post('/addcar', async (req, res) => {
         res.status(500).json({message:'Ошибка добавления автомобиля из-за ошибки на сервере'});
     };
 });
+
+// вывод всех автомобилей (на странице администратора)
+app.get('/getcars', async (req, res) => {
+    try {
+        const client = await pool.connect();
+
+        try {
+            const response = await client.query(
+                'SELECT * FROM cars_table',
+            )
+
+            const result = response.rows;
+
+            res.status(201).json({
+                message: 'Все автомобили',
+                allCars: result
+            });
+        } catch (err) {
+            console.error(`Ошибка вывода автомобилей из-за ошибки в запросе : ${err.message}`);
+            res.status(400).json({message: 'Ошибка вывода всех автомобилей из-за ошибки в запросе'});
+        }
+    } catch (err) {
+        console.error(`Ошибка вывода автомобилей :${err.message}`);
+        res.status(500).json({message: 'Ошибка вывода всех автомобилей из-за ошибки на сервере'});
+    };
+});
+
+// добавление проблемы (на странице администратора)
 
 
 // загрузка фотографии

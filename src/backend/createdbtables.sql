@@ -34,7 +34,7 @@ create table cars_table (
 
 create table problems_table (
 	problem_id serial primary key, -- связь car_problems_table problem_id
-	problem_name varchar(128) not null, -- ржавые_арки
+	problem_name varchar(128) unique not null, -- ржавые_арки
 	problem_short_description text null,
 	difficult int not null, -- 1
 	how_to_fixed text not null, -- автосервис

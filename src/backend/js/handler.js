@@ -4,6 +4,7 @@ const logOutButton = document.querySelector('.log-out-button');
 const addEngineButton = document.querySelector('.add-engine-button');
 const addCarButton = document.querySelector('.add-car-button');
 const showEnginesButton = document.querySelector('.show-engines-button');
+const showCarsButton = document.querySelector('.show-cars-button');
 const uploadImageButton = document.querySelector('.upload-image-button');
 
 // регистрация пользователя
@@ -178,6 +179,7 @@ if (showEnginesButton) {
             engineWindowContent.innerHTML = JSON.stringify(data, null, 2);
         } else {
             engineModalWindow ? engineModalWindow.style.display = 'none' : null;
+            overlay ? overlay.classList.remove('show') : null; // добавляет display: block;
         }
 
         engineModalCloseButton.addEventListener('click', () => {
@@ -192,21 +194,66 @@ if (showEnginesButton) {
 // добавление автомобиля (на странице администратора)
 if (addCarButton) {
     addCarButton.addEventListener('click', async () => {
-        const concern = document.querySelector('concern-input');
-        const brand = document.querySelector('brand-input');
-        const model_name = document.querySelector('model-input');
-        const generation = document.querySelector('generation-input');
-        const model_number = document.querySelector('model-number-input');
-        const release_date = document.querySelector('release-date-input');
-        const end_release_date = document.querySelector('end-release-date-input');
-        const engine_id = document.querySelector('engine-id-input');
-        const gearbox = document.querySelector('gearbox-input');
-        const car_vehicle = document.querySelector('vehicle-input');
-        const body_type = document.querySelector('car-body-type-input');
-        const price = document.querySelector('price-input');
-    })
+        const concern = document.querySelector('.concern-input').value;
+        const brand = document.querySelector('.brand-input').value;
+        const model_name = document.querySelector('.model-input').value;
+        const generation = document.querySelector('.generation-input').value;
+        const model_number = document.querySelector('.model-number-input').value;
+        const release_date = document.querySelector('.release-date-input').value;
+        const end_release_date = document.querySelector('.end-release-date-input').value;
+        const engine_id = document.querySelector('.engine-id-input').value;
+        const gearbox = document.querySelector('.gearbox-input').value;
+        const car_vehicle = document.querySelector('.vehicle-input').value;
+        const body_type = document.querySelector('.body-type-input').value;
+        const price = document.querySelector('.price-input').value;
 
-}
+        const response = await fetch('http://localhost:3000/addcar', {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, gearbox, car_vehicle, body_type, price})
+        });
+
+        const data = await response.json();
+
+        if (!data.engine_id) {
+            alert(`В базе данных нет двигателя с таким id: ${data.engine_id}`)
+        } else {
+            console.log(data);
+        };
+    });
+};
+
+if (showCarsButton) {
+    showCarsButton.addEventListener('click', async () => {
+        const overlay = document.querySelector('.overlay');
+        const carModalCloseButton = document.querySelector('.car-modal-close-button');
+        const carModalWindow = document.querySelector('.car-modal-window');
+        const carWindowContent = document.querySelector('.car-window-content');
+
+        const response = await fetch('http://localhost:3000/getcars', {
+            method: 'GET'
+        });
+
+        const data = await response.json();
+
+        if (data) {
+            overlay ? overlay.classList.add('show') : null; // добавляет display: block
+            carModalWindow ? carModalWindow.style.display = 'block' : null;
+            carWindowContent.innerHTML = JSON.stringify(data, null, 2);
+        } else {
+            overlay ? overlay.classList.remove('show') : null; // убирает display: block
+        };
+
+        carModalCloseButton.addEventListener('click', () => {
+            carModalWindow ? carModalWindow.style.display = 'none' : null;
+            overlay ? overlay.classList.remove('show') : null; // добавляет display: block;
+        });
+
+        console.log(data);
+    });
+};
 
 // загрузка фотографии
 if (uploadImageButton) {
