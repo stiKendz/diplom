@@ -283,7 +283,7 @@ app.post('/addcar', async (req, res) => {
                 'SELECT * FROM engine_table where engine_id = $1', [engine_id]
             )
             if(engineCount.rowCount < 1) {
-                res.status(400).json({message:`В базе данных нет двигателя с таким id: ${engine_id}`})
+                return res.status(400).json({message:`В базе данных нет двигателя с таким id: ${engine_id}`})
             }
 
             const response = await client.query(
@@ -354,7 +354,7 @@ app.post('/addproblem', async (req, res) => {
 
     for(let key in problemParts) {
         if(!problemParts[key]) {
-            return res.status(204).json({message: 'Все поля должны быть заполнены'});
+            return res.status(400).json({message: 'Все поля должны быть заполнены'});
         };
     };
 
@@ -423,7 +423,7 @@ app.post('/addproblemtocar', async (req, res) => {
     const {car_id, problem_id} = req.body;
 
     if (!car_id || !problem_id) {
-        res.status(204).json({message: 'Все поля должны быть заполнены'})
+        return res.status(400).json({message: 'Все поля должны быть заполнены'})
     }
 
     try {
@@ -431,17 +431,17 @@ app.post('/addproblemtocar', async (req, res) => {
 
         try {
             const carRequire = await client.query(
-                'SELECT * FROM cars_table where car_id = $1', [car_id]
+                'SELECT * FROM cars_table WHERE car_id = $1', [car_id]
             )
             if (carRequire.rowCount < 1) {
-                res.status(409).json({message: `В базе данных не существует двигателя с таким id: ${car_id}`});
+                return res.status(409).json({message: `В базе данных не существует автомобиля с таким id: ${car_id}`});
             }
 
             const problemRequire = await client.query(
                 'SELECT * FROM problems_table where problem_id = $1', [problem_id]
             )
             if (problemRequire.rowCount < 1) {
-                res.status(409).json({message: `В базе данных не существует проблемы с таким id: ${problem_id}`});
+                return res.status(409).json({message: `В базе данных не существует проблемы с таким id: ${problem_id}`});
             }
 
             // проверка на совпадения составного первичного ключа
@@ -450,7 +450,7 @@ app.post('/addproblemtocar', async (req, res) => {
                 [car_id, problem_id]
             )
             if (primaryKeyRequire.rowCount > 0) {
-                res.status(409).json({message: `Проблема с id - ${problem_id} уже добавлена автомобилю с id - ${car_id}`})
+                return res.status(409).json({message: `Проблема с id - ${problem_id} уже добавлена автомобилю с id - ${car_id}`})
             }
 
             const result = await client.query(
@@ -485,7 +485,8 @@ app.get('/getcarproblems', async (req, res) => {
                 `SELECT ct.car_id, ct.model_name, pt.problem_id, pt.problem_name 
                 FROM cars_table AS ct 
                 INNER JOIN car_problems_table AS cpt ON ct.car_id = cpt.car_id
-                INNER JOIN problems_table AS pt ON cpt.car_id = pt.problem_id;
+                INNER JOIN problems_table AS pt ON cpt.car_id = pt.problem_id
+                ORDER BY ct.car_id;
                 `
             )
             const result = response.rows;
@@ -502,6 +503,55 @@ app.get('/getcarproblems', async (req, res) => {
         console.error(`Возникла проблема на сервере при вызове просмотра всех проблем у автомобилей: ${err.message}`)
         res.status(500).json({message: 'Возникла проблема на сервере при вызове просмотра всех проблем у автомобилей'})
     };
+});
+
+// добавление описания автомобиля (на странице администратора)
+app.post('/addcardescription', async (req, res) => {
+    const {description, car_id} = req.body
+
+    if (!description || !car_id) {
+        res.status(400).json({message: 'Все поля должны быть заполнены'});
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const carReuqire = await client.query(
+                'SELECT * FROM cars_table WHERE car_id = $1',
+                [car_id]
+            )
+            if (carReuqire.rowCount < 1) {
+                return res.status(400).json({message: `В базе данных нет автомобиля с таким id: ${car_id}`});
+            }
+
+            const descriptionRequire = await client.query(
+                'SELECT * FROM car_short_description_table WHERE car_id = $1',
+                [car_id]
+            )
+            if (descriptionRequire.rowCount > 0) {
+                return res.status(400).json({message: `В базе данных уже есть краткое описание автомобиля с id: ${car_id}`});
+            }
+
+            const response = await client.query(
+                'INSERT INTO car_short_description_table (description, car_id) VALUES ($1, $2) RETURNING description, car_id', [description, car_id]
+            )
+            const carDescription = response.rows[0].description;
+            const carId = response.rows[0].car_id;
+            
+            res.status(200).json({
+                message: 'Описание успешно добавлено',
+                carDescription: carDescription,
+                carId: carId
+            });
+        } catch(err) {
+            console.error(`Не удалось добавить описание автомобилю из-за ошибки в запросе: ${err.message}`);
+            res.status(500).json({message: 'Не удалось добавить описание автомобилю из-за ошибки в запросе'});
+        }
+    } catch(err) {
+        console.error(`Не удалось добавить описание автомобилю из-за ошибки на сервере: ${err.message}`);
+        res.status(500).json({message: 'Не удалось добавить описание автомобилю из-за ошибки на сервере'});
+    }
 });
 
 // загрузка фотографии

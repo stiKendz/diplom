@@ -9,6 +9,7 @@ const addProblemButton = document.querySelector('.add-problem-button');
 const showProblemsButton = document.querySelector('.show-problems-button');
 const addProblemToCarButton = document.querySelector('.add-problem-to-car-button');
 const showCarProblemsButton = document.querySelector('.show-car-problems-button');
+const carDescriptionButton = document.querySelector('.add-description-button');
 const uploadImageButton = document.querySelector('.upload-image-button');
 
 
@@ -222,11 +223,7 @@ if (addCarButton) {
 
         const data = await response.json();
 
-        if (!data.engine_id) {
-            alert(`В базе данных нет двигателя с таким id: ${data.engine_id}`)
-        } else {
-            console.log(data);
-        };
+        console.log(data);
     });
 };
 
@@ -357,6 +354,29 @@ if (showCarProblemsButton) {
             overlay ? overlay.classList.remove('show') : null;
             carProblemModalWindow ? carProblemModalWindow.style.display = 'none' : null;
         });
+
+        console.log(data);
+    });
+};
+
+// добавление описания автомобиля (на странице администратора)
+if (carDescriptionButton) {
+    carDescriptionButton.addEventListener('click', async () => {
+        const description = document.querySelector('.car-desription-input').value;
+        const car_id = document.querySelector('.car-description-id-input').value;
+
+        if (!description || !car_id) {
+            alert('ВСе поля должны быть заполены');
+        }
+
+        const response = await fetch('http://localhost:3000/addcardescription', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({description, car_id})
+        });
+        const data = await response.json();
 
         console.log(data);
     });

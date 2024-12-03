@@ -1,10 +1,14 @@
 * {
     margin: 0;
     padding: 0;
+    color: white;
 }
 
-$mainColor: #ccccff;
-$afterColor: #c0d6e4;
+$mainColor: #272727;
+$afterColor: #747474;
+$buttonDefColor: #ff652f;
+$inputFontColor: black;
+$containerColor: #14a76c;
 
 @mixin flexCenter {
     display: flex;
@@ -29,9 +33,23 @@ $afterColor: #c0d6e4;
     min-width: 200px;
     padding: 10px 0px;
 
+    font-size: 18px;
+
+    background-color: $buttonDefColor;
+
     outline: none;
     user-select: none;
     cursor: pointer;
+}
+
+@mixin baseInput {
+    @include flexCenter;
+    justify-content: start;
+    min-width: 250px;
+
+    font-size: 18px;
+
+    color: black;
 }
 
 body {
@@ -40,6 +58,22 @@ body {
 
 button {
     @include baseButton;
+    min-width: 260px;
+    
+    border: 0;
+    border-radius: 20px;
+}
+
+input {
+    @include baseInput;
+    min-width: 260px;
+    padding-left: 10px;
+
+    &::placeholder {
+        font-size: 16px;
+
+        color: $inputFontColor;
+    }
 }
 
 header {
@@ -49,7 +83,7 @@ header {
     height: 100px;
     width: 100%;
 
-    background-color: $mainColor;
+    background-color: $afterColor;
 }
 
 main {
@@ -57,8 +91,54 @@ main {
     flex-direction: column;
     width: 100%;
 
-    background-color: $afterColor;
+    background-color: $mainColor;
+    // sing-up.html
+    .main-container-singup {
+        @include flexCenter;
+        height: 100%;
+        padding: 20px 30px;
 
+        .sing-up-window-container {
+            min-width: 260px;
+
+            border: 5px solid black;
+            border-radius: 20px;
+            background-color: $afterColor;
+
+            .sing-up-window {
+                @include flexCenter;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px 0px;
+
+                padding: 20px;
+            }
+        }
+    }
+    // sing-in.html
+    .main-container-singin {
+        @include flexCenter;
+        height: 100%;
+        padding: 20px 30px;
+
+        .sing-in-window-container {
+            min-width: 260px;
+
+            border: 5px solid black;
+            border-radius: 20px;
+            background-color: $afterColor;
+
+            .sing-in-window {
+                @include flexCenter;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px 0px;
+
+                padding: 20px;
+            }
+        }
+    }
+    // admin-page.html
     .overlay {
         position: fixed;
         z-index: 9998;
@@ -75,9 +155,10 @@ main {
             display: block;
         }
     }
-    
+    // admin-page.html
     .main-container {
         padding: 10px 20px;
+        height: 100%;
 
         .all-engines-cars-container {
             height: 100px;
@@ -142,5 +223,5 @@ footer {
     height: 100px;
     width: 100%;
 
-    background-color: $mainColor;
+    background-color: $afterColor;
 }

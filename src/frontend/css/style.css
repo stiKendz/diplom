@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  color: white;
 }
 
 body {
@@ -15,9 +16,30 @@ button {
   justify-content: center;
   min-width: 200px;
   padding: 10px 0px;
+  font-size: 18px;
+  background-color: #ff652f;
   outline: none;
   user-select: none;
   cursor: pointer;
+  min-width: 260px;
+  border: 0;
+  border-radius: 20px;
+}
+
+input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: start;
+  min-width: 250px;
+  font-size: 18px;
+  color: black;
+  min-width: 260px;
+  padding-left: 10px;
+}
+input::placeholder {
+  font-size: 16px;
+  color: black;
 }
 
 header {
@@ -27,14 +49,58 @@ header {
   justify-content: center;
   height: 100px;
   width: 100%;
-  background-color: #ccccff;
+  background-color: #747474;
 }
 
 main {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: #c0d6e4;
+  background-color: #272727;
+}
+main .main-container-singup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px 30px;
+}
+main .main-container-singup .sing-up-window-container {
+  min-width: 260px;
+  border: 5px solid black;
+  border-radius: 20px;
+  background-color: #747474;
+}
+main .main-container-singup .sing-up-window-container .sing-up-window {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px 0px;
+  padding: 20px;
+}
+main .main-container-singin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px 30px;
+}
+main .main-container-singin .sing-in-window-container {
+  min-width: 260px;
+  border: 5px solid black;
+  border-radius: 20px;
+  background-color: #747474;
+}
+main .main-container-singin .sing-in-window-container .sing-in-window {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px 0px;
+  padding: 20px;
 }
 main .overlay {
   position: fixed;
@@ -51,6 +117,7 @@ main .overlay.show {
 }
 main .main-container {
   padding: 10px 20px;
+  height: 100%;
 }
 main .main-container .all-engines-cars-container {
   height: 100px;
@@ -74,7 +141,7 @@ main .main-container .car-problem-modal-window {
   min-width: 350px;
   border: 0;
   border-radius: 10px;
-  background-color: #ccccff;
+  background-color: #272727;
   box-shadow: 0px 2px 5px 5px black;
   transform: translate(-50%, -50%);
   overflow-x: hidden;
@@ -95,7 +162,7 @@ main .main-container .add-car-container .add-photo-container {
   align-items: center;
   justify-content: center;
   height: 100px;
-  background-color: #ccccff;
+  background-color: #272727;
   outline: 2px dashed #5d5d5d;
 }
 
@@ -105,7 +172,7 @@ footer {
   justify-content: center;
   height: 100px;
   width: 100%;
-  background-color: #ccccff;
+  background-color: #747474;
 }
 
 /*# sourceMappingURL=style.css.map */
