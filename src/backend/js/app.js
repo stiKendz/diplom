@@ -418,7 +418,7 @@ app.get('/getproblems', async (req, res) => {
     };
 });
 
-// добавление проблемы автомобилю
+// добавление проблемы автомобилю (на странице администратора)
 app.post('/addproblemtocar', async (req, res) => {
     const {car_id, problem_id} = req.body;
 
@@ -444,6 +444,15 @@ app.post('/addproblemtocar', async (req, res) => {
                 res.status(409).json({message: `В базе данных не существует проблемы с таким id: ${problem_id}`});
             }
 
+            // проверка на совпадения составного первичного ключа
+            const primaryKeyRequire = await client.query(
+                'SELECT * FROM car_problems_table WHERE car_id = $1 AND problem_id = $2',
+                [car_id, problem_id]
+            )
+            if (primaryKeyRequire.rowCount > 0) {
+                res.status(409).json({message: `Проблема с id - ${problem_id} уже добавлена автомобилю с id - ${car_id}`})
+            }
+
             const result = await client.query(
                 'INSERT INTO car_problems_table (car_id, problem_id) VALUES ($1, $2) RETURNING car_id, problem_id',
                 [car_id, problem_id]
@@ -463,6 +472,35 @@ app.post('/addproblemtocar', async (req, res) => {
     } catch(err) {
         console.error(`Ошибка при добавлении проблемы автомобилю из-за ошибки на сервере: ${err.message}`);
         res.status(500).json({message: 'Ошибка при добавлении проблемы автомобилю из-за ошибки на сервере'});
+    };
+});
+
+// просмотр всех проблем у автомобилей (на странице администратора)
+app.get('/getcarproblems', async (req, res) => {
+    try {
+        const clien = await pool.connect();
+
+        try {
+            const response = await clien.query(
+                `SELECT ct.car_id, ct.model_name, pt.problem_id, pt.problem_name 
+                FROM cars_table AS ct 
+                INNER JOIN car_problems_table AS cpt ON ct.car_id = cpt.car_id
+                INNER JOIN problems_table AS pt ON cpt.car_id = pt.problem_id;
+                `
+            )
+            const result = response.rows;
+
+            res.status(201).json({
+                message: 'Автомобили и их проблемы',
+                result: result
+            });
+        } catch(err) {
+            console.error(`Возникла проблема в запросе при вызове просмотра всех проблем у автомобилей: ${err.message}`)
+            res.status(500).json({message: 'Возникла проблема в запросе при вызове просмотра всех проблем у автомобилей'})
+        }
+    } catch(err) {
+        console.error(`Возникла проблема на сервере при вызове просмотра всех проблем у автомобилей: ${err.message}`)
+        res.status(500).json({message: 'Возникла проблема на сервере при вызове просмотра всех проблем у автомобилей'})
     };
 });
 

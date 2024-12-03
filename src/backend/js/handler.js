@@ -7,8 +7,10 @@ const addCarButton = document.querySelector('.add-car-button');
 const showCarsButton = document.querySelector('.show-cars-button');
 const addProblemButton = document.querySelector('.add-problem-button');
 const showProblemsButton = document.querySelector('.show-problems-button');
-const addProblemToCarButton = document.querySelector('.add-problem-to-car-button')
+const addProblemToCarButton = document.querySelector('.add-problem-to-car-button');
+const showCarProblemsButton = document.querySelector('.show-car-problems-button');
 const uploadImageButton = document.querySelector('.upload-image-button');
+
 
 // регистрация пользователя
 if (singUpButton) {
@@ -311,7 +313,7 @@ if (showProblemsButton) {
     });
 };
 
-// добавление проблемы автомобилю
+// добавление проблемы автомобилю (на странице администратора)
 if (addProblemToCarButton) {
     addProblemToCarButton.addEventListener('click', async () => {
         const car_id = document.querySelector('.add-problem-to-car-carid-input').value;
@@ -329,6 +331,37 @@ if (addProblemToCarButton) {
         console.log(data);
     });
 };
+
+// просмотр всех проблем у автомобилей (на странице администратора)
+if (showCarProblemsButton) {
+    showCarProblemsButton.addEventListener('click', async () => {
+        const overlay = document.querySelector('.overlay');
+        const carProblemModalWindow = document.querySelector('.car-problem-modal-window');
+        const carPromlemWindowContent = document.querySelector('.car-problem-window-content');
+        const carProblemWindowCloseButon = document.querySelector('.car-problem-modal-close-button');
+
+        const response = await fetch('http://localhost:3000/getcarproblems', {
+            method: 'GET'
+        });
+        const data = await response.json();
+
+        if (data) {
+            overlay ? overlay.classList.add('show') : null;
+            carProblemModalWindow ? carProblemModalWindow.style.display = 'block' : null;
+            carPromlemWindowContent.innerHTML = JSON.stringify(data, null, 2);
+        } else {
+            carProblemModalWindow ? carProblemModalWindow.style.display = 'none' : null;
+        }
+
+        carProblemWindowCloseButon.addEventListener('click', () => {
+            overlay ? overlay.classList.remove('show') : null;
+            carProblemModalWindow ? carProblemModalWindow.style.display = 'none' : null;
+        });
+
+        console.log(data);
+    });
+};
+
 // загрузка фотографии
 if (uploadImageButton) {
     uploadImageButton.addEventListener('click', async () => {
