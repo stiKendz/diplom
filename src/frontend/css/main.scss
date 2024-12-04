@@ -50,6 +50,8 @@ $containerColor: #14a76c;
     font-size: 18px;
 
     color: black;
+
+    outline: none;
 }
 
 body {
@@ -61,7 +63,6 @@ button {
     min-width: 260px;
     
     border: 0;
-    border-radius: 20px;
 }
 
 input {
@@ -87,54 +88,59 @@ header {
 }
 
 main {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // width: 100%;
+    display: grid;
+    place-items: start center;
 
     background-color: $mainColor;
     // sing-up.html
     .main-container-singup {
-        @include flexCenter;
-        height: 100%;
-        padding: 20px 30px;
+        display: grid;
+        grid-template-columns: 350px;
+        grid-template-rows: 300px;
+        place-items: start center;
 
+        margin-top: 10px;
         .sing-up-window-container {
-            min-width: 260px;
+            width: auto;
 
-            border: 5px solid black;
-            border-radius: 20px;
             background-color: $afterColor;
-
+            box-shadow: 0px 4px 5px 5px black;
             .sing-up-window {
-                @include flexCenter;
-                flex-direction: column;
-                align-items: center;
+                display: grid;
+
+                grid-template-columns: auto;
+                grid-template-rows: repeat(5, 50px);
                 gap: 10px 0px;
 
-                padding: 20px;
+                padding: 10px;
             }
         }
     }
     // sing-in.html
     .main-container-singin {
-        @include flexCenter;
-        height: 100%;
-        padding: 20px 30px;
-
+        display: grid;
+        grid-template-columns: 350px;
+        grid-template-rows: repeat(2, 200px);
+        place-items: end center;
         .sing-in-window-container {
-            min-width: 260px;
+            width: auto;
 
-            border: 5px solid black;
-            border-radius: 20px;
             background-color: $afterColor;
+            box-shadow: 0px 4px 5px 5px black;
 
+            border-radius: 20px;
             .sing-in-window {
-                @include flexCenter;
-                flex-direction: column;
-                align-items: center;
-                gap: 10px 0px;
+                display: grid;
 
-                padding: 20px;
+                grid-template-columns: auto;
+                grid-template-rows: repeat(3, 50px);
+                gap: 5px 0px;
+
+                padding: 15px;
             }
         }
     }

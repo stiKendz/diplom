@@ -23,7 +23,6 @@ button {
   cursor: pointer;
   min-width: 260px;
   border: 0;
-  border-radius: 20px;
 }
 
 input {
@@ -34,6 +33,7 @@ input {
   min-width: 250px;
   font-size: 18px;
   color: black;
+  outline: none;
   min-width: 260px;
   padding-left: 10px;
 }
@@ -53,54 +53,47 @@ header {
 }
 
 main {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  display: grid;
+  place-items: start center;
   background-color: #272727;
 }
 main .main-container-singup {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 20px 30px;
+  display: grid;
+  grid-template-columns: 350px;
+  grid-template-rows: 300px;
+  place-items: start center;
+  margin-top: 10px;
 }
 main .main-container-singup .sing-up-window-container {
-  min-width: 260px;
-  border: 5px solid black;
-  border-radius: 20px;
+  width: auto;
   background-color: #747474;
+  box-shadow: 0px 4px 5px 5px black;
 }
 main .main-container-singup .sing-up-window-container .sing-up-window {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: repeat(5, 50px);
   gap: 10px 0px;
-  padding: 20px;
+  padding: 10px;
 }
 main .main-container-singin {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 20px 30px;
+  display: grid;
+  grid-template-columns: 350px;
+  grid-template-rows: repeat(2, 200px);
+  place-items: end center;
 }
 main .main-container-singin .sing-in-window-container {
-  min-width: 260px;
-  border: 5px solid black;
-  border-radius: 20px;
+  width: auto;
   background-color: #747474;
+  box-shadow: 0px 4px 5px 5px black;
+  border-radius: 20px;
 }
 main .main-container-singin .sing-in-window-container .sing-in-window {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px 0px;
-  padding: 20px;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: repeat(3, 50px);
+  gap: 5px 0px;
+  padding: 15px;
 }
 main .overlay {
   position: fixed;
