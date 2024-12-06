@@ -91,7 +91,8 @@ header .header-container.main {
   header .header-container.main {
     display: grid;
     align-items: center;
-    grid-template-columns: auto;
+    grid-template-columns: 300px;
+    grid-template-rows: 50px 150px;
   }
 }
 @media screen and (min-width: 1150px) {
@@ -99,11 +100,23 @@ header .header-container.main {
     display: grid;
     align-items: center;
     grid-template-columns: 350px 600px;
+    grid-template-rows: 100px;
   }
 }
 header .header-container.main h1 {
   font-size: 30px;
   font-weight: 500;
+}
+@media screen and (min-width: 320px) {
+  header .header-container.main h1 {
+    grid-area: 1/1/2/2;
+  }
+}
+@media screen and (min-width: 1150px) {
+  header .header-container.main h1 {
+    font-size: 30px;
+    font-weight: 500;
+  }
 }
 header .header-container.main .navigation-container {
   display: grid;
@@ -118,6 +131,37 @@ header .header-container.main .navigation-container button .to-sing-up-page {
 }
 header .header-container.main .navigation-container button .to-user-cars-page {
   grid-area: 1/3/2/4;
+}
+@media screen and (min-width: 320px) {
+  header .header-container.main .navigation-container {
+    grid-template-columns: 300px;
+    grid-template-rows: repeat(3, 50px);
+  }
+  header .header-container.main .navigation-container button .to-sing-in-page {
+    grid-area: 1/1/2/2;
+  }
+  header .header-container.main .navigation-container button .to-sing-up-page {
+    grid-area: 2/1/3/2;
+  }
+  header .header-container.main .navigation-container button .to-user-cars-page {
+    grid-area: 3/1/4/2;
+  }
+}
+@media screen and (min-width: 1150px) {
+  header .header-container.main .navigation-container {
+    display: grid;
+    grid-template-rows: 100px;
+    grid-template-columns: repeat(3, 200px);
+  }
+  header .header-container.main .navigation-container button .to-sing-in-page {
+    grid-area: 1/1/2/2;
+  }
+  header .header-container.main .navigation-container button .to-sing-up-page {
+    grid-area: 1/2/2/3;
+  }
+  header .header-container.main .navigation-container button .to-user-cars-page {
+    grid-area: 1/3/2/4;
+  }
 }
 
 main {
