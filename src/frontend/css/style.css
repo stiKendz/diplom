@@ -66,26 +66,39 @@ header .header-container.singin {
   display: grid;
   align-items: stretch;
   grid-template-rows: 100px;
+  grid-template-columns: 300px;
 }
 header .header-container.singup {
   display: grid;
   align-items: stretch;
   grid-template-rows: 100px;
+  grid-template-columns: 300px;
 }
 header .header-container.adminpage {
   display: grid;
   align-items: stretch;
   grid-template-rows: 100px;
+  grid-template-columns: repeat(2, 150px);
+}
+header .header-container.adminpage button {
+  min-width: 100px;
+}
+header .header-container.adminpage button .main-page-button {
+  grid-area: 1/1/2/2;
+}
+header .header-container.adminpage button .previous-page-button {
+  grid-area: 1/2/2/3;
 }
 header .header-container.usercars {
   display: grid;
   align-items: stretch;
   grid-template-rows: 100px;
+  grid-template-columns: 300px;
 }
 header .header-container.main {
   display: grid;
-  grid-template-columns: 350px 600px;
   align-items: center;
+  grid-template-columns: 350px 600px;
 }
 @media screen and (min-width: 320px) {
   header .header-container.main {
@@ -169,45 +182,55 @@ main {
   place-items: start center;
   background-color: #272727;
 }
-main .main-container-singup {
+main.singup {
   display: grid;
-  grid-template-columns: 350px;
-  grid-template-rows: 300px;
   place-items: start center;
-  margin-top: 10px;
 }
-main .main-container-singup .sing-up-window-container {
-  width: auto;
+main.singup .main-container-singup {
+  display: grid;
+  place-items: start center;
+  grid-template-columns: 300px;
+  grid-template-rows: 300px;
+  margin-top: 20px;
+}
+main.singup .main-container-singup .sing-up-window-container {
   background-color: #747474;
   box-shadow: 0px 4px 5px 5px black;
 }
-main .main-container-singup .sing-up-window-container .sing-up-window {
+main.singup .main-container-singup .sing-up-window-container .sing-up-window {
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 300px;
   grid-template-rows: repeat(5, 50px);
   gap: 10px 0px;
   padding: 10px;
 }
-main .main-container-singin {
+main.singin {
   display: grid;
-  grid-template-columns: 350px;
-  grid-template-rows: repeat(2, 200px);
-  place-items: end center;
+  place-items: start center;
 }
-main .main-container-singin .sing-in-window-container {
-  width: auto;
+main.singin .main-container-singin {
+  display: grid;
+  place-items: start center;
+  grid-template-columns: 300px;
+  grid-template-rows: repeat(2, 200px);
+  margin-top: 20px;
+}
+main.singin .main-container-singin .sing-in-window-container {
   background-color: #747474;
   box-shadow: 0px 4px 5px 5px black;
-  border-radius: 20px;
 }
-main .main-container-singin .sing-in-window-container .sing-in-window {
+main.singin .main-container-singin .sing-in-window-container .sing-in-window {
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 300px;
   grid-template-rows: repeat(3, 50px);
-  gap: 5px 0px;
-  padding: 15px;
+  gap: 10px 0px;
+  padding: 10px;
 }
-main .overlay {
+main.adminpage {
+  display: grid;
+  place-items: start center;
+}
+main.adminpage .overlay {
   position: fixed;
   z-index: 9998;
   top: 0;
@@ -217,26 +240,51 @@ main .overlay {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
-main .overlay.show {
+main.adminpage .overlay.show {
   display: block;
 }
-main .main-container {
-  padding: 10px 20px;
-  height: 100%;
+main.adminpage .main-container {
+  display: grid;
+  padding: 0px 10px;
+  margin-top: 20px;
+  grid-template-columns: 500px;
+  grid-template-rows: 350px 200px 500px 830px 350px 200px 200px;
 }
-main .main-container .all-engines-cars-container {
-  height: 100px;
+@media screen and (min-width: 300px) {
+  main.adminpage .main-container {
+    grid-template-columns: 300px;
+    grid-template-rows: 350px 200px 500px 830px 350px 200px 200px;
+  }
 }
-main .main-container .all-engines-cars-container .all-engines-container {
-  height: 100%;
+@media screen and (min-width: 1150px) {
+  main.adminpage .main-container {
+    grid-template-columns: 500px;
+    grid-template-rows: 350px 200px 500px 830px 350px 200px 200px;
+  }
 }
-main .main-container .all-engines-cars-container .all-engines-container .all-engines-window {
-  height: 100%;
+main.adminpage .main-container .warning-messages-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0px;
 }
-main .main-container .engine-modal-window,
-main .main-container .car-modal-window,
-main .main-container .problem-modal-window,
-main .main-container .car-problem-modal-window {
+main.adminpage .main-container .warning-messages-container p {
+  font-size: 16px;
+}
+main.adminpage .main-container .warning-messages-container p span {
+  color: #ff652f;
+}
+main.adminpage .main-container .warning-messages-container p span.alter {
+  color: #14a76c;
+}
+main.adminpage .main-container .modal-buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0px;
+}
+main.adminpage .main-container .engine-modal-window,
+main.adminpage .main-container .car-modal-window,
+main.adminpage .main-container .problem-modal-window,
+main.adminpage .main-container .car-problem-modal-window {
   position: fixed;
   z-index: 9999;
   left: 50%;
@@ -252,23 +300,92 @@ main .main-container .car-problem-modal-window {
   overflow-x: hidden;
   overflow-y: scroll;
 }
-main .main-container .engine-modal-window .window-content,
-main .main-container .car-modal-window .window-content,
-main .main-container .problem-modal-window .window-content,
-main .main-container .car-problem-modal-window .window-content {
+main.adminpage .main-container .engine-modal-window .window-content,
+main.adminpage .main-container .car-modal-window .window-content,
+main.adminpage .main-container .problem-modal-window .window-content,
+main.adminpage .main-container .car-problem-modal-window .window-content {
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 10px 0px;
   padding: 25px;
 }
-main .main-container .add-car-container .add-photo-container {
+main.adminpage .main-container .engine-add-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100px;
-  background-color: #272727;
-  outline: 2px dashed #5d5d5d;
+}
+main.adminpage .main-container .engine-add-container .engine-parameters-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0px;
+}
+main.adminpage .main-container .engine-add-container .engine-parameters-container .engine-parameter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.adminpage .main-container .engine-add-container .engine-parameters-container .engine-parameter p {
+  color: #ffe400;
+}
+main.adminpage .main-container .add-car-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.adminpage .main-container .add-car-container .car-parameters-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0px;
+}
+main.adminpage .main-container .add-car-container .car-parameters-container .car-parameter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.adminpage .main-container .add-car-container .car-parameters-container .car-parameter p {
+  color: #ffe400;
+}
+main.adminpage .main-container .add-car-container .car-description-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px 0px;
+}
+main.adminpage .main-container .add-problem-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.adminpage .main-container .add-problem-container .add-problem-window {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px 0px;
+}
+main.adminpage .main-container .add-problem-container .add-problem-window p {
+  color: #ffe400;
+}
+main.adminpage .main-container .car-promlems-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.adminpage .main-container .car-promlems-container .car-problems-window {
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0px;
+}
+main.adminpage .main-container .add-photo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.adminpage .main-container .add-photo-container .add-photo-window {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px 0px;
 }
 
 footer {

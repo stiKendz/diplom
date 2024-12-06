@@ -13,18 +13,18 @@
             <button type="button" class="previous-page-button">Назад</button>
         </div>
     </header>
-    <main>
+    <main class="adminpage">
         <div class="overlay"></div>
         <div class="main-container">
             <div class="warning-messages-container">
-                <p class="warning-message">Обратите внимание, что перед добавлением автомобиля, необходимо добавить двигатель от него, 
+                <p class="warning-message"><span>Обратите внимание</span>, что перед добавлением автомобиля, необходимо добавить двигатель от него, 
                     если таковой имеется, приступить к добавлению автомбиля.</p>
-                <p class="ps-message">Список всех двигателей и их данные можно вывести по нажатию кнопки - "Просмотреть все двигатели"</p>
-                <p class="ps-message-cars">Список всех автомобилей и их данные можно вывести по нажатию кнопки - "Просмотреть все автомобили"</p>
-                <p class="ps-message-problems">Список всех проблем и их данные можно вывести по нажатию кнопки - "Просмотреть все проблемы"</p>
-                <p class="ps-message-car-problems">Список всех проблем автомобилей и их данные можно вывести по нажатию кнопки - "Просмотреть все проблемы автомобилей"</p>
+                <p class="ps-message"><span>Список</span> всех <span class="alter">двигателей</span> и их данные можно вывести по нажатию кнопки - "Просмотреть все двигатели"</p>
+                <p class="ps-message-cars"><span>Список</span> всех <span class="alter">автомобилей</span> и их данные можно вывести по нажатию кнопки - "Просмотреть все автомобили"</p>
+                <p class="ps-message-problems"><span>Список</span> всех <span class="alter">проблем</span> и их данные можно вывести по нажатию кнопки - "Просмотреть все проблемы"</p>
+                <p class="ps-message-car-problems"><span>Список</span> всех <span class="alter">проблем автомобилей</span> и их данные можно вывести по нажатию кнопки - "Просмотреть все проблемы автомобилей"</p>
             </div>
-            <div class="cars-engines-buttons-container">
+            <div class="modal-buttons-container">
                 <button type="button" class="show-engines-button">Просмотреть все двигатели</button>
                 <button type="button" class="show-cars-button">Просмотреть все автомобили</button>
                 <button type="button" class="show-problems-button">Просмотреть все проблемы</button>
@@ -63,35 +63,35 @@
                 <div class="engine-parameters-container">
                     <h2>Добавление двигателя</h2>
                     <div class="engine-parameter serial-name">
-                        Серийный номер двигателя
+                        <p>пример: ej20, 4g18</p>
                         <input type="text" class="serial-number-input" placeholder="Серийный номер двигателя:">
                     </div>
                     <div class="engine-parameter engine-size">
-                        Объем
+                        <p>пример: 1.6, 2.0</p>
                         <input type="text" class="engine-size-input" placeholder="Объем двигателя:">
                     </div>
                     <div class="engine-parameter engine-type">
-                        Тип
+                        <p>пример: inline, rotary</p>
                         <input type="text" class="engine-type-input" placeholder="Тип двигателя двигателя:">
                     </div>
                     <div class="engine-parameter engine-nano">
-                        Крутящий момент
+                        <p>пример: 320nm, 240nm</p>
                         <input type="text" class="engine-nano-input" placeholder="Крутящий момент двигателя:">
                     </div>
                     <div class="engine-parameter engine-horse-power">
-                        Мощность
+                        <p>пример: 123hp, 240лс</p>
                         <input type="text" class="engine-horse-power-input" placeholder="Мощность л.с (лошадиные силы) двигателя:">
                     </div>
                     <div class="engine-parameter engine-expenditure-city">
-                        Расход по городу
+                        <p>пример: 6.9, 7.2</p>
                         <input type="text" class="engine-expenditure-city-input" placeholder="Расход топлива двигателя (по городу):">
                     </div>
                     <div class="engine-parameter engine-expenditure-track">
-                        Расход по трассе
+                        <p>пример: 5.4, 6.8</p>
                         <input type="text" class="engine-expenditure-track-input" placeholder="Расход топлива двигателя (по трассе):">
                     </div>
                     <div class="engine-parameter camshaft-system">
-                        Система распредвалов
+                        <p>пример: dohc, vtek</p>
                         <input type="text" class="camshaft-system-input" placeholder="Система распредвалов двигатея:">
                     </div>
                 </div>
@@ -101,58 +101,58 @@
                 <div class="car-parameters-container">
                     <h2>Добавление автомобиля</h2>
                     <div class="car-parameter concern">
-                        Концерн
+                        <p><p></p>пример: VAG, PSA</p>
                         <input type="text" class="concern-input" placeholder="Концерн автомобиля:">
                     </div>
                     <div class="car-parameter brand">
-                        Бренд
+                        <p>пример: Skoda, Peugeot</p>
                         <input type="text" class="brand-input" placeholder="Бренд автомобиля:">
                     </div>
                     <div class="car-parameter model-name">
-                        Название модели
+                        <p>пример: integra, impreza</p>
                         <input type="text" class="model-input" placeholder="Название модели автомобиля:">
                     </div>
                     <div class="car-parameter generation">
-                        Поколение
+                        <p>пример: 1, 2, 3</p>
                         <input type="text" class="generation-input" placeholder="Поколение автомобиля:">
                     </div>
                     <div class="car-parameter model-number">
-                        Номер модели
+                        <p>пример: DC5, GC8</p>
                         <input type="text" class="model-number-input" placeholder="Номер модели автомобиля:">
                     </div>
                     <div class="car-parameter release-date">
-                        Дата запуска производства
+                        <p>пример: 01-01-2001</p>
                         <input type="date" class="release-date-input" placeholder="Дата запуска производства автомобиля:">
                     </div>
                     <div class="car-parameter end-release-date">
-                        Дата окончания производства
+                        <p>пример: 01-01-2002</p>
                         <input type="date" class="end-release-date-input" placeholder="Дата окончания производства автомобиля:">
                     </div>
                     <div class="car-parameter engine-id">
-                        ID двигателя
+                        <p>пример: 1, 2, 3</p>
                         <input type="text" class="engine-id-input" placeholder="ID двигателя автомобиля:">
                     </div>
                     <div class="car-parameter gearbox">
-                        Тип КПП (коробка переключения передач)
+                        <p>пример: sequental, auto</p>
                         <input type="text" class="gearbox-input" placeholder="КПП автомобиля:">
                     </div>
                     <div class="car-parameter car-vehicle">
-                        Привод автомбиля
+                        <p>пример: rwd, awd</p>
                         <input type="text" class="vehicle-input" placeholder="Привод автомобиля:">
                     </div>
                     <div class="car-parameter car-body-type">
-                        Кузов автомбиля
+                        <p>пример: sedan, coupe</p>
                         <input type="text" class="body-type-input" placeholder="Кузов автомобиля:">
                     </div>
                     <div class="car-parameter price">
-                        Цена автомобиля
+                        <p>пример: 100.000тыс.руб</p>
                         <input type="text" class="price-input" placeholder="Цена автомобиля:">
                     </div>
                     <button type="button" class="add-car-button">Добавить автомобиль</button>
                 </div>
                 <div class="car-description-container">
                     <h2 class="car-decsription">Описание автомобиля</h2>
-                    <input type="text" class="car-desription-input" placeholder="Краткое описание автомобиля, его истории">
+                    <input type="text" class="car-desription-input" placeholder="Краткое описание автомобиля">
                     <input type="number" class="car-description-id-input" placeholder="Введите ID автомобиля">
                     <button type="button" class="add-description-button">Добавить описание</button>
                 </div>
@@ -161,30 +161,28 @@
                 <h2>Добавление проблемы автомобиля</h2>
                 <div class="add-problem-window">
                     <div class="problem-parameter name">
-                        Название проблемы
-                        <input type="text" class="problem-name-input">
+                        <p>пример: гнилые пороги</p>
+                        <input type="text" class="problem-name-input" placeholder="Название проблемы">
                     </div>
                     <div class="problem-parameter description">
-                        Краткое описание проблемы
-                        <input type="text" class="problem-description-input">
+                        <input type="text" class="problem-description-input" placeholder="Краткое описание проблемы">
                     </div>
                     <div class="problem-parameter difficult">
-                        Сложность устранения (от 1 до 5)
-                        <input type="number" class="problem-difficult-input">
+                        <input type="number" class="problem-difficult-input" placeholder="Сложность устранения (от 1 до 5)">
                     </div>
                     <div class="problem-parameter how-to-fixed">
-                        Описание решения проблемы
-                        <input type="text" class="problem-how-to-fixed-input">
+                        <p>Обратиться в автосервис ...</p>
+                        <input type="text" class="problem-how-to-fixed-input" placeholder=" Описание решения проблемы">
                     </div>
                     <div class="problem-parameter price">
-                        Цена решения проблемы (тыс.руб)
-                        <input type="text" class="problem-price-input">
+                        <p>пример: 100.000тыс.руб</p>
+                        <input type="text" class="problem-price-input" placeholder="Цена решения проблемы (тыс.руб)">
                     </div>
                 </div>
                 <button type="button" class="add-problem-button">Добавить проблему</button>
             </div>
             <div class="car-promlems-container">
-                <h1>Добавление проблемы автомобилю</h1>
+                <h2>Добавление проблемы автомобилю</h2>
                 <div class="car-problems-window">
                     <input type="number" class="add-problem-to-car-carid-input" placeholder="Введите ID автомобиля">
                     <input type="number" class="add-problem-to-car-problemid-input" placeholder="Введите ID проблемы">

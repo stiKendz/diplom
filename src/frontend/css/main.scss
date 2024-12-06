@@ -5,6 +5,10 @@ $afterColor: #747474;
 $buttonDefColor: #ff652f;
 $inputFontColor: black;
 $containerColor: #14a76c;
+$exampleColor: #ffe400;
+
+$mediaSmallCol: 300px;
+$mediaStandartCol: 500px;
 
 @font-face {
     font-family: UbuntuReg;
@@ -114,30 +118,43 @@ header {
             align-items: stretch;
 
             grid-template-rows: 100px;
+            grid-template-columns: 300px;
         }
         &.singup {
             display: grid;
             align-items: stretch;
 
             grid-template-rows: 100px;
+            grid-template-columns: 300px;
         }   
         &.adminpage {
             display: grid;
             align-items: stretch;
 
             grid-template-rows: 100px;
+            grid-template-columns: repeat(2, 150px);
+            button {
+                min-width: 100px;
+                .main-page-button {
+                    grid-area: 1/1/2/2;
+                }
+                .previous-page-button {
+                    grid-area: 1/2/2/3;
+                }
+            }
         }
         &.usercars {
             display: grid;
             align-items: stretch;
 
             grid-template-rows: 100px;
+            grid-template-columns: 300px;
         }
         &.main {
             display: grid;
-            grid-template-columns: 350px 600px;
-
             align-items: center;
+
+            grid-template-columns: 350px 600px;
 
             @media screen and (min-width: 320px){
                 display: grid;
@@ -217,139 +234,222 @@ header {
 }
 
 
-
 main {
-    // display: flex;
-    // flex-direction: column;
-    // align-items: center;
-    // width: 100%;
     display: grid;
     place-items: start center;
 
     background-color: $mainColor;
-    // sing-up.html
-    .main-container-singup {
+    &.singup {
         display: grid;
-        grid-template-columns: 350px;
-        grid-template-rows: 300px;
         place-items: start center;
-
-        margin-top: 10px;
-        .sing-up-window-container {
-            width: auto;
-
-            background-color: $afterColor;
-            box-shadow: 0px 4px 5px 5px black;
-            .sing-up-window {
-                display: grid;
-
-                grid-template-columns: auto;
-                grid-template-rows: repeat(5, 50px);
-                gap: 10px 0px;
-
-                padding: 10px;
-            }
-        }
-    }
-    // sing-in.html
-    .main-container-singin {
-        display: grid;
-        grid-template-columns: 350px;
-        grid-template-rows: repeat(2, 200px);
-        place-items: end center;
-        .sing-in-window-container {
-            width: auto;
-
-            background-color: $afterColor;
-            box-shadow: 0px 4px 5px 5px black;
-
-            border-radius: 20px;
-            .sing-in-window {
-                display: grid;
-
-                grid-template-columns: auto;
-                grid-template-rows: repeat(3, 50px);
-                gap: 5px 0px;
-
-                padding: 15px;
-            }
-        }
-    }
-    // admin-page.html
-    .overlay {
-        position: fixed;
-        z-index: 9998;
-        top: 0;
-        left: 0;
-
-        display: none;
-
-        width: 100%;
-        height: 100%;
-
-        background-color: rgba(0, 0, 0, 0.5);
-        &.show {
-            display: block;
-        }
-    }
-    // admin-page.html
-    .main-container {
-        padding: 10px 20px;
-        height: 100%;
-
-        .all-engines-cars-container {
-            height: 100px;
-
-            .all-engines-container {
-                height: 100%;
-
-                .all-engines-window {
-                    height: 100%;
+        .main-container-singup {
+            display: grid;
+            place-items: start center;
+    
+            grid-template-columns: 300px;
+            grid-template-rows: 300px;
+            margin-top: 20px;
+            .sing-up-window-container {
+                background-color: $afterColor;
+                box-shadow: 0px 4px 5px 5px black;
+                .sing-up-window {
+                    display: grid;
+    
+                    grid-template-columns: 300px;
+                    grid-template-rows: repeat(5, 50px);
+                    gap: 10px 0px;
+    
+                    padding: 10px;
                 }
             }
         }
+    }
+    &.singin {
+        display: grid;
+        place-items: start center;
+        .main-container-singin {
+            display: grid;
+            place-items: start center;
 
-        .engine-modal-window,
-        .car-modal-window,
-        .problem-modal-window,
-        .car-problem-modal-window {
-            position: fixed;
-            z-index: 9999;
-            left: 50%;
-            top: 50%;
-
-            display: none;
-            height: 90dvh;
-            min-width: 350px;
-
-            border: 0;
-            border-radius: 10px;
-            
-            background-color: $mainColor;
-            box-shadow: 0px 2px 5px 5px black;
-
-            transform: translate(-50%, -50%);
-
-            overflow-x: hidden;
-            overflow-y: scroll;
-
-            .window-content {
-                @include flexColumn;
-                gap: 10px 0px;
-                padding: 25px;
+            grid-template-columns: 300px;
+            grid-template-rows: repeat(2, 200px);
+            margin-top: 20px;
+            .sing-in-window-container {
+                background-color: $afterColor;
+                box-shadow: 0px 4px 5px 5px black;
+                .sing-in-window {
+                    display: grid;
+    
+                    grid-template-columns: 300px;
+                    grid-template-rows: repeat(3, 50px);
+                    gap: 10px 0px;
+    
+                    padding: 10px;
+                }
             }
         }
-
-        .add-car-container {
-
-            .add-photo-container {
-                @include flexCenter;
-                height: 100px;
+    }
+    &.adminpage {
+        display: grid;
+        place-items: start center;
+        .overlay {
+            position: fixed;
+            z-index: 9998;
+            top: 0;
+            left: 0;
     
+            display: none;
+    
+            width: 100%;
+            height: 100%;
+    
+            background-color: rgba(0, 0, 0, 0.5);
+            &.show {
+                display: block;
+            }
+        }
+        .main-container {
+            display: grid;
+
+            padding: 0px 10px;
+            margin-top: 20px;
+
+            grid-template-columns: 500px;
+            grid-template-rows: 350px 200px 500px 830px 350px 200px 200px;
+            @media screen and (min-width: 300px) {
+                grid-template-columns: 300px;
+                grid-template-rows: 350px 200px 500px 830px 350px 200px 200px;
+            }
+            @media screen and (min-width: 1150px) {
+                grid-template-columns: 500px;
+                grid-template-rows: 350px 200px 500px 830px 350px 200px 200px;
+            }
+            .warning-messages-container {
+                display: flex;
+                flex-direction: column;
+                gap: 5px 0px;
+                p {
+                    font-size: 16px;
+                    span {
+                        color: $buttonDefColor;
+                        &.alter {
+                            color: $containerColor;
+                        }
+                    }
+                }
+            }
+            .modal-buttons-container {
+                display: flex;
+                flex-direction: column;
+                gap: 5px 0px;
+            }
+            .engine-modal-window,
+            .car-modal-window,
+            .problem-modal-window,
+            .car-problem-modal-window {
+                position: fixed;
+                z-index: 9999;
+                left: 50%;
+                top: 50%;
+    
+                display: none;
+                height: 90dvh;
+                min-width: 350px;
+    
+                border: 0;
+                border-radius: 10px;
+                
                 background-color: $mainColor;
+                box-shadow: 0px 2px 5px 5px black;
     
-                outline: 2px dashed #5d5d5d;
-                // outline-offset: -12px;
+                transform: translate(-50%, -50%);
+    
+                overflow-x: hidden;
+                overflow-y: scroll;
+    
+                .window-content {
+                    @include flexColumn;
+                    gap: 10px 0px;
+                    padding: 25px;
+                }
+            }
+            .engine-add-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .engine-parameters-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px 0px;
+                    .engine-parameter {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        p {
+                            color: $exampleColor;
+                        }
+                    }
+                }
+            }
+            .add-car-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .car-parameters-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px 0px;
+                    .car-parameter {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        p {
+                            color: $exampleColor;
+                        }
+                    }
+                }
+                .car-description-container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 5px 0px;
+                }
+            }
+            .add-problem-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .add-problem-window {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    gap: 5px 0px;
+                    p {
+                        color: $exampleColor;
+                    }
+                }
+            }
+            .car-promlems-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .car-problems-window {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px 0px;
+                }
+            }
+            .add-photo-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .add-photo-window {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 5px 0px;
+                }
             }
         }
     }
