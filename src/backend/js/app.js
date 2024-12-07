@@ -610,14 +610,14 @@ app.put('/updatemodel', async (req, res) => {
             }
 
             const exitingModelNumber = await client.query(
-                'SELECT model_number FROM cars_table WHERE car_id = $1', [car_id]
+                'SELECT * FROM cars_table WHERE model_number = $2 AND car_id != $1', [car_id, model_number]
             )
-            if (exitingModelNumber.rowCount > 1) {
+            if (exitingModelNumber.rowCount > 0) {
                 return res.status(400).json({message: 'В базе данных уже присутствует автомобиль с таким номером модели'})
             }
 
             const response = await client.query(
-                'UPDATE cars_table SET model_number = $1 WHERE car_id = $2 RETURNNING car_id, model_number', [car_id, model_number]
+                'UPDATE cars_table SET model_number = $2 WHERE car_id = $1 RETURNING car_id, model_number', [car_id, model_number]
             )
             const carId = response.rows[0].car_id;
             const modelNumber = response.rows[0].model_number;
@@ -634,5 +634,43 @@ app.put('/updatemodel', async (req, res) => {
     } catch(err) {
         console.error(`Ошибка обновления модели автомобиля, из-за ошибки на сервере ${err.message}`)
         return res.status(500).json({message: 'Ошибка обновления модели автомобиля, из-за ошибки на сервере'})
+    };
+});
+
+// удаление автомобиля (на странице администратора)
+app.delete('/deletecar', async (req, res) => {
+    const {car_id} = req.body;
+
+    if (!car_id) {
+        return res.status(400).json({message: 'Поле не может быть пустым'})
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const exitingCar = await client.query(
+                'SELECT * FROM cars_table WHERE car_id = $1', [car_id]
+            )
+            if (exitingCar.rowCount < 1) {
+                return res.status(400).json({message: `В базе данных не существует автомобиля в таким id: ${car_id}`})
+            }
+
+            const result = await client.query(
+                'DELETE FROM cars_table WHERE car_id = $1 RETURNING car_id', [car_id]
+            )
+            const carId = result.rows[0].car_id;
+
+            res.status(201).json({
+                message: 'Удаленный автомобиль',
+                carId: carId
+            });
+        } catch(err) {
+            console.log(`Ошибка удаления автомобиля из-за ошибки в запросе: ${err.message}`);
+            return res.status(500).json({message: 'Ошибка удаления автомобиля из-за ошибки в запросе'});
+        }
+    } catch(err) {
+        console.log(`Ошибка удаления автомобиля из-за ошибки на сервере: ${err.message}`);
+        return res.status(500).json({message: 'Ошибка удаления автомобиля из-за ошибки на сервере'});
     };
 });

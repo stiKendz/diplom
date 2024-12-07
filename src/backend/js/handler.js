@@ -11,7 +11,8 @@ const addProblemToCarButton = document.querySelector('.add-problem-to-car-button
 const showCarProblemsButton = document.querySelector('.show-car-problems-button');
 const carDescriptionButton = document.querySelector('.add-description-button');
 const uploadImageButton = document.querySelector('.upload-image-button');
-const updateCarButton = document.getElementById('.update-car-button');
+const updateCarButton = document.querySelector('.update-car-button');
+const deleteCarButton = document.querySelector('.delete-car-button');
 
 // регистрация пользователя
 if (singUpButton) {
@@ -382,6 +383,43 @@ if (carDescriptionButton) {
     });
 };
 
+// изменение номера модели автомобиля (на странице администратора)
+if (updateCarButton) {
+    updateCarButton.addEventListener('click', async () => {
+        const car_id = document.querySelector('.update-id-input').value;
+        const model_number = document.querySelector('.update-model-name-input').value;
+
+        const result = await fetch('http://localhost:3000/updatemodel', {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({car_id, model_number})
+        });
+        const data = await result.json();
+
+        console.log(data);
+    });
+};
+
+// удаление автомобиля (на странице администратора)
+if (deleteCarButton) {
+    deleteCarButton.addEventListener('click', async () => {
+        const car_id = document.querySelector('.delete-car-input-id').value;
+
+        const response = await fetch('http://localhost:3000/deletecar', {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({car_id})
+        })
+        const data = await response.json();
+
+        console.log(data);
+    });
+};
+
 // загрузка фотографии
 if (uploadImageButton) {
     uploadImageButton.addEventListener('click', async () => {
@@ -413,20 +451,4 @@ if (uploadImageButton) {
     });
 };
 
-if (updateCarButton) {
-    updateCarButton.addEventListener('click', async () => {
-        const car_id = document.querySelector('.update-id-input').value;
-        const model_number = document.querySelector('.update-model-name-input').value;
 
-        const result = await fetch('http://localhost:3000/updatemodel', {
-            method: 'PUT',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({car_id, model_number})
-        });
-        const data = await result.json();
-
-        console.log(data);
-    });
-};
