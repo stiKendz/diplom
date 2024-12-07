@@ -554,7 +554,7 @@ app.post('/addcardescription', async (req, res) => {
     }
 });
 
-// загрузка фотографии
+// загрузка фотографии (на странице администратора)
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -587,5 +587,52 @@ app.post('/uploadimage', upload.single('image'), async (req, res) => {
         console.log('Изображение успешно загружено');
     } catch (err){
         console.error('Ошибка загрузки изображения', err.message);
+    };
+});
+
+// обновление номера модели автомобиля (на странице администратора)
+app.put('/updatemodel', async (req, res) => {
+    const {car_id, model_number} = req.body;
+
+    if (!car_id || !model_number) {
+        return res.status(400).json({message: 'Все поля должны быть заполнены'})
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const exitingCar = await client.query(
+                'SELECT * FROM cars_table WHERE car_id = $1', [car_id]
+            )
+            if (exitingCar.rowCount < 1) {
+                return res.status(400).json({message: 'В базе данных не существует автомобиля с таким ID'})
+            }
+
+            const exitingModelNumber = await client.query(
+                'SELECT model_number FROM cars_table WHERE car_id = $1', [car_id]
+            )
+            if (exitingModelNumber.rowCount > 1) {
+                return res.status(400).json({message: 'В базе данных уже присутствует автомобиль с таким номером модели'})
+            }
+
+            const response = await client.query(
+                'UPDATE cars_table SET model_number = $1 WHERE car_id = $2 RETURNNING car_id, model_number', [car_id, model_number]
+            )
+            const carId = response.rows[0].car_id;
+            const modelNumber = response.rows[0].model_number;
+
+            res.status(201).json({
+                message: 'Обновленная машина',
+                carId: carId,
+                modelNumber: modelNumber
+            });
+        } catch(err) {
+            console.error(`Ошибка обновления модели автомобиля, из-за ошибки в запросе ${err.message}`)
+            return res.status(500).json({message: 'Ошибка обновления модели автомобиля, из-за ошибки в запросе'})
+        }
+    } catch(err) {
+        console.error(`Ошибка обновления модели автомобиля, из-за ошибки на сервере ${err.message}`)
+        return res.status(500).json({message: 'Ошибка обновления модели автомобиля, из-за ошибки на сервере'})
     };
 });

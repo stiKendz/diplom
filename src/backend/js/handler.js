@@ -11,7 +11,7 @@ const addProblemToCarButton = document.querySelector('.add-problem-to-car-button
 const showCarProblemsButton = document.querySelector('.show-car-problems-button');
 const carDescriptionButton = document.querySelector('.add-description-button');
 const uploadImageButton = document.querySelector('.upload-image-button');
-
+const updateCarButton = document.getElementById('.update-car-button');
 
 // регистрация пользователя
 if (singUpButton) {
@@ -410,5 +410,23 @@ if (uploadImageButton) {
         const data = await response.json();
 
         // console.log(data);
+    });
+};
+
+if (updateCarButton) {
+    updateCarButton.addEventListener('click', async () => {
+        const car_id = document.querySelector('.update-id-input').value;
+        const model_number = document.querySelector('.update-model-name-input').value;
+
+        const result = await fetch('http://localhost:3000/updatemodel', {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({car_id, model_number})
+        });
+        const data = await result.json();
+
+        console.log(data);
     });
 };

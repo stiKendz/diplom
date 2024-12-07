@@ -315,14 +315,14 @@ main {
             margin-top: 20px;
 
             grid-template-columns: 500px;
-            grid-template-rows: 350px 200px 500px 830px 350px 200px 200px;
+            grid-template-rows: 350px 200px 500px 830px 350px 200px 200px 300px;
             @media screen and (min-width: 300px) {
                 grid-template-columns: 300px;
-                grid-template-rows: 350px 200px 500px 830px 350px 200px 200px;
+                grid-template-rows: 350px 200px 500px 830px 350px 200px 200px 300px;
             }
             @media screen and (min-width: 1150px) {
                 grid-template-columns: 500px;
-                grid-template-rows: 350px 200px 500px 830px 350px 200px 200px;
+                grid-template-rows: 350px 200px 500px 830px 350px 200px 200px 300px;
             }
             .warning-messages-container {
                 display: flex;
@@ -411,8 +411,9 @@ main {
                 .car-description-container {
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
                     gap: 5px 0px;
+
+                    text-align: center;
                 }
             }
             .add-problem-container {
@@ -449,6 +450,31 @@ main {
                     flex-direction: column;
                     align-items: center;
                     gap: 5px 0px;
+                }
+            }
+            .delete-update-cars-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 5px 0px;
+
+                text-align: center;
+                .update-cars {
+                    display: flex;
+                    flex-direction: column;
+                    p {
+                        color: $exampleColor;
+                    }
+                    button {
+                        margin-top: 5px;
+                    }
+                }
+                .delete-cars {
+                    display: flex;
+                    flex-direction: column;
+                    button {
+                        margin-top: 5px;
+                    }
                 }
             }
         }
