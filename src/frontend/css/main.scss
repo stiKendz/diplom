@@ -545,6 +545,61 @@ main {
             }
         }
     }
+    &.usercars {
+        display: grid;
+        place-items: start center;
+        .user-profile-container {
+            display: grid;
+
+            grid-template-columns: 700px;
+            grid-template-rows: 300px 50px auto;
+            @media screen and (max-width: 320px) {
+                grid-template-columns: 300px;
+                grid-template-rows: 300px 50px auto;
+            }
+            @media screen and (max-width: 900px) {
+                grid-template-columns: 300px;
+                grid-template-rows: 300px 50px auto;
+            }
+            .user-info-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 10px 0px;
+                img {
+                    width: 100px;
+                    height: 100px;
+
+                    border: 3px solid $afterColor;
+                }
+            }
+            h2 {
+                text-align: center;
+            }
+            .user-cars-container {
+                display: flex;
+                justify-content: center;
+                flex-flow: row wrap;
+                gap: 10px;
+                .car-card {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 5px 0px;
+
+                    max-width: 200px;
+                    max-height: 200px;
+                    img {
+                        width: 100px;
+                        height: 75px;
+
+                        border: 3px solid $afterColor;
+                    }
+                }
+            }
+        }
+    }
 }
 
 footer {
