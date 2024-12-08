@@ -18,43 +18,46 @@
             </nav>
         </div>
     </header>
-    <main>
+    <main class="mainpage">
         <div class="main-container">
             <section class="preview-filters">
-                <h1 class="user-message">Сообщение пользователю для краткого ознакомления с приложением, краткая информация о нем</h1>
+                <h1 class="hello-user">Добро пожаловать</h1>
+                <p class="user-message">
+                    Приложение позволяет подобрать автомобиль по желаемым параметрам: цена, 
+                    тип кузова, объём двигателя, коробка передач и другие характеристики. 
+                </p>
             </section>
             <section class="filters-section">
                 <div class="filter car-concern">
-                    <div class="filter-text car-concern">
-                        <p class="filter-description car-concern">Описание фильра концерна автомобиля</p>
-                        <p class="filter-question car-concern">Вопрос фильра концерна автомобиля</p>
-                    </div>
+                    <p class="filter-description car-concern">Выберете концерн, который вы предпочитаете</p>
                     <div class="filter-items car-concern">
-                        <div class="item car-concern-1">Концерн-1</div>
-                        <div class="item car-concern-2">Концерн-2</div>
-                        <div class="item car-concern-3">Концерн-3</div>
+                        <div class="filter-item car-concern-1">VAG</div>
+                        <div class="filter-item car-concern-2">Toyota Motors</div>
+                        <div class="filter-item car-concern-3">PSA</div>
                     </div>
                 </div>
                 <div class="filter car-brand">
-                    <div class="filter-text car-brand">
-                        <p class="filter-description car-brand">Описание фильра бренда автомобиля</p>
-                        <p class="filter-question car-brand">Вопрос фильра бренда автомобиля</p>
-                    </div>
+                    <p class="filter-description car-brand">Выберете марку концерна</p>
                     <div class="filter-items car-brand">
-                        <div class="item car-brand-1">Бренд-1</div>
-                        <div class="item car-brand-2">Бренд-2</div>
-                        <div class="item car-brand-3">Бренд-3</div>
+                        <div class="filter-item car-brand-1">Audi</div>
+                        <div class="filter-item car-brand-2">Lexus</div>
+                        <div class="filter-item car-brand-3">Peugeot</div>
                     </div>
                 </div>
                 <div class="filter car-year">
-                    <div class="filter-text car-year">
-                        <p class="filter-description car-year">Описание фильра года автомобиля</p>
-                        <p class="filter-question car-year">Вопрос года концерна автомобиля</p>
-                    </div>
+                    <p class="filter-description car-year">Выберете годы выпуска автомобиля</p>
                     <div class="filter-items car-year">
-                        <div class="item car-year-1">Год-1</div>
-                        <div class="item car-year-2">Год-2</div>
-                        <div class="item car-year-3">Год-3</div>
+                        <div class="filter-item car-year-1">1990-1994</div>
+                        <div class="filter-item car-year-2">1995-1999</div>
+                        <div class="filter-item car-year-3">2000-2004</div>
+                    </div>
+                </div>
+                <div class="filter car-vehicle">
+                    <p class="filter-description car-vehicle">Привод автомобиля</p>
+                    <div class="filter-items car-vehicle">
+                        <div class="filter-item car-vehicle-1">RWD</div>
+                        <div class="filter-item car-vehicle-2">FWD</div>
+                        <div class="filter-item car-vehicle-3">AWD</div>
                     </div>
                 </div>
             </section>
@@ -72,5 +75,6 @@
 
     <script src="../backend/js/handler.js"></script>
     <script src="../backend/js/navigation.js"></script>
+    <script src="../backend/js/animations.js"></script>
 </body>
 </html>

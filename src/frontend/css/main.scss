@@ -1,5 +1,5 @@
-@import './font_awelsome_scss/font-awesome.scss';
-@import './font_awelsome_scss/icons';
+// @import './font_awelsome_scss/font-awesome.scss';
+// @import './font_awelsome_scss/icons';
 
 $mainFont: UbuntuReg;
 
@@ -477,6 +477,69 @@ main {
                     flex-direction: column;
                     button {
                         margin-top: 5px;
+                    }
+                }
+            }
+        }
+    }
+    &.mainpage {
+        display: grid;
+        place-items: start center;
+        .main-container {
+            display: grid;
+            place-items: start center;
+            gap: 10px;
+
+            grid-template-columns: 700px;
+            grid-template-rows: 200px auto;
+            @media screen and (min-width: 320px){
+                grid-template-columns: 300px;
+                grid-template-rows: 200px auto;
+            }
+            @media screen and (min-width: 900px){
+                grid-template-columns: 700px;
+                grid-template-rows: 150px auto;
+            }
+            section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+
+                padding: 15px;
+                &.preview-filters {
+                    .hello-user {
+                        font-weight: bold;
+                    }
+                    .user-message {
+                        text-align: center;
+    
+                        color: $exampleColor;
+                    }
+                }
+                &.filters-section {
+                    .filter {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 5px;
+                        p.filter-description {
+                            text-align: center;
+                            font-size: 18px;
+                            font-weight: 500;
+                        }
+                        .filter-items {
+                            display: inline-flex;
+                            gap: 0px 15px;
+                            .filter-item {
+                                color: white;
+
+                                cursor: pointer;
+                                &.select {
+                                    color: $containerColor;
+                                }
+                            }
+                        }
                     }
                 }
             }
