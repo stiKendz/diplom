@@ -180,10 +180,24 @@ if (showEnginesButton) {
         });
 
         const data = await response.json();
-        if (data) {
-            engineModalWindow ? engineModalWindow.style.display = 'block' : null;
-            overlay ? overlay.classList.add('show') : null; // добавляет display: block;
-            engineWindowContent.innerHTML = JSON.stringify(data, null, 2);
+        if (data && data.allEngines && data.allEngines.length > 0) {
+            let headers = Object.keys(data.allEngines[0]);
+            let table = '<table border="1"><thead><tr>';
+    
+            headers.forEach(header => table += `<th>${header}</th>`);
+            table += '</tr></thead><tbody>';
+    
+            data.allEngines.forEach(row => {
+                table += '<tr>';
+                headers.forEach(header => table += `<td>${row[header]}</td>`);
+                table += '</tr>';
+            });
+    
+            table += '</tbody></table>';
+    
+            engineModalWindow.style.display = 'block';
+            overlay.classList.add('show'); // добавляет display: block;
+            engineWindowContent.innerHTML = table; // отправка сгенерированной таблицы в модалку
         } else {
             engineModalWindow ? engineModalWindow.style.display = 'none' : null;
             overlay ? overlay.classList.remove('show') : null; // добавляет display: block;
@@ -242,10 +256,24 @@ if (showCarsButton) {
 
         const data = await response.json();
 
-        if (data) {
-            overlay ? overlay.classList.add('show') : null; // добавляет display: block
-            carModalWindow ? carModalWindow.style.display = 'block' : null;
-            carWindowContent.innerHTML = JSON.stringify(data, null, 2);
+        if (data && data.allCars && data.allCars.length > 0) {
+            let headers = Object.keys(data.allCars[0]);
+            let table = '<table border="1"><thead><tr>';
+    
+            headers.forEach(header => table += `<th>${header}</th>`);
+            table += '</tr></thead><tbody>';
+    
+            data.allCars.forEach(row => {
+                table += '<tr>';
+                headers.forEach(header => table += `<td>${row[header]}</td>`);
+                table += '</tr>';
+            });
+    
+            table += '</tbody></table>';
+    
+            carModalWindow.style.display = 'block';
+            overlay.classList.add('show'); // добавляет display: block;
+            carWindowContent.innerHTML = table; // отправка сгенерированной таблицы в модалку
         } else {
             overlay ? overlay.classList.remove('show') : null; // убирает display: block
         };
@@ -294,10 +322,24 @@ if (showProblemsButton) {
         });
         const data = await response.json();
 
-        if (data) {
-            overlay ? overlay.classList.add('show') : null;
-            problemModalWindow ? problemModalWindow.style.display = 'block' : null;
-            problemWindowContent.innerHTML = JSON.stringify(data, null, 2);  
+        if (data && data.allProblems && data.allProblems.length > 0) {
+            let headers = Object.keys(data.allProblems[0]);
+            let table = '<table border="1"><thead><tr>';
+    
+            headers.forEach(header => table += `<th>${header}</th>`);
+            table += '</tr></thead><tbody>';
+    
+            data.allProblems.forEach(row => {
+                table += '<tr>';
+                headers.forEach(header => table += `<td>${row[header]}</td>`);
+                table += '</tr>';
+            });
+    
+            table += '</tbody></table>';
+    
+            problemModalWindow.style.display = 'block';
+            overlay.classList.add('show'); // добавляет display: block;
+            problemWindowContent.innerHTML = table; // отправка сгенерированной таблицы в модалку  
         } else {
             overlay ? overlay.classList.remove('show') : null;
         }
@@ -343,10 +385,24 @@ if (showCarProblemsButton) {
         });
         const data = await response.json();
 
-        if (data) {
-            overlay ? overlay.classList.add('show') : null;
-            carProblemModalWindow ? carProblemModalWindow.style.display = 'block' : null;
-            carPromlemWindowContent.innerHTML = JSON.stringify(data, null, 2);
+        if (data && data.result && data.result.length > 0) {
+            let headers = Object.keys(data.result[0]);
+            let table = '<table border="1"><thead><tr>';
+    
+            headers.forEach(header => table += `<th>${header}</th>`);
+            table += '</tr></thead><tbody>';
+    
+            data.result.forEach(row => {
+                table += '<tr>';
+                headers.forEach(header => table += `<td>${row[header]}</td>`);
+                table += '</tr>';
+            });
+    
+            table += '</tbody></table>';
+    
+            carProblemModalWindow.style.display = 'block';
+            overlay.classList.add('show'); // добавляет display: block;
+            carPromlemWindowContent.innerHTML = table; // отправка сгенерированной таблицы в модалку
         } else {
             carProblemModalWindow ? carProblemModalWindow.style.display = 'none' : null;
         }
