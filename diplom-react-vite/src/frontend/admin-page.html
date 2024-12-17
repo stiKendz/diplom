@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Страница администратора</title>
+</head>
+<body>
+    <header>
+        <div class="header-container adminpage">
+            <button type="button" class="main-page-button">На главную</button>
+            <button type="button" class="previous-page-button">Назад</button>
+        </div>
+    </header>
+    <main class="adminpage">
+        <div class="overlay"></div>
+        <div class="main-container">
+            <div class="warning-messages-container">
+                <p class="warning-message"><span>Обратите внимание</span>, что перед добавлением автомобиля, необходимо добавить двигатель от него, 
+                    если таковой имеется, приступить к добавлению автомбиля.</p>
+                <p class="ps-message"><span>Список</span> всех <span class="alter">двигателей</span> и их данные можно вывести по нажатию кнопки - "Просмотреть все двигатели"</p>
+                <p class="ps-message-cars"><span>Список</span> всех <span class="alter">автомобилей</span> и их данные можно вывести по нажатию кнопки - "Просмотреть все автомобили"</p>
+                <p class="ps-message-problems"><span>Список</span> всех <span class="alter">проблем</span> и их данные можно вывести по нажатию кнопки - "Просмотреть все проблемы"</p>
+                <p class="ps-message-car-problems"><span>Список</span> всех <span class="alter">проблем автомобилей</span> и их данные можно вывести по нажатию кнопки - "Просмотреть все проблемы автомобилей"</p>
+            </div>
+            <div class="modal-buttons-container">
+                <button type="button" class="show-engines-button">Просмотреть все двигатели</button>
+                <button type="button" class="show-cars-button">Просмотреть все автомобили</button>
+                <button type="button" class="show-problems-button">Просмотреть все проблемы</button>
+                <button type="button" class="show-car-problems-button">Просмотреть все проблемы атомобилей</button>
+            </div>
+            <!-- модальное окно для двигателей -->
+            <div class="engine-modal-window">
+                <div class="window-content">
+                    <button type="button" class="engine-modal-close-button">Закрыть окно</button>
+                    <pre class="engine-window-content">Вывод всех двигателей теперь будет здесь</pre>
+                </div>
+            </div>
+            <!-- модальное окно для автомобилей -->
+            <div class="car-modal-window">
+                <div class="window-content">
+                    <button type="button" class="car-modal-close-button">Закрыть окно</button>
+                    <pre class="car-window-content">Вывод всех автомобилей теперь будет здесь</pre>
+                </div>
+            </div>
+            <!-- модальное окно для проблем -->
+            <div class="problem-modal-window">
+                <div class="window-content">
+                    <button type="button" class="problem-modal-close-button">Закрыть окно</button>
+                    <pre class="problem-window-content">Вывод всех проблем теперь будет здесь</pre>
+                </div>
+            </div>
+            <!-- модальное окно для проблем автомобилей-->
+            <div class="car-problem-modal-window">
+                <div class="window-content">
+                    <button type="button" class="car-problem-modal-close-button">Закрыть окно</button>
+                    <pre class="car-problem-window-content">Вывод всех проблем автомобилей теперь будет здесь</pre>
+                </div>
+            </div>
+            <!-- конец модальных окон-->
+            <div class="engine-add-container">
+                <div class="engine-parameters-container">
+                    <h2>Добавление двигателя</h2>
+                    <div class="engine-parameter serial-name">
+                        <p>пример: ej20, 4g18</p>
+                        <input type="text" class="serial-number-input" placeholder="Серийный номер двигателя:">
+                    </div>
+                    <div class="engine-parameter engine-size">
+                        <p>пример: 1.6, 2.0</p>
+                        <input type="text" class="engine-size-input" placeholder="Объем двигателя:">
+                    </div>
+                    <div class="engine-parameter engine-type">
+                        <p>пример: inline, rotary</p>
+                        <input type="text" class="engine-type-input" placeholder="Тип двигателя двигателя:">
+                    </div>
+                    <div class="engine-parameter engine-nano">
+                        <p>пример: 320nm, 240nm</p>
+                        <input type="text" class="engine-nano-input" placeholder="Крутящий момент двигателя:">
+                    </div>
+                    <div class="engine-parameter engine-horse-power">
+                        <p>пример: 123hp, 240лс</p>
+                        <input type="text" class="engine-horse-power-input" placeholder="Мощность л.с (лошадиные силы) двигателя:">
+                    </div>
+                    <div class="engine-parameter engine-expenditure-city">
+                        <p>пример: 6.9, 7.2</p>
+                        <input type="text" class="engine-expenditure-city-input" placeholder="Расход топлива двигателя (по городу):">
+                    </div>
+                    <div class="engine-parameter engine-expenditure-track">
+                        <p>пример: 5.4, 6.8</p>
+                        <input type="text" class="engine-expenditure-track-input" placeholder="Расход топлива двигателя (по трассе):">
+                    </div>
+                    <div class="engine-parameter camshaft-system">
+                        <p>пример: dohc, vtek</p>
+                        <input type="text" class="camshaft-system-input" placeholder="Система распредвалов двигатея:">
+                    </div>
+                </div>
+                <button type="button" class="add-engine-button">Добавить двигатель</button>
+            </div>
+            <div class="add-car-container">
+                <div class="car-parameters-container">
+                    <h2>Добавление автомобиля</h2>
+                    <div class="car-parameter concern">
+                        <p><p></p>пример: VAG, PSA</p>
+                        <input type="text" class="concern-input" placeholder="Концерн автомобиля:">
+                    </div>
+                    <div class="car-parameter brand">
+                        <p>пример: Skoda, Peugeot</p>
+                        <input type="text" class="brand-input" placeholder="Бренд автомобиля:">
+                    </div>
+                    <div class="car-parameter model-name">
+                        <p>пример: integra, impreza</p>
+                        <input type="text" class="model-input" placeholder="Название модели автомобиля:">
+                    </div>
+                    <div class="car-parameter generation">
+                        <p>пример: 1, 2, 3</p>
+                        <input type="text" class="generation-input" placeholder="Поколение автомобиля:">
+                    </div>
+                    <div class="car-parameter model-number">
+                        <p>пример: DC5, GC8</p>
+                        <input type="text" class="model-number-input" placeholder="Номер модели автомобиля:">
+                    </div>
+                    <div class="car-parameter release-date">
+                        <p>пример: 01-01-2001</p>
+                        <input type="date" class="release-date-input" placeholder="Дата запуска производства автомобиля:">
+                    </div>
+                    <div class="car-parameter end-release-date">
+                        <p>пример: 01-01-2002</p>
+                        <input type="date" class="end-release-date-input" placeholder="Дата окончания производства автомобиля:">
+                    </div>
+                    <div class="car-parameter engine-id">
+                        <p>пример: 1, 2, 3</p>
+                        <input type="text" class="engine-id-input" placeholder="ID двигателя автомобиля:">
+                    </div>
+                    <div class="car-parameter gearbox">
+                        <p>пример: sequental, auto</p>
+                        <input type="text" class="gearbox-input" placeholder="КПП автомобиля:">
+                    </div>
+                    <div class="car-parameter car-vehicle">
+                        <p>пример: rwd, awd</p>
+                        <input type="text" class="vehicle-input" placeholder="Привод автомобиля:">
+                    </div>
+                    <div class="car-parameter car-body-type">
+                        <p>пример: sedan, coupe</p>
+                        <input type="text" class="body-type-input" placeholder="Кузов автомобиля:">
+                    </div>
+                    <div class="car-parameter price">
+                        <p>пример: 100.000тыс.руб</p>
+                        <input type="text" class="price-input" placeholder="Цена автомобиля:">
+                    </div>
+                    <button type="button" class="add-car-button">Добавить автомобиль</button>
+                </div>
+                <div class="car-description-container">
+                    <h2 class="car-decsription">Описание автомобиля</h2>
+                    <input type="text" class="car-desription-input" placeholder="Краткое описание автомобиля">
+                    <input type="number" class="car-description-id-input" placeholder="Введите ID автомобиля">
+                    <button type="button" class="add-description-button">Добавить описание</button>
+                </div>
+            </div>
+            <div class="add-problem-container">
+                <h2>Добавление проблемы автомобиля</h2>
+                <div class="add-problem-window">
+                    <div class="problem-parameter name">
+                        <p>пример: гнилые пороги</p>
+                        <input type="text" class="problem-name-input" placeholder="Название проблемы">
+                    </div>
+                    <div class="problem-parameter description">
+                        <input type="text" class="problem-description-input" placeholder="Краткое описание проблемы">
+                    </div>
+                    <div class="problem-parameter difficult">
+                        <input type="number" class="problem-difficult-input" placeholder="Сложность устранения (от 1 до 5)">
+                    </div>
+                    <div class="problem-parameter how-to-fixed">
+                        <p>Обратиться в автосервис ...</p>
+                        <input type="text" class="problem-how-to-fixed-input" placeholder=" Описание решения проблемы">
+                    </div>
+                    <div class="problem-parameter price">
+                        <p>пример: 100.000тыс.руб</p>
+                        <input type="text" class="problem-price-input" placeholder="Цена решения проблемы (тыс.руб)">
+                    </div>
+                </div>
+                <button type="button" class="add-problem-button">Добавить проблему</button>
+            </div>
+            <div class="car-promlems-container">
+                <h2>Добавление проблемы автомобилю</h2>
+                <div class="car-problems-window">
+                    <input type="number" class="add-problem-to-car-carid-input" placeholder="Введите ID автомобиля">
+                    <input type="number" class="add-problem-to-car-problemid-input" placeholder="Введите ID проблемы">
+                    <button type="button" class="add-problem-to-car-button">Добавить проблему</button>
+                </div>
+            </div>
+            <div class="add-photo-container">
+                <div class="add-photo-window" enctype="multipart/form-data">
+                    <img class="uploaded-image" src="" enctype="">
+                    <input type="file" name="file" class="add-image-input" enctype="">
+                    <input type="number" class="car-id-input" placeholder="id автомобиля для добавления к нему фотографии">
+                    <input type="text" class="car-model-name" placeholder="Введите название номера модели"> <!-- пояснялка про номера моделей (w204, gc8, ek2, b240) -->
+                    <button type="button" class="upload-image-button">Загрузить изображение</button>
+                </div>
+            </div>
+            <div class="delete-update-cars-container">
+                <h2>Обновление модели автомобиля</h2>
+                <div class="update-cars">
+                    <input type="number" class="update-id-input" placeholder="Введите ID автомобиля">
+                    <p>пример: DC5, GC8, 8B </p>
+                    <input type="text" class="update-model-name-input" placeholder="Введите новый номер модели">
+                    <button type="button" class="update-car-button">Изменить модель</button>
+                </div>
+                <h2>Удаление автомобиля</h2>
+                <div class="delete-cars">
+                    <input type="number" class="delete-car-input-id" placeholder="Введите ID автомобиля">
+                    <button type="button" class="delete-car-button">Удалить автомобиль</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <p>2024 Все права защищены</p>
+            <div class="contacts-container">
+                <div class="contact email-contact">mikhailsemenov47@yandex.ru</div>
+                <div class="contact github-contact"><i class="git"></i>stiKendz</div>
+            </div>
+        </div>
+    </footer>
+    <script src="../backend/js/navigation.js"></script>
+    <script src="../backend/js/handler.js"></script>
+</body>
+</html>
