@@ -5,6 +5,7 @@ import {useState, useContext} from 'react';
 import './styles/MainPage.css'
 
 export default function MainPageContent() {
+
     return(
         <main>
             <div className="main-container">
