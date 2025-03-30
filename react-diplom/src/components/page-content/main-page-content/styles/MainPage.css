@@ -1,0 +1,165 @@
+@font-face {
+    font-family: UbuntuReg;
+    src: url(../fonts/ubuntu/Ubuntu-Regular.ttf);
+}
+* {
+  margin: 0;
+  padding: 0;
+  font-family: UbuntuReg;
+  color: white;
+}
+
+#root {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-block-size: 100dvh;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  padding: 10px 0px;
+  font-size: 18px;
+  background-color: transparent;
+  outline: none;
+  user-select: none;
+  cursor: pointer;
+  border: 0;
+}
+button:hover {
+  transition: 0.5s ease-out;
+  background-color: #ff652f;
+}
+button:focus {
+  transition: 0.5s ease-in;
+  background-color: #ff652f;
+  box-shadow: 0px 0px 5px 3px black;
+}
+
+input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: start;
+  min-width: 250px;
+  font-size: 18px;
+  color: black;
+  outline: none;
+  min-width: 260px;
+  padding-left: 10px;
+}
+input::placeholder {
+  font-size: 16px;
+  color: black;
+}
+
+main {
+    display: grid;
+    place-items: start center;
+    background-color: #272727;
+  }
+  main.singup {
+    display: grid;
+    place-items: start center;
+  }
+  main.singup .main-container-singup {
+    display: grid;
+    place-items: start center;
+    grid-template-columns: 300px;
+    grid-template-rows: 300px;
+    margin-top: 20px;
+  }
+  main.singup .main-container-singup .sing-up-window-container {
+    background-color: #747474;
+    box-shadow: 0px 4px 5px 5px black;
+  }
+  main.singup .main-container-singup .sing-up-window-container .sing-up-window {
+    display: grid;
+    grid-template-columns: 300px;
+    grid-template-rows: repeat(5, 50px);
+    gap: 10px 0px;
+    padding: 10px;
+  }
+  main.singin {
+    display: grid;
+    place-items: start center;
+  }
+  main.singin .main-container-singin {
+    display: grid;
+    place-items: start center;
+    grid-template-columns: 300px;
+    grid-template-rows: repeat(2, 200px);
+    margin-top: 20px;
+  }
+  main.singin .main-container-singin .sing-in-window-container {
+    background-color: #747474;
+    box-shadow: 0px 4px 5px 5px black;
+  }
+  main.singin .main-container-singin .sing-in-window-container .sing-in-window {
+    display: grid;
+    grid-template-columns: 300px;
+    grid-template-rows: repeat(3, 50px);
+    gap: 10px 0px;
+    padding: 10px;
+  }
+  main {
+    display: grid;
+    place-items: start center;
+  }
+  main .main-container {
+    display: grid;
+    place-items: start center;
+    gap: 10px;
+    grid-template-columns: 700px;
+    grid-template-rows: 200px auto;
+  }
+  @media screen and (min-width: 320px) {
+    main .main-container {
+      grid-template-columns: 300px;
+      grid-template-rows: 200px auto;
+    }
+  }
+  @media screen and (min-width: 900px) {
+    main .main-container {
+      grid-template-columns: 700px;
+      grid-template-rows: 150px auto;
+    }
+  }
+  main .main-container section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+  }
+  main .main-container section.preview-filters .hello-user {
+    font-weight: bold;
+  }
+  main .main-container section.preview-filters .user-message {
+    text-align: center;
+    color: #ffe400;
+  }
+  main .main-container section.filters-section .filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+  main .main-container section.filters-section .filter p.filter-description {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  main .main-container section.filters-section .filter .filter-items {
+    display: inline-flex;
+    gap: 0px 15px;
+  }
+  main .main-container section.filters-section .filter .filter-items .filter-item {
+    color: white;
+    cursor: pointer;
+  }
+  main .main-container section.filters-section .filter .filter-items .filter-item.select {
+    color: #14a76c;
+  }
