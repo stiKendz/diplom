@@ -1,0 +1,189 @@
+main.adminpage {
+    display: grid;
+    place-items: start center;
+}
+main.adminpage .overlay {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+main.adminpage .overlay.show {
+  display: block;
+}
+main.adminpage .main-container {
+  display: grid;
+  padding: 0px 10px;
+  margin-top: 20px;
+  grid-template-columns: 500px;
+  grid-template-rows: 350px 200px 500px 830px 350px 200px 200px 300px;
+}
+@media screen and (min-width: 300px) {
+  main.adminpage .main-container {
+    grid-template-columns: 300px;
+    grid-template-rows: 350px 200px 500px 830px 350px 200px 200px 300px;
+  }
+}
+@media screen and (min-width: 1150px) {
+  main.adminpage .main-container {
+    grid-template-columns: 500px;
+    grid-template-rows: 350px 200px 500px 830px 350px 200px 200px 300px;
+  }
+}
+main.adminpage .main-container .warning-messages-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0px;
+}
+main.adminpage .main-container .warning-messages-container p {
+  font-size: 16px;
+}
+main.adminpage .main-container .warning-messages-container p span {
+  color: #ff652f;
+}
+main.adminpage .main-container .warning-messages-container p span.alter {
+  color: #14a76c;
+}
+main.adminpage .main-container .modal-buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0px;
+}
+main.adminpage .main-container .engine-modal-window,
+main.adminpage .main-container .car-modal-window,
+main.adminpage .main-container .problem-modal-window,
+main.adminpage .main-container .car-problem-modal-window {
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  top: 50%;
+  display: none;
+  height: 90dvh;
+  min-width: 350px;
+  border: 0;
+  border-radius: 10px;
+  background-color: #272727;
+  box-shadow: 0px 2px 5px 5px black;
+  transform: translate(-50%, -50%);
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+main.adminpage .main-container .engine-modal-window .window-content,
+main.adminpage .main-container .car-modal-window .window-content,
+main.adminpage .main-container .problem-modal-window .window-content,
+main.adminpage .main-container .car-problem-modal-window .window-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px 0px;
+  padding: 25px;
+}
+main.adminpage .main-container .engine-add-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.adminpage .main-container .engine-add-container .engine-parameters-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0px;
+}
+main.adminpage .main-container .engine-add-container .engine-parameters-container .engine-parameter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.adminpage .main-container .engine-add-container .engine-parameters-container .engine-parameter p {
+  color: #ffe400;
+}
+main.adminpage .main-container .add-car-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.adminpage .main-container .add-car-container .car-parameters-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0px;
+}
+main.adminpage .main-container .add-car-container .car-parameters-container .car-parameter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.adminpage .main-container .add-car-container .car-parameters-container .car-parameter p {
+  color: #ffe400;
+}
+main.adminpage .main-container .add-car-container .car-description-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0px;
+  text-align: center;
+}
+main.adminpage .main-container .add-problem-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.adminpage .main-container .add-problem-container .add-problem-window {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px 0px;
+}
+main.adminpage .main-container .add-problem-container .add-problem-window p {
+  color: #ffe400;
+}
+main.adminpage .main-container .car-promlems-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.adminpage .main-container .car-promlems-container .car-problems-window {
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0px;
+}
+main.adminpage .main-container .add-photo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main.adminpage .main-container .add-photo-container .add-photo-window {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px 0px;
+}
+main.adminpage .main-container .delete-update-cars-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px 0px;
+  text-align: center;
+}
+main.adminpage .main-container .delete-update-cars-container .update-cars {
+  display: flex;
+  flex-direction: column;
+}
+main.adminpage .main-container .delete-update-cars-container .update-cars p {
+  color: #ffe400;
+}
+main.adminpage .main-container .delete-update-cars-container .update-cars button {
+  margin-top: 5px;
+}
+main.adminpage .main-container .delete-update-cars-container .delete-cars {
+  display: flex;
+  flex-direction: column;
+}
+main.adminpage .main-container .delete-update-cars-container .delete-cars button {
+  margin-top: 5px;
+}
+main.mainpage {
+  display: grid;
+  place-items: start center;
+}

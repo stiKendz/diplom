@@ -341,7 +341,7 @@ app.post('/addproblem', async (req, res) => {
         problem_short_description,
         difficult,
         how_to_fixed,
-        price
+        problem_price
     } = req.body;
 
     const problemParts = {
@@ -349,7 +349,7 @@ app.post('/addproblem', async (req, res) => {
         problem_short_description,
         difficult,
         how_to_fixed,
-        price
+        problem_price
     };
 
     for(let key in problemParts) {
@@ -371,8 +371,8 @@ app.post('/addproblem', async (req, res) => {
             };
 
             const result = await client.query(
-                'INSERT INTO problems_table (problem_name, problem_short_description, difficult, how_to_fixed, price) VALUES ($1, $2, $3, $4, $5) RETURNING problem_id, problem_name',
-                [problem_name, problem_short_description, difficult, how_to_fixed, price]
+                'INSERT INTO problems_table (problem_name, problem_short_description, difficult, how_to_fixed, problem_price) VALUES ($1, $2, $3, $4, $5) RETURNING problem_id, problem_name',
+                [problem_name, problem_short_description, difficult, how_to_fixed, problem_price]
             );
             const problemId = result.rows[0].problem_id;
             const problemName = result.rows[0].problem_name;

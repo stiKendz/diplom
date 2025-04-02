@@ -38,7 +38,7 @@ create table problems_table (
 	problem_short_description text null,
 	difficult int not null, -- 1
 	how_to_fixed text not null, -- автосервис
-	price varchar(128) not null -- 100.000тысруб
+	problem_price varchar(128) not null -- 100.000тысруб
 );
 
 

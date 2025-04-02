@@ -10,6 +10,8 @@ import Footer from './components/footer/Footer'
 import SingIn from './components/sing-in/SingIn'
 import SingUp from './components/sing-up/SingUp'
 
+import AdminPage from './components/admin-page/AdminPage';
+
 import Handler from './scripts/app/handler';
 
 export default function App() {
@@ -21,6 +23,7 @@ export default function App() {
                 <Footer />  
                 <SingIn />
                 <SingUp />
+                <AdminPage />
             </StrictMode>,
         </>
     )
