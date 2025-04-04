@@ -3,6 +3,11 @@ import { createContext } from 'react';
 import {useState, useContext} from 'react';
 
 import Header from '../header/Header'
+
+import AddProblemToCar from './components/AddProblemToCar';
+import UpdateAndDeleteCar from './components/UpdateAndDeleteCar';
+import AddPhoto from './components/AddPhoto';
+
 import Footer from '../footer/Footer'
 
 export default function AdminPage() {
@@ -85,7 +90,7 @@ export default function AdminPage() {
     const [problem_short_description, SetCarProblemShortDescription] = useState('');
     const [difficult, SetCarProblemDiffucult] = useState('');
     const [how_to_fixed, SetCarProblemFixedWays] = useState('');
-    const [problem_price, SetCarProblemRepairCost] = useState('');
+    const [problem_price, SetCarProblemRepairPrice] = useState('');
 
     async function AddCarProblem() {
         const response = await fetch('http://localhost:3000/addproblem', {
@@ -102,8 +107,6 @@ export default function AdminPage() {
     async function ShowProblems() {
 
     }
-
-
 
     return(
         <>
@@ -207,7 +210,7 @@ export default function AdminPage() {
                         <div className="car-parameters-container">
                             <h2>Добавление автомобиля</h2>
                             <div className="car-parameter concern">
-                                <p><p></p>пример: VAG, PSA</p>
+                                <p>пример: VAG, PSA</p>
                                 <input type="text" className="concern-input" placeholder="Концерн автомобиля:" 
                                 onChange={e => setCarConcern(e.target.value)}
                                 />
@@ -296,56 +299,39 @@ export default function AdminPage() {
                         <div className="add-problem-window">
                             <div className="problem-parameter name">
                                 <p>пример: гнилые пороги</p>
-                                <input type="text" className="problem-name-input" placeholder="Название проблемы" />
+                                <input type="text" className="problem-name-input" placeholder="Название проблемы"  
+                                    onChange={e => SetCarProblemName(e.target.value)}
+                                />
                             </div>
                             <div className="problem-parameter description">
-                                <input type="text" className="problem-description-input" placeholder="Краткое описание проблемы" />
+                                <input type="text" className="problem-description-input" placeholder="Краткое описание проблемы" 
+                                    onChange={e => SetCarProblemShortDescription(e.target.value)}
+                                />
                             </div>
                             <div className="problem-parameter difficult">
-                                <input type="number" className="problem-difficult-input" placeholder="Сложность устранения (от 1 до 5)" />
+                                <input type="number" className="problem-difficult-input" placeholder="Сложность устранения (от 1 до 5)" 
+                                    onChange={e => SetCarProblemDiffucult(e.target.value)}
+                                />
                             </div>
                             <div className="problem-parameter how-to-fixed">
                                 <p>Обратиться в автосервис ...</p>
-                                <input type="text" className="problem-how-to-fixed-input" placeholder=" Описание решения проблемы" />
+                                <input type="text" className="problem-how-to-fixed-input" placeholder=" Описание решения проблемы" 
+                                    onChange={e => SetCarProblemFixedWays(e.target.value)}
+                                />
                             </div>
                             <div className="problem-parameter price">
                                 <p>пример: 100.000тыс.руб</p>
-                                <input type="text" className="problem-price-input" placeholder="Цена решения проблемы (тыс.руб)" />
+                                <input type="text" className="problem-price-input" placeholder="Цена решения проблемы (тыс.руб)" 
+                                    onChange={e => SetCarProblemRepairPrice(e.target.value)}
+                                />
                             </div>
                         </div>
-                        <button type="button" className="add-problem-button">Добавить проблему</button>
+                        <button type="button" className="add-problem-button" onClick={AddCarProblem}>Добавить проблему</button>
                     </div>
-                    <div className="car-promlems-container">
-                        <h2>Добавление проблемы автомобилю</h2>
-                        <div className="car-problems-window">
-                            <input type="number" className="add-problem-to-car-carid-input" placeholder="Введите ID автомобиля" />
-                            <input type="number" className="add-problem-to-car-problemid-input" placeholder="Введите ID проблемы" />
-                            <button type="button" className="add-problem-to-car-button">Добавить проблему</button>
-                        </div>
-                    </div>
-                    <div className="add-photo-container">
-                        <div className="add-photo-window" enctype="multipart/form-data">
-                            <img className="uploaded-image" src="" enctype="" />
-                            <input type="file" name="file" className="add-image-input" enctype="" />
-                            <input type="number" className="car-id-input" placeholder="id автомобиля для добавления к нему фотографии" />
-                            <input type="text" className="car-model-name" placeholder="Введите название номера модели" />
-                            <button type="button" className="upload-image-button">Загрузить изображение</button>
-                        </div>
-                    </div>
-                    <div className="delete-update-cars-container">
-                        <h2>Обновление модели автомобиля</h2>
-                        <div className="update-cars">
-                            <input type="number" className="update-id-input" placeholder="Введите ID автомобиля" />
-                            <p>пример: DC5, GC8, 8B </p>
-                            <input type="text" className="update-model-name-input" placeholder="Введите новый номер модели" />
-                            <button type="button" className="update-car-button">Изменить модель</button>
-                        </div>
-                        <h2>Удаление автомобиля</h2>
-                        <div className="delete-cars">
-                            <input type="number" className="delete-car-input-id" placeholder="Введите ID автомобиля" />
-                            <button type="button" className="delete-car-button">Удалить автомобиль</button>
-                        </div>
-                    </div>
+                    <AddProblemToCar />
+                    <UpdateAndDeleteCar />
+                    <hr></hr>
+                    <AddPhoto />
                 </div>
             </main>
             <Footer />
