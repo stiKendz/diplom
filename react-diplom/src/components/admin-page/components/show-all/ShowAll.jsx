@@ -10,7 +10,7 @@ export default function ShowAll() {
     const [showCars, setShowCars] = useState(false);
     const [showProblems, setShowProblems] = useState(false);
     const [showCarsProblems, setShowCarsProblems] = useState(false);
-
+    
 
     function showEnginesFunction() {
         setShowEngines(current => !current);
@@ -25,81 +25,66 @@ export default function ShowAll() {
         setShowCarsProblems(current => !current);
     }
 
-    function closeWindow() {
-        setShowCars(false);
-    }
-
     return(
         <>
             <div className="show-all-container">
                 <button type="button" className="show-engines-button" onClick={showEnginesFunction}>
-                    Просмотреть все двигатели
+                    {showEngines ? 'Закрыть окно' : 'Промотреть все двигатели'}
                 </button>
-                {
-                    showEngines && <EnginesWindow closeWindow = {closeWindow}/>
-                }
+                { showEngines && <EnginesWindow /> }
                 <button type="button" className="show-cars-button" onClick={showCarsFunction}>
-                    Просмотреть все автомобили
+                    {showCars ? 'Закрыть окно' : 'Промотреть все автомобили'}
                 </button>
-                {
-                    showCars && <CarsWindow closeWindow = {closeWindow}/>
-                }
+                { showCars && <CarsWindow /> }
                 <button type="button" className="show-problems-button" onClick={showProblemsFunction}>
-                    Просмотреть все проблемы
+                    {showProblems ? 'Закрыть окно' : 'Промотреть все проблемы'}
                 </button>
-                {
-                    showProblems && <ProblemsWindow closeWindow = {closeWindow}/>
-                }
+                { showProblems && <ProblemsWindow />}
                 <button type="button" className="show-car-problems-button" onClick={showCarsProblemsFunction}>
-                    Просмотреть все проблемы автомобилей
+                    {showCarsProblems ? 'Закрыть окно' : 'Промотреть все проблемы автомобилей'}
                 </button>
-                {
-                    showCarsProblems && <CarsProblemsWindow closeWindow = {closeWindow}/>
-                }
+                { showCarsProblems && <CarsProblemsWindow /> }
             </div>
         </>
     )
 }
 
 
-function EnginesWindow({closeWindow}) {
+function EnginesWindow({}) {
     return(
         <>
             <div className="engines-window-container">
-                <button type='button' className='close-window-button' onClick={closeWindow}>Закрыть окно</button>
                 <h1>Контейнер с двигателями</h1>
             </div>
         </>
     )
 }
 
-function CarsWindow({closeWindow}) {
+function CarsWindow({}) {
     return(
         <>
             <div className="cars-window-container">
-                <button type='button' className='close-window-button' onClick={closeWindow}>Закрыть окно</button>
                 <h1>Контейнер с машинами</h1>
             </div>
         </>
     )
 }
 
-function ProblemsWindow({closeWindow}) {
+function ProblemsWindow({}) {
     return(
         <>
             <div className="problems-window-container">
-                <button type='button' className='close-window-button' onClick={closeWindow}>Закрыть окно</button>
                 <h1>Контейнер с проблемами</h1>
             </div>
         </>
     )
 }
 
-function CarsProblemsWindow({closeWindow}) {
+function CarsProblemsWindow({closeCarsPoblemsWindow}) {
+
     return(
         <>
             <div className="cars-problems-window-container">
-                <button type='button' className='close-window-button' onClick={closeWindow}>Закрыть окно</button>
                 <h1>Контейнер с проблемами у машин</h1>
             </div>
         </>
