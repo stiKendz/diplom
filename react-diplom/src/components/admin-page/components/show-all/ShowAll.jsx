@@ -25,60 +25,83 @@ export default function ShowAll() {
         setShowCarsProblems(current => !current);
     }
 
+    function closeWindow() {
+        setShowCars(false);
+    }
+
     return(
         <>
             <div className="show-all-container">
                 <button type="button" className="show-engines-button" onClick={showEnginesFunction}>
                     Просмотреть все двигатели
                 </button>
-                {showEngines && <EnginesWindow />}
+                {
+                    showEngines && <EnginesWindow closeWindow = {closeWindow}/>
+                }
                 <button type="button" className="show-cars-button" onClick={showCarsFunction}>
                     Просмотреть все автомобили
                 </button>
-                {showCars && <CarsWindow />}
+                {
+                    showCars && <CarsWindow closeWindow = {closeWindow}/>
+                }
                 <button type="button" className="show-problems-button" onClick={showProblemsFunction}>
                     Просмотреть все проблемы
                 </button>
-                {showProblems && <ProblemsWindow />}
+                {
+                    showProblems && <ProblemsWindow closeWindow = {closeWindow}/>
+                }
                 <button type="button" className="show-car-problems-button" onClick={showCarsProblemsFunction}>
                     Просмотреть все проблемы автомобилей
                 </button>
-                {showCarsProblems && <CarsProblemsWindow />}
+                {
+                    showCarsProblems && <CarsProblemsWindow closeWindow = {closeWindow}/>
+                }
             </div>
         </>
     )
 }
 
 
-
-export function CarsWindow() {
+function EnginesWindow({closeWindow}) {
     return(
         <>
-            <h1>Контейнер с машинами</h1>
+            <div className="engines-window-container">
+                <button type='button' className='close-window-button' onClick={closeWindow}>Закрыть окно</button>
+                <h1>Контейнер с двигателями</h1>
+            </div>
         </>
     )
 }
 
-export function EnginesWindow() {
+function CarsWindow({closeWindow}) {
     return(
         <>
-            <h1>Контейнер с двигателями</h1>
+            <div className="cars-window-container">
+                <button type='button' className='close-window-button' onClick={closeWindow}>Закрыть окно</button>
+                <h1>Контейнер с машинами</h1>
+            </div>
         </>
     )
 }
 
-export function ProblemsWindow() {
+function ProblemsWindow({closeWindow}) {
     return(
         <>
-            <h1>Контейнер с проблемами</h1>
+            <div className="problems-window-container">
+                <button type='button' className='close-window-button' onClick={closeWindow}>Закрыть окно</button>
+                <h1>Контейнер с проблемами</h1>
+            </div>
         </>
     )
 }
 
-export function CarsProblemsWindow() {
+function CarsProblemsWindow({closeWindow}) {
     return(
         <>
-            <h1>Контейнер с проблемами автомобилей</h1>
+            <div className="cars-problems-window-container">
+                <button type='button' className='close-window-button' onClick={closeWindow}>Закрыть окно</button>
+                <h1>Контейнер с проблемами у машин</h1>
+            </div>
         </>
     )
 }
