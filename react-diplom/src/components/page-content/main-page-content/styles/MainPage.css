@@ -55,7 +55,7 @@ input::placeholder {
   color: black;
 }
 
-main {
+/* main {
     display: grid;
     place-items: start center;
     background-color: #272727;
@@ -162,4 +162,4 @@ main {
   }
   main .main-container section.filters-section .filter .filter-items .filter-item.select {
     color: #14a76c;
-  }
+  } */
