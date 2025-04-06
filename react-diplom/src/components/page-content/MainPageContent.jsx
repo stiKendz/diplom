@@ -2,12 +2,13 @@ import React from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
 
-import './styles/MainPage.css'
+import Header from '../header/Header';
+import Footer from '../footer/Footer';
 
 export default function MainPageContent() {
-
     return(
-        <main>
+        <>
+            <Header />
             <div className="main-container">
                 <section className="preview-filters">
                     <h1 className="hello-user">Добро пожаловать</h1>
@@ -51,6 +52,7 @@ export default function MainPageContent() {
                     </div>
                 </section>
             </div>
-        </main>   
+            <Footer />
+        </> 
     )
 }

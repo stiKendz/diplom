@@ -1,11 +1,7 @@
-@font-face {
-    font-family: UbuntuReg;
-    src: url(../fonts/ubuntu/Ubuntu-Regular.ttf);
-}
+
 * {
     margin: 0;
     padding: 0;
-    font-family: UbuntuReg;
     color: white;
 }
 
@@ -13,44 +9,6 @@
     display: grid;
     grid-template-rows: auto 1fr auto;
     min-block-size: 100dvh;
-}
-
-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 200px;
-    padding: 10px 0px;
-    font-size: 18px;
-    background-color: transparent;
-    outline: none;
-    user-select: none;
-    cursor: pointer;
-    border: 0;
-}
-button:hover {
-    transition: 0.5s ease-out;
-}
-button:focus {
-    transition: 0.5s ease-in;
-    box-shadow: 0px 0px 5px 3px black;
-}
-
-input {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    justify-content: start;
-    min-width: 250px;
-    font-size: 18px;
-    color: black;
-    outline: none;
-    min-width: 260px;
-    padding-left: 10px;
-}
-input::placeholder {
-    font-size: 16px;
-    color: black;
 }
   
 
