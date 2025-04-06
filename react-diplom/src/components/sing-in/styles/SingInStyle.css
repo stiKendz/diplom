@@ -30,11 +30,9 @@ button {
 }
 button:hover {
     transition: 0.5s ease-out;
-    background-color: #ff652f;
 }
 button:focus {
     transition: 0.5s ease-in;
-    background-color: #ff652f;
     box-shadow: 0px 0px 5px 3px black;
 }
 
@@ -68,7 +66,7 @@ main.singin .main-container-singin {
     margin-top: 20px;
     }
 main.singin .main-container-singin .sing-in-window-container {
-    background-color: #747474;
+    background-color: #0078f0;
     box-shadow: 0px 4px 5px 5px black;
 }
 main.singin .main-container-singin .sing-in-window-container .sing-in-window {

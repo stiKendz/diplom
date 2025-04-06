@@ -30,11 +30,9 @@ button {
 }
 button:hover {
   transition: 0.5s ease-out;
-  background-color: #ff652f;
 }
 button:focus {
   transition: 0.5s ease-in;
-  background-color: #ff652f;
   box-shadow: 0px 0px 5px 3px black;
 }
 

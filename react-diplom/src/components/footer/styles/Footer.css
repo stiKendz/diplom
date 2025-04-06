@@ -30,11 +30,9 @@ button {
 }
 button:hover {
   transition: 0.5s ease-out;
-  background-color: #ff652f;
 }
 button:focus {
   transition: 0.5s ease-in;
-  background-color: #ff652f;
   box-shadow: 0px 0px 5px 3px black;
 }
 
@@ -59,7 +57,7 @@ footer {
     display: grid;
     place-items: start center;
     padding: 10px;
-    background-color: #747474;
+    background-color: #0078f0;
   }
   footer .footer-container {
     display: grid;

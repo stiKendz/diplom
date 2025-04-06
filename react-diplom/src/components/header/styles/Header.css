@@ -30,11 +30,9 @@ button {
 }
 button:hover {
   transition: 0.5s ease-out;
-  background-color: #ff652f;
 }
 button:focus {
   transition: 0.5s ease-in;
-  background-color: #ff652f;
   box-shadow: 0px 0px 5px 3px black;
 }
 
@@ -45,14 +43,14 @@ input {
   justify-content: start;
   min-width: 250px;
   font-size: 18px;
-  color: black;
+  color: white;
   outline: none;
   min-width: 260px;
   padding-left: 10px;
 }
 input::placeholder {
   font-size: 16px;
-  color: black;
+  color: white;
 }
 
 header {
@@ -60,7 +58,7 @@ header {
   display: grid;
   place-items: center center;
   padding: 10px;
-  background-color: #747474;
+  background-color: #0078f0;
 }
 header .header-container.singin {
   display: grid;
