@@ -4,11 +4,13 @@ import {useState, useContext} from 'react';
 
 import './styles/Header.css'
 
+import logo from '../../images/check-engine.jpg'
+
 export default function Header() {
     return (
         <header>
             <div className="main">
-                <div className="logo-png">123</div>
+                <img className="logo-png" src={logo}/>
                 <h1 className="company-name">Check Engine</h1>
                 <nav className="navigation-container">
                     <button type="button" className="to-sing-in-page">Войти</button>

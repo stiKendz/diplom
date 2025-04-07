@@ -5,9 +5,11 @@ import {useState, useContext} from 'react';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 
+import './styles/MainPageContent.css'
+
 export default function MainPageContent() {
     return(
-        <>
+        <div className="main-page">
             <Header />
             <div className="main-container">
                 <section className="preview-filters">
@@ -53,6 +55,6 @@ export default function MainPageContent() {
                 </section>
             </div>
             <Footer />
-        </> 
+        </div> 
     )
 }

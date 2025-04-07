@@ -1,7 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  color: white;
 }
 
 header {
@@ -32,7 +31,6 @@ header {
       width: 100px;
       height: 100px;
 
-      background-color: black;
     }
     header .main h1 {
       grid-area: name;
@@ -40,6 +38,8 @@ header {
       display: flex;
       justify-content: center;
       align-items: center;
+
+      color: white;
     }
     header .main nav {
       grid-area: menu;
@@ -69,6 +69,7 @@ header {
         user-select: none;
 
         overflow: hidden;
+        cursor: pointer;
       }
         header .main nav button::after {
           content: "";
