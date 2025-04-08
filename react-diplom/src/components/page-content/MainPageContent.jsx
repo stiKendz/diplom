@@ -7,54 +7,56 @@ import Footer from '../footer/Footer';
 
 import './styles/MainPageContent.css'
 
+import dcImage from '../../images/dc2.jpg'
+
 export default function MainPageContent() {
     return(
         <div className="main-page">
             <Header />
             <div className="main-container">
-                <section className="preview-filters">
-                    <h1 className="hello-user">Добро пожаловать</h1>
-                    <p className="user-message">
-                        Приложение позволяет подобрать автомобиль по желаемым параметрам: цена, 
-                        тип кузова, объём двигателя, коробка передач и другие характеристики. 
+                <section className="hello-card">
+                    <p className="hello-message">Сделайте правильный выбор в мире автомобилей</p>
+                    <p className="information-message"> 
+                        <span> Войдите </span> 
+                        или 
+                        <span> зарегистрируйтесь </span>
+                        для использования приложения
                     </p>
                 </section>
-                <section className="filters-section">
-                    <div className="filter car-concern">
-                        <p className="filter-description car-concern">Выберете концерн, который вы предпочитаете</p>
-                        <div className="filter-items car-concern">
-                            <div className="filter-item car-concern-1">VAG</div>
-                            <div className="filter-item car-concern-2">Toyota Motors</div>
-                            <div className="filter-item car-concern-3">PSA</div>
-                        </div>
-                    </div>
-                    <div className="filter car-brand">
-                        <p className="filter-description car-brand">Выберете марку концерна</p>
-                        <div className="filter-items car-brand">
-                            <div className="filter-item car-brand-1">Audi</div>
-                            <div className="filter-item car-brand-2">Lexus</div>
-                            <div className="filter-item car-brand-3">Peugeot</div>
-                        </div>
-                    </div>
-                    <div className="filter car-year">
-                        <p className="filter-description car-year">Выберете годы выпуска автомобиля</p>
-                        <div className="filter-items car-year">
-                            <div className="filter-item car-year-1">1990-1994</div>
-                            <div className="filter-item car-year-2">1995-1999</div>
-                            <div className="filter-item car-year-3">2000-2004</div>
-                        </div>
-                    </div>
-                    <div className="filter car-vehicle">
-                        <p className="filter-description car-vehicle">Привод автомобиля</p>
-                        <div className="filter-items car-vehicle">
-                            <div className="filter-item car-vehicle-1">RWD</div>
-                            <div className="filter-item car-vehicle-2">FWD</div>
-                            <div className="filter-item car-vehicle-3">AWD</div>
-                        </div>
-                    </div>
+                <section className="filters-container">
+                    <Filter id="concern"/>
+                    <Filter id="car"/>
+                    <Filter id="model"/>
                 </section>
             </div>
             <Footer />
         </div> 
+    )
+}
+
+
+function Filter({id=''}) {
+    return(
+        <>
+            <div className="filter" id={id}>
+                <img id={id} src={dcImage}></img>
+                <p className="description" id={id}>Выберете концерн, который вы предпочитаете</p>
+                <div className="items" id={id}>
+                    <div className="item" id={id}>VAG</div>
+                    <div className="item" id={id}>Toyota Motors</div>
+                    <div className="item" id={id}>PSA</div>
+                </div>
+                <div className="text-addition" id={id}>
+                    <p className='big-addition' id={id}>
+                        Этот фильтр помогает выбрать автомобиль из конкретной группы компаний-производителей
+                    </p>
+                    <p className='small-addition' id={id}>
+                        VAG (Volkswagen Group) — немецкий концерн, включающий марки: Volkswagen, Audi, Skoda, Seat, Porsche и другие
+                        Toyota Motors — японский производитель, включающий марки: Toyota, Lexus, Daihatsu
+                        PSA (Stellantis) — европейский концерн, включающий марки: Peugeot, Citroën, Opel, DS
+                    </p>
+                </div>
+            </div>
+        </>
     )
 }
