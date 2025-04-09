@@ -29,7 +29,10 @@ export default function MainPageContent() {
                     <Filter 
                         id="concern"
                         src={dcImage}
-                        filterDescription = {'Выберете концерн, который вы предпочитаете'}
+                        filterDesctiption={"Выберете концерн, который вы предпочитаете"}
+                        itemOne={"VAG"}
+                        itemTwo={"PSA"}
+                        itemThree={"Toyota Motors"}
                     />
                     <Filter 
                         id="car"
@@ -47,13 +50,8 @@ export default function MainPageContent() {
 }
 
 
-function Filter({id='', src='', filterDesctiption=''}) {
+function Filter({id='', src='', filterDesctiption, itemOne, itemTwo, itemThree, itemFour, itemFive}) {
     const [showAddition, setShowAddition] = useState('false');
-
-    const [filterItemOne, setFilterItemOne] = useState('false');
-    const [filterItemTwo, setFilterItemTwo] = useState('false');
-    const [filterItemThree, setFilterItemThree] = useState('false');
-    const [filterItemFour, setFilterItemFour] = useState('false');
 
     function openAddition() {
         setShowAddition(current => !current)
@@ -65,9 +63,9 @@ function Filter({id='', src='', filterDesctiption=''}) {
                 <img id={id} src={src}></img>
                 <p className="description" id={id}>{filterDesctiption}</p>
                 <div className="items" id={id}>
-                    <div className="item" id={id}>VAG</div>
-                    <div className="item" id={id}>Toyota Motors</div>
-                    <div className="item" id={id}>PSA</div>
+                    <div className="item" id={id}>{itemOne}</div>
+                    <div className="item" id={id}>{itemTwo}</div>
+                    <div className="item" id={id}>{itemThree}</div>
                 </div>
                 <div className="text-addition" id={id}>
                     <button className='open-addition' onClick={openAddition}>
@@ -77,7 +75,16 @@ function Filter({id='', src='', filterDesctiption=''}) {
                         showAddition
                         &&
                         <FilterAddition 
-                        
+                            bigAdditionText={
+                                `Этот фильтр помогает выбрать автомобиль из 
+                                конкретной группы компаний-производителей`
+                            }
+                            smallAdditionText={
+                                `VAG (Volkswagen Group) — немецкий концерн, включающий марки: Volkswagen, Audi, Skoda, Seat, 
+                                Porsche и другие.
+                                Toyota Motors — японский производитель, включающий марки: Toyota, Lexus, Daihatsu
+                                PSA (Stellantis) — европейский концерн, включающий марки: Peugeot, Citroën, Opel, DS`
+                            }
                         />
                     }
                 </div>
@@ -86,14 +93,11 @@ function Filter({id='', src='', filterDesctiption=''}) {
     )
 }
 
-function FilterAddition({id =''}) {
-    const [bigAdditionText, setBigAdditionText] = useState('');
-    const [smallAdditionText, setSmallAdditionText] = useState('');
-
+function FilterAddition({id ='', bigAdditionText, smallAdditionText}) {
     return (
         <>
             <p className='big-addition' id={id}>
-                Этот фильтр помогает выбрать автомобиль из конкретной группы компаний-производителей
+                {bigAdditionText}
             </p>
             <p className='small-addition' id={id}>       
                 VAG (Volkswagen Group) — немецкий концерн, включающий марки: Volkswagen, Audi, Skoda, Seat, Porsche и другие
