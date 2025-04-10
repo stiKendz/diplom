@@ -12,40 +12,50 @@ import w211Image from '../../images/w211.jpg'
 import rollsRoyce from '../../images/rollsRoyce.jpg'
 
 export default function MainPageContent() {
+    const TokenContext = createContext(window.localStorage.getItem('token'));
+    const [token, setToken] = useState(TokenContext);
+
+
     return(
-        <div className="main-page">
-            <Header />
-            <div className="main-container">
-                <section className="hello-card">
-                    <p className="hello-message">Сделайте правильный выбор в мире автомобилей</p>
-                    <p className="information-message"> 
-                        <span> Войдите </span> 
-                        или 
-                        <span> зарегистрируйтесь </span>
-                        для использования приложения
-                    </p>
-                </section>
-                <section className="filters-container">
-                    <Filter 
-                        id="concern"
-                        src={dcImage}
-                        filterDesctiption={"Выберете концерн, который вы предпочитаете"}
-                        itemOne={"VAG"}
-                        itemTwo={"PSA"}
-                        itemThree={"Toyota Motors"}
-                    />
-                    <Filter 
-                        id="car"
-                        src={w211Image}
-                    />
-                    <Filter 
-                        id="model"
-                        src={rollsRoyce}
-                    />
-                </section>
-            </div>
-            <Footer />
-        </div> 
+        <TokenContext.Provider value={token}>
+            <div className="main-page">
+                <Header />
+                <div className="main-container">
+                    <section className="hello-card">
+                        <p className="hello-message">Сделайте правильный выбор в мире автомобилей</p>
+                        <p className="information-message"> 
+                            <span> Войдите </span> 
+                            или 
+                            <span> зарегистрируйтесь </span>
+                            для использования приложения
+                        </p>
+                    </section>
+                    <section className="filters-container">
+                        <Filter 
+                            id="concern"
+                            src={dcImage}
+                            filterDesctiption={"Выберете концерн, который вы предпочитаете"}
+                            itemOne={"VAG"}
+                            itemTwo={"PSA"}
+                            itemThree={"Toyota Motors"}
+                            itemFour={"FCA"}
+                            itemFive={"BMW Group"}
+                        />
+                        <Filter 
+                            id="car"
+                            src={w211Image}
+                            filterDesctiption={"Выберете марку автомобиля"}
+                        />
+                        <Filter 
+                            id="model"
+                            src={rollsRoyce}
+                            filterDesctiption={"Выберите тип кузова"}
+                        />
+                    </section>
+                </div>
+                <Footer />
+            </div> 
+        </TokenContext.Provider>
     )
 }
 
@@ -66,6 +76,8 @@ function Filter({id='', src='', filterDesctiption, itemOne, itemTwo, itemThree, 
                     <div className="item" id={id}>{itemOne}</div>
                     <div className="item" id={id}>{itemTwo}</div>
                     <div className="item" id={id}>{itemThree}</div>
+                    <div className="item" id={id}>{itemFour}</div>
+                    <div className="item" id={id}>{itemFive}</div>
                 </div>
                 <div className="text-addition" id={id}>
                     <button className='open-addition' onClick={openAddition}>
@@ -99,10 +111,8 @@ function FilterAddition({id ='', bigAdditionText, smallAdditionText}) {
             <p className='big-addition' id={id}>
                 {bigAdditionText}
             </p>
-            <p className='small-addition' id={id}>       
-                VAG (Volkswagen Group) — немецкий концерн, включающий марки: Volkswagen, Audi, Skoda, Seat, Porsche и другие
-                Toyota Motors — японский производитель, включающий марки: Toyota, Lexus, Daihatsu
-                PSA (Stellantis) — европейский концерн, включающий марки: Peugeot, Citroën, Opel, DS
+            <p className='small-addition' id={id}>
+                {smallAdditionText}       
             </p>
         </>
     )

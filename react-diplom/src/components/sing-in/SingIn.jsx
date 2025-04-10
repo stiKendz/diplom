@@ -52,11 +52,6 @@ export default function SingIn() {
                             <button type="button" className="sing-in-button" onClick={UserSingIn}>Войти</button>
                         </div>
                     </div>
-                    <div className="log-out-window-container">
-                        <div className="log-out-window">
-                            <button type="button" className="log-out-button" onClick={logOut}>Выйти из аккаунта</button>
-                        </div>
-                    </div>
                 </div>
             </main>  
             <Footer />
