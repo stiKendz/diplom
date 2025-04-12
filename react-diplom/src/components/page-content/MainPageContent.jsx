@@ -4,6 +4,7 @@ import {useState, useContext} from 'react';
 
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
+import { FiltersAdditionContext } from './filtersAdditionContext';
 
 import './styles/MainPageContent.css'
 
@@ -12,50 +13,59 @@ import w211Image from '../../images/w211.jpg'
 import rollsRoyce from '../../images/rollsRoyce.jpg'
 
 export default function MainPageContent() {
-    const TokenContext = createContext(window.localStorage.getItem('token'));
-    const [token, setToken] = useState(TokenContext);
-
+    const [token, setToken] = useState(window.localStorage.getItem('token'));
+    const TokenContext = createContext(token);
 
     return(
-        <TokenContext.Provider value={token}>
-            <div className="main-page">
-                <Header />
-                <div className="main-container">
-                    <section className="hello-card">
-                        <p className="hello-message">Сделайте правильный выбор в мире автомобилей</p>
-                        <p className="information-message"> 
-                            <span> Войдите </span> 
-                            или 
-                            <span> зарегистрируйтесь </span>
-                            для использования приложения
-                        </p>
-                    </section>
-                    <section className="filters-container">
-                        <Filter 
-                            id="concern"
-                            src={dcImage}
-                            filterDesctiption={"Выберете концерн, который вы предпочитаете"}
-                            itemOne={"VAG"}
-                            itemTwo={"PSA"}
-                            itemThree={"Toyota Motors"}
-                            itemFour={"FCA"}
-                            itemFive={"BMW Group"}
+        <div className="main-page">
+            <Header />
+            <div className="main-container">
+                <section className="hello-card">
+                    <p className="hello-message">Сделайте правильный выбор в мире автомобилей</p>
+                    <p className="information-message"> 
+                        <span> Войдите </span> 
+                        или 
+                        <span> зарегистрируйтесь </span>
+                        для использования приложения
+                    </p>
+                </section>
+                <section className="filters-container">
+                    <Filter 
+                        id="concern"
+                        src={dcImage}
+                        filterDesctiption={"Выберете концерн, который вы предпочитаете"}
+                        itemOne={"VAG"}
+                        itemTwo={"PSA"}
+                        itemThree={"Toyota Motors"}
+                        itemFour={"FCA"}
+                        itemFive={"BMW Group"}
+                    />
+                    <Filter 
+                        id="car"
+                        src={w211Image}
+                        filterDesctiption={"Выберете марку автомобиля"}
+                    />
+                    <Filter 
+                        id="model" 
+                        src={rollsRoyce} 
+                        filterDesctiption={"Выберите тип кузова"}>
+                        <FilterAddition
+                            FiltersAdditionContext={
+                                `Этот фильтр помогает выбрать автомобиль из 
+                                конкретной группы компаний-производителей`
+                            }
+                            smallAdditionText={
+                                `VAG (Volkswagen Group) — немецкий концерн, включающий марки: Volkswagen, Audi, Skoda, Seat, 
+                                Porsche и другие.
+                                Toyota Motors — японский производитель, включающий марки: Toyota, Lexus, Daihatsu
+                                PSA (Stellantis) — европейский концерн, включающий марки: Peugeot, Citroën, Opel, DS`
+                            }
                         />
-                        <Filter 
-                            id="car"
-                            src={w211Image}
-                            filterDesctiption={"Выберете марку автомобиля"}
-                        />
-                        <Filter 
-                            id="model"
-                            src={rollsRoyce}
-                            filterDesctiption={"Выберите тип кузова"}
-                        />
-                    </section>
-                </div>
-                <Footer />
-            </div> 
-        </TokenContext.Provider>
+                    </Filter>
+                </section>
+            </div>
+            <Footer />
+        </div> 
     )
 }
 
@@ -86,24 +96,14 @@ function Filter({id='', src='', filterDesctiption, itemOne, itemTwo, itemThree, 
                     {
                         showAddition
                         &&
-                        <FilterAddition 
-                            bigAdditionText={
-                                `Этот фильтр помогает выбрать автомобиль из 
-                                конкретной группы компаний-производителей`
-                            }
-                            smallAdditionText={
-                                `VAG (Volkswagen Group) — немецкий концерн, включающий марки: Volkswagen, Audi, Skoda, Seat, 
-                                Porsche и другие.
-                                Toyota Motors — японский производитель, включающий марки: Toyota, Lexus, Daihatsu
-                                PSA (Stellantis) — европейский концерн, включающий марки: Peugeot, Citroën, Opel, DS`
-                            }
-                        />
+                        <FilterAddition/>
                     }
                 </div>
             </div>
         </>
     )
 }
+
 
 function FilterAddition({id ='', bigAdditionText, smallAdditionText}) {
     return (
@@ -117,3 +117,6 @@ function FilterAddition({id ='', bigAdditionText, smallAdditionText}) {
         </>
     )
 }
+
+// можно создать массив или объект из разных занчений для фильтра, и закидывать их через контекст в пропсы фильтра.
+// (добавлять их к bigAdditionText или smallAdditonText)
