@@ -86,7 +86,7 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: start;
-                    align-items: start;
+                    align-items: center;
                     gap: 5px 0px;
 
                     padding: 10px 0px 0px 20px;
@@ -99,8 +99,8 @@
                         align-items: center;
                 
                         padding: 10px;
-                        width: 150px;
-                        height: 50px;
+                        min-width: 150px;
+                        min-height: 50px;
                 
                         color: #0078f0;
                         background-color: transparent;
@@ -133,16 +133,23 @@
                         background-color: lightgrey;
                         z-index: -1;
                         transition: left 0.3s ease;
-                        }
-                        /* header .main nav button:hover {
-                        color: #fff;
-                        } */
+                    }
                     .main-page .main-container section.filters-container .filter .text-addition button::after {
                         transform: translateX(100%);
-                        }
+                    }
                     .main-page .main-container section.filters-container .filter .text-addition button:hover::before {
                         left: 0;
-                        }
+                    }
                     .main-page .main-container section.filters-container .filter .text-addition button:active {
                         transform: translateY(1px);
+                    }
+                        .main-page .main-container section.filters-container .filter .text-addition .big-addition {
+                            text-align: left;
+
+                            font-size: 18px;
+                        }
+                        .main-page .main-container section.filters-container .filter .text-addition .small-addition {
+                            text-align: justify;
+
+                            font-size: 16px;
                         }

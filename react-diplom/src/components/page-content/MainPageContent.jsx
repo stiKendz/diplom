@@ -5,8 +5,7 @@ import {useState, useContext} from 'react';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 
-import { AdditionContext } from './AdditionContext';
-import { filtersDescription } from './AdditionContext';
+import { AdditionContext, filtersDescription } from './AdditionContext';
 
 import './styles/MainPageContent.css'
 
@@ -15,10 +14,9 @@ import w211Image from '../../images/w211.jpg'
 import rollsRoyce from '../../images/rollsRoyce.jpg'
 
 export default function MainPageContent() {
-
     return(
         <div className="main-page">
-            <AdditionContext.Provider value={filtersDescription}>
+            <AdditionContext value={filtersDescription}>
                 <Header />
                 <div className="main-container">
                     <section className="hello-card">
@@ -47,14 +45,14 @@ export default function MainPageContent() {
                             filterName={"Выберете марку автомобиля"}
                         />
                         <Filter 
-                            id="model" 
+                            id="bodyType" 
                             src={rollsRoyce} 
                             filterName={"Выберите тип кузова"}>
                         </Filter>
                     </section>
                 </div>
                 <Footer />
-            </AdditionContext.Provider>
+            </AdditionContext>
         </div> 
     )
 }
@@ -63,9 +61,14 @@ export default function MainPageContent() {
 function Filter({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive}) {
     const [showAddition, setShowAddition] = useState('false');
 
+    const filters = useContext(AdditionContext);
+    const description = filters.find(filter => filter.name === id);
+
     function openAddition() {
         setShowAddition(current => !current)
     }
+
+
 
     return(
         <>
@@ -73,11 +76,11 @@ function Filter({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFou
                 <img id={id} src={src}></img>
                 <p className="description" id={id}>{filterName}</p>
                 <div className="items" id={id}>
-                    <div className="item" id={id}>{itemOne}</div>
-                    <div className="item" id={id}>{itemTwo}</div>
-                    <div className="item" id={id}>{itemThree}</div>
-                    <div className="item" id={id}>{itemFour}</div>
-                    <div className="item" id={id}>{itemFive}</div>
+                    {itemOne && <div className='item' id={id}>{itemOne}</div>}
+                    {itemTwo && <div className='item' id={id}>{itemTwo}</div>}
+                    {itemThree && <div className='item' id={id}>{itemThree}</div>}
+                    {itemFour && <div className='item' id={id}>{itemFour}</div>}
+                    {itemFive && <div className='item' id={id}>{itemFive}</div>}
                 </div>
                 <div className="text-addition" id={id}>
                     <button className='open-addition' onClick={openAddition}>
@@ -87,8 +90,8 @@ function Filter({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFou
                         showAddition
                         &&
                         <FilterAddition
-                            bigAdditionText={"123"}
-                            smallAdditionText={"456"}
+                            bigAdditionText= {description.bigAddition}
+                            smallAdditionText= {description.smallAddition}
                         />
                     }
                 </div>
@@ -97,18 +100,27 @@ function Filter({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFou
     )
 }
 
-function FilterAddition({id ='', bigAdditionText, smallAdditionText}) {
+function FilterAddition({bigAdditionText, smallAdditionText}) {
     return (
         <>
-            <p className='big-addition' id={id}>
+            <p className='big-addition'>
                 {bigAdditionText}
             </p>
-            <p className='small-addition' id={id}>
-                {smallAdditionText}       
+            <p className='small-addition'>
+                {
+                    smallAdditionText.split('\n').map((line, i) => (
+                        <React.Fragment key={i}>
+                            {line}
+                            <br />
+                        </React.Fragment>
+                    ))
+                    
+                }
             </p>
         </>
     )
 }
 
-// можно создать массив или объект из разных занчений для фильтра, и закидывать их через контекст в пропсы фильтра.
-// (добавлять их к bigAdditionText или smallAdditonText)
+// можно создать массив или объект из разных занчений для фильтра, и закидывать их через контекст в пропсы фильтра. - сделано
+// (добавлять их к bigAdditionText или smallAdditionText) - сделано
+// в зависимости от id фильтра можно подтягивать данные из массива filtersDescription - как ?? - сделано
