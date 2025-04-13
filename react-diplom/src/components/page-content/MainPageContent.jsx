@@ -6,6 +6,7 @@ import Header from '../header/Header';
 import Footer from '../footer/Footer';
 
 import { AdditionContext, filtersDescription } from './AdditionContext';
+import { TokenContext } from '../contexts/TokenContext';
 
 import './styles/MainPageContent.css'
 
@@ -40,15 +41,21 @@ export default function MainPageContent() {
                             itemFive={"BMW Group"}                            
                         />
                         <Filter 
-                            id="car"
+                            id="company"
                             src={w211Image}
                             filterName={"Выберете марку автомобиля"}
+                            itemOne={"Peugeot"}
+                            itemTwo={"Honda"}
+                            itemThree={"Mercedes-Benz"}
                         />
                         <Filter 
                             id="bodyType" 
                             src={rollsRoyce} 
-                            filterName={"Выберите тип кузова"}>
-                        </Filter>
+                            filterName={"Выберите тип кузова"}
+                            itemOne={"Седан"}
+                            itemTwo={"Хэтчбек"}
+                            itemThree={"Универсал"}
+                        />
                     </section>
                 </div>
                 <Footer />
@@ -67,8 +74,6 @@ function Filter({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFou
     function openAddition() {
         setShowAddition(current => !current)
     }
-
-
 
     return(
         <>

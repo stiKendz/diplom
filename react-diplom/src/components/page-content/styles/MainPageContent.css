@@ -149,7 +149,22 @@
                             font-size: 18px;
                         }
                         .main-page .main-container section.filters-container .filter .text-addition .small-addition {
+                            padding-right: 15px;
+
                             text-align: justify;
 
                             font-size: 16px;
+
+                            overflow-y: scroll;
+                        }
+                        .main-page .main-container section.filters-container .filter .text-addition .small-addition::-webkit-scrollbar {
+                            width: 4px;
+                            height: auto;
+                        }
+                        .main-page .main-container section.filters-container .filter .text-addition .small-addition::-webkit-scrollbar-track {
+                            background-color: white;
+                        }
+                        .main-page .main-container section.filters-container .filter .text-addition .small-addition::-webkit-scrollbar-thumb {
+                            background-color: #0078f0;
+                            border-radius: 20px;
                         }
