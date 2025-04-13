@@ -1,22 +1,22 @@
 import React from "react";
-import { createContext, useContext, useState } from "react";
+import { createContext } from "react";
 
-export const FiltersAdditionContext = filtersDescription.createContext(filtersDescription);
+export const AdditionContext = createContext();
 
-const filtersDescription = {                                    
-    concernFilter: {                                    
-        bigAddition: `
+export const filtersDescription = [                                    
+     {                  
+        concernBigAddition: `
             Этот фильтр помогает выбрать автомобиль из 
             конкретной группы компаний-производителей
         `,
-        smallAddition: `
+        concernSmallAddition: `
             VAG (Volkswagen Group) — немецкий концерн, включающий марки: Volkswagen, Audi, Skoda, Seat, 
             Porsche и другие.
             Toyota Motors — японский производитель, включающий марки: Toyota, Lexus, Daihatsu
             PSA (Stellantis) — европейский концерн, включающий марки: Peugeot, Citroën, Opel, DS
         `                                    
     },                                    
-    brandFilter: {                                    
+    {                     
         bigAddition: `
             Этот фильтр помогает выбрать марку производитяля автомобиля на основе выбранного о концерна 
         `,
@@ -26,7 +26,7 @@ const filtersDescription = {
             Golf ...
         `                                    
     },                                    
-    bodytypeFilter: {                                    
+    {                                  
         bigAddition: `
             Этот фильтр помогает выбрать тип кузова будущего автомобиля
         `,
@@ -36,4 +36,4 @@ const filtersDescription = {
             Универсал - 
         `                                    
     },                                    
-}                                    
+]                          
