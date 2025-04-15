@@ -1,6 +1,8 @@
 import React from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
+import { Link, Navigate, Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import './styles/Header.css'
 
@@ -13,6 +15,7 @@ export default function Header() {
     const tokenAllowed = useContext(TokenContext);
     const [token, getToken] = useState(() => window.localStorage.getItem('token'));
     const [role, getRole] = useState(() => window.localStorage.getItem('role'));
+    const navigate = useNavigate();
 
     return (
         <header>
@@ -25,14 +28,26 @@ export default function Header() {
                             {
                                 role === 'admin' && token ? (
                                     <>
-                                        <button type="button" className="profile-page">Профиль</button>
-                                        <button type="button" className="admin-page-button">Страница администратора</button>
-                                        <button type="button" className="to-user-cars-page">Про приложение</button>
+                                        <button
+                                            type="button" 
+                                            className="profile-page"
+                                            onClick={() => navigate('profile', {replace: false})}
+                                        >Профиль</button>
+                                        <button 
+                                            type="button" 
+                                            className="admin-page-button"
+                                            onClick={() => navigate('admin', {replace: false})}
+                                        >Страница администратора</button>
+                                        <button type="button" className="about-page">Про приложение</button>
                                     </>
 
                                 ) : role === 'user' && token ? (
                                     <>
-                                        <button type="button" className="profile-page">Профиль</button>
+                                        <button
+                                            type="button" 
+                                            className="profile-page"
+                                            onClick={() => navigate('profile', {replace: false})}
+                                        >Профиль</button>
                                         <button type="button" className="about-app">Про приложение</button>
                                     </>
                                 ) : (
@@ -43,6 +58,7 @@ export default function Header() {
                             }
                         </nav>
                     </div>
+                    <Outlet />
                 </RoleContext.Provider>
             </TokenContext.Provider>
         </header>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
+import { Link, Navigate, Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
@@ -15,6 +17,8 @@ import w211Image from '../../images/w211.jpg'
 import rollsRoyce from '../../images/rollsRoyce.jpg'
 
 export default function MainPageContent() {
+    const navigate = useNavigate();
+
     return(
         <div className="main-page">
             <AdditionContext value={filtersDescription}>
@@ -23,9 +27,9 @@ export default function MainPageContent() {
                     <section className="hello-card">
                         <p className="hello-message">Сделайте правильный выбор в мире автомобилей</p>
                         <p className="information-message"> 
-                            <span> Войдите </span> 
+                            <span onClick={() => navigate('sing-in', {replace: false})}>Войдите </span> 
                             или 
-                            <span> зарегистрируйтесь </span>
+                            <span onClick={() => navigate('sing-up', {replace: false})}> зарегистрируйтесь </span>
                             для использования приложения
                         </p>
                     </section>
@@ -59,6 +63,7 @@ export default function MainPageContent() {
                     </section>
                 </div>
                 <Footer />
+                <Outlet />
             </AdditionContext>
         </div> 
     )

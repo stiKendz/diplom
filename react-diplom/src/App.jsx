@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
 
@@ -15,11 +16,30 @@ export default function App() {
     return(
         <>
             <StrictMode>
-                <MainPageContent />
-                <SingIn />
-                <SingUp />
-                <AdminPage />
-                <Profile />
+                <BrowserRouter>
+                    <Routes>
+                        <Route 
+                            path="/" 
+                            element={<MainPageContent />}
+                        />
+                        <Route 
+                            path="sing-in" 
+                            element={<SingIn />}
+                        />
+                        <Route 
+                            path="sing-up" 
+                            element={<SingUp />}
+                        />
+                        <Route 
+                            path="profile" 
+                            element={<Profile />}
+                        />
+                        <Route 
+                            path="admin" 
+                            element={<AdminPage />}
+                        />
+                    </Routes>
+                </BrowserRouter>
             </StrictMode>,
         </>
     )
