@@ -2,6 +2,9 @@ import React from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
 
+import { Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 import './styles/SingInStyle.css';
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
@@ -9,6 +12,7 @@ import Header from '../header/Header';
 export default function SingIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     async function UserSingIn() {
         try {
@@ -45,6 +49,11 @@ export default function SingIn() {
             <Header />
             <main className="singin">
                 <div className="main-container-singin">
+                    <button type='button' className='back-button'
+                        onClick={() => navigate("/", {replace: false})}
+                    >
+                        На главную
+                    </button>
                     <div className="sing-in-window-container">
                         <div className="sing-in-window">
                             <input type="email" className="email-input" placeholder="Введите адрес электронной почты" onChange={e => setEmail(e.target.value)}/>
@@ -54,6 +63,7 @@ export default function SingIn() {
                     </div>
                 </div>
             </main>  
+            <Outlet />
             <Footer />
         </>
     )

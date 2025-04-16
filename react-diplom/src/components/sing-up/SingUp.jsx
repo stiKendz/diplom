@@ -2,6 +2,9 @@ import React from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
 
+import { Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 import './styles/SingUpStyle.css';
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
@@ -11,6 +14,7 @@ export default function SingUp() {
     const [surname, setUserSurname] = useState('');
     const [password, setUserPassword] = useState('');
     const [email, setUserEmail] = useState('');
+    const navigate = useNavigate();
 
     async function UserSingUp() {
         const response = await fetch('http://localhost:3000/register', {
@@ -31,6 +35,11 @@ export default function SingUp() {
             <Header />
             <main className="singup">
                 <div className="main-container-singup">
+                    <button type="button" className='back-button'
+                        onClick={() => navigate('/', {replace: false})}
+                    >
+                        На главную
+                    </button>
                     <div className="sing-up-window-container">
                         <div className="sing-up-window">
                             <input type="text" className="name-input" placeholder="Введите имя" autoComplete="off" onChange={e => setUserName(e.target.value)}/>

@@ -8,6 +8,8 @@ import './styles/Header.css'
 
 import logo from '../../images/check-engine.jpg'
 
+import AboutApp from '../about-app/AboutApp';
+
 import { TokenContext } from '../contexts/TokenContext';
 import { RoleContext } from '../contexts/RoleContext';
 
@@ -38,7 +40,11 @@ export default function Header() {
                                             className="admin-page-button"
                                             onClick={() => navigate('admin', {replace: false})}
                                         >Страница администратора</button>
-                                        <button type="button" className="about-page">Про приложение</button>
+                                        <button type="button" className="about-page"
+                                            onClick={() => navigate("about-app", {replace: false})}
+                                        >
+                                            Про приложение
+                                        </button>
                                     </>
 
                                 ) : role === 'user' && token ? (
@@ -48,11 +54,19 @@ export default function Header() {
                                             className="profile-page"
                                             onClick={() => navigate('profile', {replace: false})}
                                         >Профиль</button>
-                                        <button type="button" className="about-app">Про приложение</button>
+                                        <button type="button" className="about-app"
+                                            onClick={() => navigate("about-app", {replace: false})}
+                                        >
+                                            Про приложение
+                                        </button>
                                     </>
                                 ) : (
                                     <>
-                                        <button type="button" className="about-app">Про приложение</button>
+                                        <button type="button" className="about-app"
+                                            onClick={() => navigate("about-app", {replace: false})}
+                                        >
+                                            Про приложение
+                                        </button>
                                     </>
                                 )
                             }
