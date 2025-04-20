@@ -13,7 +13,7 @@ export default function AboutApp() {
 
     return(
         <>
-            <main>
+            <div className="main-container">  
                 <Header />
                     <div className="about-app-container">
                         <button type="button" className="back-button"
@@ -21,11 +21,13 @@ export default function AboutApp() {
                         >
                             На главную
                         </button>
-                        <h1>Страница, где будет описываться что это за приложение и как им пользоваться. Последее неточно</h1>
+                        <div className="about-app-card">
+                            <h1>Страница, где будет описываться что это за приложение и как им пользоваться. Последее неточно</h1>
+                        </div>
                     </div>
                 <Outlet />
                 <Footer />
-            </main>
+            </div>
         </>
     )
 }
