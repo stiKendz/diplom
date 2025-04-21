@@ -3,6 +3,7 @@ import { createContext } from 'react';
 import {useState, useContext} from 'react';
 
 import CarFullInfo from '../car-full-info/CarFullInfo';
+import './styles/CarCard.css';
 
 export default function CarCard() {
     

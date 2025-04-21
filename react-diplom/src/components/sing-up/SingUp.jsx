@@ -9,6 +9,8 @@ import './styles/SingUpStyle.css';
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
 
+import CarCard from '../cars/car-card/CarCard';
+
 export default function SingUp() {
     const [name, setUserName] = useState('');
     const [surname, setUserSurname] = useState('');
@@ -52,6 +54,7 @@ export default function SingUp() {
                 </div>
             </main>
             <Footer />
+            <CarCard />
         </>
     )
 }

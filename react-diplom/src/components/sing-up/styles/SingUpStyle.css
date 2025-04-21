@@ -18,8 +18,11 @@ main.singup {
     display: grid;
     place-items: start center;
     grid-template-columns: 300px;
-    grid-template-rows: 300px;
-    margin-top: 20px;
+    grid-template-rows: 50px 300px;
+
+    gap: 20px 0px;  
+    
+    padding: 40px 0px;
   }
   main.singup .main-container-singup button {
     position: relative;

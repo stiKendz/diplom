@@ -13,8 +13,11 @@ main.singin {
         display: grid;
         place-items: start center;
         grid-template-columns: 300px;
-        grid-template-rows: repeat(2, 200px);
-        margin-top: 20px;
+        grid-template-rows: 50px, 200px;
+
+        gap: 30px 0px;
+
+        padding: 20px 0px;
     }
     main.singin .main-container-singin button {
       position: relative;
