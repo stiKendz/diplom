@@ -7,7 +7,7 @@
 .main-container {
     display: grid;
     grid-template-rows: auto 1fr auto;
-    min-block-size: 100vh;
+    min-block-size: 100dvh;
     width: 100%;
 }
 
