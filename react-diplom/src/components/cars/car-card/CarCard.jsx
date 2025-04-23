@@ -36,7 +36,6 @@ export default function CarCard() {
                          Страница автомобиля
                      </button>
                  </div>
-                 <CarFullInfo />
              </div>
              <Outlet />
          </>

@@ -2,13 +2,21 @@ import React from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
 
+import Header from '../../header/Header'
+import Footer from '../../footer/Footer'
+
+import './styles/CarFullInfo.css'
+
+import dc2 from '../../../images/dc2.jpg';
+
 export default function CarFullInfo() {
     return(
-        <>
+        <main>
+            <Header />
             <div className="car-full-info-container">
                 <h3>Полная информация об автомобиле</h3>
                 <div className="image-container">
-                    <img />
+                    <img src={dc2}/>
                 </div>
                 <div className="car-info-container">
                     <div className="short-description-container">
@@ -27,15 +35,23 @@ export default function CarFullInfo() {
                             <Engine />
                         </div>
                     </div>
+                    <div className="car-description-container">
+                        <div className="description">Описание автомобиля</div>
+                    </div>
                     <div className="car-problems-container">
-                        <div className="name"></div>
-                        <div className="short-description"></div>
-                        <div className="how-to-fix"></div>
-                        <div className="fix-price"></div>
+                        <div className="name">Название проблемы</div>
+                        <div className="short-description">Краткое описание проблемы</div>
+                        <div className="how-to-fix">Как исправить проблему</div>
+                        <div className="fix-price">Цена исправления проблемы</div>
+                        <div className="buttons-container">
+                            <button type='button'>Предидущая проблема</button>
+                            <button type='button'>Следующая проблема</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </>
+            <Footer />
+        </main>
     )
 }
 
