@@ -9,7 +9,6 @@ export default function FavoriteCars() {
         <>
             <h2>Любимые автомобили</h2>
             <div className='favorite-cards-container'>
-                <h2>Тест карточки автомобиля</h2>
                 <CarCard />
             </div>
         </>

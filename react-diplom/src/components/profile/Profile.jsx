@@ -2,13 +2,17 @@ import React from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
 
+import { BrowserRouter, Outlet, useNavigate } from 'react-router-dom';
+
+import './styles/Profile.css';
+
 import Header from '../header/Header';
 import FavoriteCars from './FavoriteCars';
 import Footer from '../footer/Footer';
 
 export default function Profile() {
     return(
-        <>
+        <main>
             <Header />
                 <div className="user-profile-container">
                     <div className="user-info-card">
@@ -22,17 +26,17 @@ export default function Profile() {
                                 <button className='change-data'>Изменить данные</button>
                                 <ChangeData />
                             </div>
-                            <div className="name-container">
+                            <div className="senondname-container">
                                 <p className='surname'>Фамилия пользователя</p>
                                 <button className='change-data'>Изменить данные</button>
                                 <ChangeData />
                             </div>
-                            <div className="name-container">
+                            <div className="phone-container">
                                 <p className='phone-number'>Номер телефона пользователя</p>
                                 <button className='change-data'>Изменить данные</button>
                                 <ChangeData />
                             </div>
-                            <div className="name-container">
+                            <div className="email-container">
                                 <p className='email'>Электронная почта пользователя</p>
                                 <button className='change-data'>Изменить данные</button>
                                 <ChangeData />
@@ -47,7 +51,7 @@ export default function Profile() {
                     </div>
                 </div>
             <Footer />
-        </>
+        </main>
     )
 }
 

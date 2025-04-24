@@ -2,7 +2,7 @@ import React from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
 
-import Header from '../header/Header'
+import Header from '../header/Header';
 import ShowAll from './components/show-all/ShowAll';
 import AddEngine from './components/add-engine/AddEngine';
 import AddCar from './components/add-car/AddCar';
@@ -12,13 +12,15 @@ import AddProblemToCar from './components/AddProblemToCar';
 import UpdateAndDeleteCar from './components/UpdateAndDeleteCar';
 import AddPhoto from './components/AddPhoto';
 
-import Footer from '../footer/Footer'
+import Footer from '../footer/Footer';
+
+import './styles/AdminPage.css';
 
 export default function AdminPage() {
     return(
-        <>
+        <main>
             <Header />
-            <main className="adminpage">
+            <div className="adminpage">
                 <div className="overlay"></div>
                 <div className="main-container">
                     <div className="warning-messages-container">
@@ -38,8 +40,8 @@ export default function AdminPage() {
                     <UpdateAndDeleteCar />
                     <AddPhoto />
                 </div>
-            </main>
+            </div>
             <Footer />
-        </>
+        </main>
     )
 }

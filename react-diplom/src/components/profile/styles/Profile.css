@@ -1,0 +1,121 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+main {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-block-size: 100dvh;
+}
+
+.user-profile-container {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 800px 900px;
+    gap: 20px;
+
+    max-width: 1200px;
+    width: 100%;
+
+    padding: 20px;
+    margin: 0 auto;
+}
+
+
+.user-info-card {
+    display: grid;
+    grid-template-rows: 50px 170px 1fr;
+    gap: 1.5rem;
+       
+    padding: 2rem;
+
+    border-radius: 8px;
+
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 255, 0.1);
+}
+
+.user-info-card h1 {
+    color: #0078f0;
+
+    font-size: 20px;
+    text-align: center;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #e6f0ff;
+    margin: 0 auto;
+    border: 3px solid #0078f0;
+    overflow: hidden;
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bio {
+    display: grid;
+    grid-template-columns: repeat(2, 400px);
+    grid-template-rows: repeat(2, 200px);
+
+    justify-content: space-around;
+}
+.bio > div {
+    display: grid;
+    grid-template-rows: repeat(2, 100px);
+    grid-template-columns: repeat(2, 200px);
+    grid-area: 
+    'current-data change-data'
+    'new-data change-data'
+    ;
+}
+    .bio div & p {
+        grid-area: current-data;
+    }
+    .bio div & button {
+        grid-area: new-data;
+    }
+    .bio div & .change-data-container {
+        grid-area: change-data;
+    }
+
+.user-favorite-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 255, 0.1);
+    padding: 2rem;
+}
+
+.open-favorite-cars {
+    background-color: #0078f0;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.open-favorite-cars:hover {
+    background-color: #0044cc;
+}
+
+.user-favorite-cars h2 {
+    color: #0078f0;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.favorite-cards-container {
+    display: grid;
+    gap: 1rem;
+}
