@@ -51,7 +51,7 @@ export default function App() {
                         />
                     </Routes>
                 </BrowserRouter>
-            </StrictMode>,
+            </StrictMode>
         </>
     )
 } 

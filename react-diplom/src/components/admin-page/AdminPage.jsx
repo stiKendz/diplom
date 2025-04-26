@@ -22,7 +22,7 @@ export default function AdminPage() {
             <Header />
             <div className="adminpage">
                 <div className="overlay"></div>
-                <div className="main-container">
+                <div className="main-container-admin">
                     <div className="warning-messages-container">
                         <p className="warning-message"><span>Обратите внимание</span>, что перед добавлением автомобиля, необходимо добавить двигатель от него, 
                             если таковой имеется, приступить к добавлению автомбиля.</p>

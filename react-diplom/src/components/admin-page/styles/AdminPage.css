@@ -21,7 +21,7 @@ main {
 }
   
 
-.main-container {
+.main-container-admin {
     display: grid;
     grid-template-columns: 400px 400px;
     grid-template-rows: repeat(4, 550px);
@@ -71,7 +71,7 @@ main {
     font-style: italic;
 }
   
-.main-container > * {
+.main-container-admin > * {
     background-color: white;
     padding: 20px;
     border-radius: 8px;

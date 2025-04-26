@@ -1,8 +1,8 @@
 import React from 'react';
 import { createContext } from 'react';
-import {useState, useContext} from 'react';
+import {useState, useContext, useEffect} from 'react';
 
-import { BrowserRouter, Outlet, useNavigate } from 'react-router-dom';
+import { BrowserRouter, data, Outlet, useNavigate } from 'react-router-dom';
 
 import './styles/Profile.css';
 
@@ -10,7 +10,40 @@ import Header from '../header/Header';
 import FavoriteCars from './FavoriteCars';
 import Footer from '../footer/Footer';
 
+import { TokenContext } from '../contexts/TokenContext';
+
 export default function Profile() {
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [phone_number, setPhoneNumber] = useState('');
+    const [email, setEmail] = useState('');
+
+    // const [token, getToken] = useState(() => window.localStorage.getItem('token'));
+    const token = window.localStorage.getItem('token');
+
+    useEffect(() => {
+        getUserInfo();
+    }, []);
+
+    async function getUserInfo(){
+        const response = await fetch('http://localhost:3000/getuserinfo', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+        const userData = await response.json();
+
+        if(userData.userInfo) {
+            const user = userData.userInfo;
+            setName(user.name)
+            setSurname(user.surname)
+            setEmail(user.email)
+            setPhoneNumber(user.phone_number)
+        }
+    }
+
     return(
         <main>
             <Header />
@@ -22,22 +55,22 @@ export default function Profile() {
                         </div>
                         <div className="bio">
                             <div className="name-container">
-                                <p className='name'>Имя пользователя</p>
+                                <p className='name'>{name}</p>   
                                 <button className='change-data'>Изменить данные</button>
                                 <ChangeData />
                             </div>
                             <div className="senondname-container">
-                                <p className='surname'>Фамилия пользователя</p>
-                                <button className='change-data'>Изменить данные</button>
-                                <ChangeData />
-                            </div>
-                            <div className="phone-container">
-                                <p className='phone-number'>Номер телефона пользователя</p>
+                                <p className='surname'>{surname}</p>
                                 <button className='change-data'>Изменить данные</button>
                                 <ChangeData />
                             </div>
                             <div className="email-container">
-                                <p className='email'>Электронная почта пользователя</p>
+                                <p className='email'>{email}</p>
+                                <button className='change-data'>Изменить данные</button>
+                                <ChangeData />
+                            </div>
+                            <div className="phone-container">
+                                <p className='phone-number'>{phone_number}</p>
                                 <button className='change-data'>Изменить данные</button>
                                 <ChangeData />
                             </div>
@@ -66,3 +99,5 @@ function ChangeData() {
         </>
     )
 }
+
+// сделать контекст с данными о пользователе (контекст будет включать в себя массив с данными о пользователе из базы данных)

@@ -674,3 +674,34 @@ app.delete('/deletecar', async (req, res) => {
         return res.status(500).json({message: 'Ошибка удаления автомобиля из-за ошибки на сервере'});
     };
 });
+
+// получение информации о профиле пользователя
+app.get('/getuserinfo', async (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    const client = await pool.connect();
+
+    try {
+        const decodedToken = jwt.verify(token, SECRET_KEY);
+        const userId = decodedToken.userId;
+
+        const response = await client.query(
+            'SELECT * FROM users_table where user_id = $1', [userId]
+        )
+        const result = response.rows[0];
+
+        res.status(200).json({
+            message: 'Информация о пользователе',
+            userInfo: {
+                name: result.name,
+                surname: result.surname,
+                email: result.email,
+                phone_number: result.phone_number,
+            }
+        });
+    } catch (err) {
+        console.error('Ошибка при выводе информации о пользователе из-за ошибки в запросе ' + err);
+        res.status(500).send('Ошибка при выводе информации о пользователе из-за ошибки в запросе');
+    } finally {
+        client.release();
+    }
+})
