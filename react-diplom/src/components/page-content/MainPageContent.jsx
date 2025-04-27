@@ -53,12 +53,43 @@ export default function MainPageContent() {
                             itemThree={"Mercedes-Benz"}
                         />
                         <Filter 
+                            id="gearbox" 
+                            src={rollsRoyce} 
+                            filterName={"Выберите тип КПП"}
+                            itemOne={"MT"}
+                            itemTwo={"AT"}
+                            itemThree={"Вариатор"}
+                            itemFour={"Робот"}
+                        />
+                        <Filter 
+                            id="vehicle" 
+                            src={rollsRoyce} 
+                            filterName={"Выберите привод"}
+                            itemOne={"FWD"}
+                            itemTwo={"RWD"}
+                            itemThree={"AWD"}
+                        />
+                        <Filter 
                             id="bodyType" 
                             src={rollsRoyce} 
                             filterName={"Выберите тип кузова"}
                             itemOne={"Седан"}
                             itemTwo={"Хэтчбек"}
                             itemThree={"Универсал"}
+                        />
+                        <RangeFilter 
+                            id='release'
+                            src={dcImage}
+                            filterName={"Выберите год выпуска"}
+                            minPlaceholder={'1980'}
+                            maxPlaceholder={'2025'}
+                        />
+                        <RangeFilter 
+                            id='price'
+                            src={dcImage}
+                            filterName={"Выберите цену"}
+                            minPlaceholder={'60.000'}
+                            maxPlaceholder={'10.000.000'}
                         />
                     </section>
                 </div>
@@ -100,8 +131,8 @@ function Filter({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFou
                         showAddition
                         &&
                         <FilterAddition
-                            bigAdditionText= {description.bigAddition}
-                            smallAdditionText= {description.smallAddition}
+                            bigAdditionText = {description.bigAddition}
+                            smallAdditionText = {description.smallAddition}
                         />
                     }
                 </div>
@@ -109,6 +140,56 @@ function Filter({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFou
         </>
     )
 }
+
+
+function RangeFilter({ id='', src='', filterName, minPlaceholder, maxPlaceholder }) {
+    const [showAddition, setShowAddition] = useState('false');
+
+    const filters = useContext(AdditionContext);
+    const description = filters.find(filter => filter.name === id);
+
+    function openAddition() {
+        setShowAddition(current => !current)
+    }
+
+    return (
+        <>
+            <div className="filter" id={id}>
+                <img id={id} src={src}></img>
+                <p className="description" id={id}>{filterName}</p>
+                <div className="items" id={id}>
+                    <input
+                        id={id}
+                        type="text"
+                        className="range"
+                        placeholder={minPlaceholder}
+                    />
+                    <span className="separator">-</span>
+                    <input
+                        id={id}
+                        type="text"
+                        className="range"
+                        placeholder={maxPlaceholder}
+                    />
+                </div>
+                <div className="text-addition" id={id}>
+                    <button className='open-addition' onClick={openAddition}>
+                        {showAddition ? 'Закрыть поясение' : 'Открыть пояснение'}
+                    </button> 
+                    {
+                        showAddition
+                        &&
+                        <FilterAddition
+                            bigAdditionText = {description.bigAddition}
+                            smallAdditionText = {description.smallAddition}
+                        />
+                    }
+                </div>
+            </div>
+        </>  
+    );
+}
+
 
 function FilterAddition({bigAdditionText, smallAdditionText}) {
     return (
@@ -124,7 +205,6 @@ function FilterAddition({bigAdditionText, smallAdditionText}) {
                             <br />
                         </React.Fragment>
                     ))
-                    
                 }
             </p>
         </>
