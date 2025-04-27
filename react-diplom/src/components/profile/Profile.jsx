@@ -15,9 +15,8 @@ import { TokenContext } from '../contexts/TokenContext';
 export default function Profile() {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
-    const [phone_number, setPhoneNumber] = useState('');
     const [email, setEmail] = useState('');
-
+    const [phone_number, setPhoneNumber] = useState('');
     // const [token, getToken] = useState(() => window.localStorage.getItem('token'));
     const token = window.localStorage.getItem('token');
 
@@ -44,6 +43,23 @@ export default function Profile() {
         }
     }
 
+    async function changeUserInfo() {
+        const response = await fetch('http://localhost:3000/changeuserinfo', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({name, surname, email, phone_number})
+        })
+
+        const data = await response.json();
+
+        if (data) {
+            window.location.reload();
+        }
+    }
+
     return(
         <main>
             <Header />
@@ -55,25 +71,42 @@ export default function Profile() {
                         </div>
                         <div className="bio">
                             <div className="name-container">
-                                <p className='name'>{name}</p>   
-                                <button className='change-data'>Изменить данные</button>
-                                <ChangeData />
+                                <p className='name'>Имя : {name}</p>   
+                                <div className="change-data-container">
+                                    <input type='text' className='new-data' placeholder='Новые данные'
+                                        onChange={e => setName(e.target.value)}
+                                    ></input>
+                                </div>
                             </div>
                             <div className="senondname-container">
-                                <p className='surname'>{surname}</p>
-                                <button className='change-data'>Изменить данные</button>
-                                <ChangeData />
+                                <p className='surname'>Фамилия : {surname}</p>
+                                <div className="change-data-container">
+                                    <input type='text' className='new-data' placeholder='Новые данные'
+                                        onChange={e => setSurname(e.target.value)}
+                                    ></input>
+                                </div>
                             </div>
                             <div className="email-container">
-                                <p className='email'>{email}</p>
-                                <button className='change-data'>Изменить данные</button>
-                                <ChangeData />
+                                <p className='email'>Электронная почта : {email}</p>
+                                <div className="change-data-container">
+                                    <input type='text' className='new-data' placeholder='Новые данные'
+                                        onChange={e => setEmail(e.target.value)}
+                                    ></input>
+                                </div>
                             </div>
                             <div className="phone-container">
-                                <p className='phone-number'>{phone_number}</p>
-                                <button className='change-data'>Изменить данные</button>
-                                <ChangeData />
+                                <p className='phone-number'>Номер телефона : {phone_number}</p>
+                                <div className="change-data-container">
+                                    <input type='text' className='new-data' placeholder='Новые данные'
+                                        onChange={e => setPhoneNumber(e.target.value)}
+                                    ></input>
+                                </div>
                             </div>
+                            <button className='change-data'
+                                onClick={changeUserInfo}
+                            >
+                                Подтвердить новые данные профиля
+                            </button>
                         </div>
                     </div>
                     <div className="user-favorite-container">
@@ -85,18 +118,6 @@ export default function Profile() {
                 </div>
             <Footer />
         </main>
-    )
-}
-
-
-function ChangeData() {
-    return(
-        <>
-            <div className="change-data-container">
-                <input type='text' className='new-data' defaultValue='Новые данные'></input>
-                <button className='change-data'>Подтвердить</button>
-            </div>
-        </>
     )
 }
 

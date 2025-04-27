@@ -705,3 +705,36 @@ app.get('/getuserinfo', async (req, res) => {
         client.release();
     }
 })
+
+// изменение информации о пользователе в профиле
+app.put('/changeuserinfo', async (req, res) => {
+    const {name, surname, email, phone_number} = req.body;
+    const token = req.headers.authorization?.split(' ')[1];
+
+    const client = await pool.connect();
+
+    try {
+        const decodedToken = jwt.verify(token, SECRET_KEY);
+        const userId = decodedToken.userId;
+
+        const changeName = await client.query(
+            'UPDATE users_table SET name = $2 WHERE user_id = $1', [userId, name]
+        )
+        const changeSurname = await client.query(
+            'UPDATE users_table SET surname = $2 WHERE user_id = $1', [userId, surname]
+        )
+        const changeEmail = await client.query(
+            'UPDATE users_table SET email = $2 WHERE user_id = $1', [userId, email]
+        )
+        const changePhoneNumber = await client.query(
+            'UPDATE users_table SET phone_number = $2 WHERE user_id = $1', [userId, phone_number]
+        )
+
+        res.status(200).json({message: 'Данные пользователя успешно обновлены'})
+    } catch (err) {
+        console.error('Ошибка при изменении данных пользователя на стороне сервера' + err);
+        res.status(500).send('Ошибка при изменении данных пользователя на стороне сервера');
+    } finally {
+        client.release();
+    }
+})

@@ -62,10 +62,14 @@ main {
 .bio {
     display: grid;
     grid-template-columns: repeat(2, 400px);
-    grid-template-rows: repeat(2, 200px);
+    grid-template-rows: 200px 200px 50px;
 
     justify-content: space-around;
 }
+    .bio button {
+        grid-area: 5 / 1 / 6 / 3;
+        justify-self: center;
+    }
 .bio > div {
     display: grid;
     grid-template-rows: repeat(2, 100px);
