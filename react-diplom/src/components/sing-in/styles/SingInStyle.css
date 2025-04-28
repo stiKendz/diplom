@@ -80,7 +80,17 @@ main.singin {
                 grid-template-rows: repeat(3, 50px);
                 gap: 10px 0px;
                 padding: 10px;
+
+                justify-items: center;
             }
+                main.singin .main-container-singin .sing-in-window-container .sing-in-window input {
+                  min-width: 250px;
+                  min-height: 30px;
+
+                  padding: 0px 5px 0px 5px;
+
+                  outline: none;
+                }
                 main.singin .main-container-singin .sing-in-window-container .sing-in-window button {
                     position: relative;
             
@@ -102,6 +112,7 @@ main.singin {
                     overflow: hidden;
                     cursor: pointer;
                 }
+
                     main.singin .main-container-singin .sing-in-window-container .sing-in-window button::after {
                       content: "";
                       position: absolute;

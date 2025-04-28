@@ -210,7 +210,3 @@ function FilterAddition({bigAdditionText, smallAdditionText}) {
         </>
     )
 }
-
-// можно создать массив или объект из разных занчений для фильтра, и закидывать их через контекст в пропсы фильтра. - сделано
-// (добавлять их к bigAdditionText или smallAdditionText) - сделано
-// в зависимости от id фильтра можно подтягивать данные из массива filtersDescription - как ?? - сделано
