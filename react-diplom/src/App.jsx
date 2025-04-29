@@ -46,7 +46,7 @@ export default function App() {
                             element={<AboutApp></AboutApp>}
                         />
                         <Route 
-                            path='/sing-up/car-full-info'
+                            path='/profile/car-full-info'
                             element={<CarFullInfo />}
                         />
                     </Routes>

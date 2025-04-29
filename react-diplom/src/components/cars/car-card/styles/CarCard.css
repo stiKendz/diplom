@@ -62,10 +62,14 @@
         }
         
         .car-card .car-info .price {
-            font-weight: bold;
-            color: #0078f0;
-            font-size: 16px;
+            text-align: center;
+
             margin: 12px 0 8px;
+
+            color: #0078f0;
+
+            font-weight: bold;
+            font-size: 16px;
         }
         
     .car-card .buttons-container {

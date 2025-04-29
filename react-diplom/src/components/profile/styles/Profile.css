@@ -62,28 +62,36 @@ main {
 .bio {
     display: grid;
     grid-template-columns: repeat(2, 400px);
-    grid-template-rows: 200px 200px 50px;
+    grid-template-rows: 150px 150px 50px;
 
     justify-content: space-around;
 }
     .bio button {
-        grid-area: 5 / 1 / 6 / 3;
+        grid-area: 3 / 1 / 4 / 3;
         justify-self: center;
+
+        padding: 10px;
+        border-radius: 6px;
+        font-size: 14px;
+
+        cursor: pointer;
+        transition: all 0.2s;
+        border: none;
+    }
+    .bio button {
+        background: #0078f0;
+        color: white;
+    }
+    .bio button:hover {
+        background: #0060c0;
     }
 .bio > div {
     display: grid;
-    grid-template-rows: repeat(2, 100px);
+    grid-template-rows: 100px;
     grid-template-columns: repeat(2, 200px);
-    grid-area: 
-    'current-data change-data'
-    'new-data change-data'
-    ;
 }
     .bio div & p {
         grid-area: current-data;
-    }
-    .bio div & button {
-        grid-area: new-data;
     }
     .bio div & .change-data-container {
         grid-area: change-data;
@@ -123,3 +131,4 @@ main {
     display: grid;
     gap: 1rem;
 }
+

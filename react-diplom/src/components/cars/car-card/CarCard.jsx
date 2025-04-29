@@ -22,7 +22,7 @@ export default function CarCard() {
                      <div className="generation">Поколение авто:</div>
                      <div className="vehical">Привод</div>
                      <div className="gearbox">Тип КПП</div>
-                     <div className="body-type">Тип кухова</div>
+                     <div className="body-type">Тип кузова</div>
                      <div className="release-date">Старт производства: 2001</div>
                      <div className="end-release-date">Окончание производства: 2004</div>
                      <div className="price">400.000.руб - 1.200.000.руб</div>
