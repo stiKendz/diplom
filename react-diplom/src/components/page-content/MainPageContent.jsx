@@ -18,84 +18,95 @@ import rollsRoyce from '../../images/rollsRoyce.jpg'
 
 export default function MainPageContent() {
     const navigate = useNavigate();
+    const [token, getToken] = useState(() => window.localStorage.getItem('token'));
 
     return(
         <div className="main-page">
-            <AdditionContext value={filtersDescription}>
-                <Header />
-                <div className="main-container">
-                    <section className="hello-card">
-                        <p className="hello-message">Сделайте правильный выбор в мире автомобилей</p>
-                        <p className="information-message"> 
-                            <span onClick={() => navigate('sing-in', {replace: false})}>Войдите </span> 
-                            или 
-                            <span onClick={() => navigate('sing-up', {replace: false})}> зарегистрируйтесь </span>
-                            для использования приложения
-                        </p>
-                    </section>
-                    <section className="filters-container">
-                        <Filter
-                            id="concern"
-                            src={dcImage}
-                            filterName={"Выберете концерн, который вы предпочитаете"}
-                            itemOne={"VAG"}
-                            itemTwo={"PSA"}
-                            itemThree={"Toyota Motors"}
-                            itemFour={"FCA"}
-                            itemFive={"BMW Group"}                            
-                        />
-                        <Filter 
-                            id="company"
-                            src={w211Image}
-                            filterName={"Выберете марку автомобиля"}
-                            itemOne={"Peugeot"}
-                            itemTwo={"Honda"}
-                            itemThree={"Mercedes-Benz"}
-                        />
-                        <Filter 
-                            id="gearbox" 
-                            src={rollsRoyce} 
-                            filterName={"Выберите тип КПП"}
-                            itemOne={"MT"}
-                            itemTwo={"AT"}
-                            itemThree={"Вариатор"}
-                            itemFour={"Робот"}
-                        />
-                        <Filter 
-                            id="vehicle" 
-                            src={rollsRoyce} 
-                            filterName={"Выберите привод"}
-                            itemOne={"FWD"}
-                            itemTwo={"RWD"}
-                            itemThree={"AWD"}
-                        />
-                        <Filter 
-                            id="bodyType" 
-                            src={rollsRoyce} 
-                            filterName={"Выберите тип кузова"}
-                            itemOne={"Седан"}
-                            itemTwo={"Хэтчбек"}
-                            itemThree={"Универсал"}
-                        />
-                        <RangeFilter 
-                            id='release'
-                            src={dcImage}
-                            filterName={"Выберите год выпуска"}
-                            minPlaceholder={'1980'}
-                            maxPlaceholder={'2025'}
-                        />
-                        <RangeFilter 
-                            id='price'
-                            src={dcImage}
-                            filterName={"Выберите цену"}
-                            minPlaceholder={'60.000'}
-                            maxPlaceholder={'10.000.000'}
-                        />
-                    </section>
-                </div>
-                <Footer />
-                <Outlet />
-            </AdditionContext>
+            <TokenContext.Provider value={getToken}>
+                <AdditionContext value={filtersDescription}>
+                    <Header />
+                    <div className="main-container">
+                        {
+                            !token ? (
+                                <>
+                                    <section className="hello-card">
+                                        <p className="hello-message">Сделайте правильный выбор в мире автомобилей</p>
+                                        <p className="information-message"> 
+                                            <span onClick={() => navigate('sing-in', {replace: false})}>Войдите </span> 
+                                            или 
+                                            <span onClick={() => navigate('sing-up', {replace: false})}> зарегистрируйтесь </span>
+                                            для использования приложения
+                                        </p>
+                                    </section>
+                                </>
+                            ) : (
+                                null    
+                            )
+                        }
+                        <section className="filters-container">
+                            <Filter
+                                id="concern"
+                                src={dcImage}
+                                filterName={"Выберете концерн, который вы предпочитаете"}
+                                itemOne={"VAG"}
+                                itemTwo={"PSA"}
+                                itemThree={"Toyota Motors"}
+                                itemFour={"FCA"}
+                                itemFive={"BMW Group"}                            
+                            />
+                            <Filter 
+                                id="company"
+                                src={w211Image}
+                                filterName={"Выберете марку автомобиля"}
+                                itemOne={"Peugeot"}
+                                itemTwo={"Honda"}
+                                itemThree={"Mercedes-Benz"}
+                            />
+                            <Filter 
+                                id="gearbox" 
+                                src={rollsRoyce} 
+                                filterName={"Выберите тип КПП"}
+                                itemOne={"MT"}
+                                itemTwo={"AT"}
+                                itemThree={"Вариатор"}
+                                itemFour={"Робот"}
+                            />
+                            <Filter 
+                                id="vehicle" 
+                                src={rollsRoyce} 
+                                filterName={"Выберите привод"}
+                                itemOne={"FWD"}
+                                itemTwo={"RWD"}
+                                itemThree={"AWD"}
+                            />
+                            <Filter 
+                                id="bodyType" 
+                                src={rollsRoyce} 
+                                filterName={"Выберите тип кузова"}
+                                itemOne={"Седан"}
+                                itemTwo={"Хэтчбек"}
+                                itemThree={"Универсал"}
+                            />
+                            <RangeFilter 
+                                id='release'
+                                src={dcImage}
+                                filterName={"Выберите год выпуска"}
+                                minPlaceholder={'1980'}
+                                maxPlaceholder={'2025'}
+                            />
+                            <RangeFilter 
+                                id='price'
+                                src={dcImage}
+                                filterName={"Выберите цену"}
+                                minPlaceholder={'60.000'}
+                                maxPlaceholder={'10.000.000'}
+                            />
+                        </section>
+                    </div>
+                    <Footer />
+                    <Outlet />
+                </AdditionContext>
+            </TokenContext.Provider>
         </div> 
     )
 }

@@ -12,7 +12,7 @@ main {
 .user-profile-container {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 800px 900px;
+    grid-template-rows: 550px 900px;
     gap: 20px;
 
     max-width: 1200px;
@@ -21,81 +21,83 @@ main {
     padding: 20px;
     margin: 0 auto;
 }
+    .user-info-card {
+        display: grid;
+        grid-template-rows: 50px 170px 1fr;
+        gap: 1.5rem;
+        
+        padding: 2rem;
 
+        border-radius: 8px;
 
-.user-info-card {
-    display: grid;
-    grid-template-rows: 50px 170px 1fr;
-    gap: 1.5rem;
-       
-    padding: 2rem;
-
-    border-radius: 8px;
-
-    background-color: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 255, 0.1);
-}
-
-.user-info-card h1 {
-    color: #0078f0;
-
-    font-size: 20px;
-    text-align: center;
-}
-
-.profile-photo {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background-color: #e6f0ff;
-    margin: 0 auto;
-    border: 3px solid #0078f0;
-    overflow: hidden;
-}
-
-.profile-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.bio {
-    display: grid;
-    grid-template-columns: repeat(2, 400px);
-    grid-template-rows: 150px 150px 50px;
-
-    justify-content: space-around;
-}
-    .bio button {
-        grid-area: 3 / 1 / 4 / 3;
-        justify-self: center;
-
-        padding: 10px;
-        border-radius: 6px;
-        font-size: 14px;
-
-        cursor: pointer;
-        transition: all 0.2s;
-        border: none;
+        background-color: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 255, 0.1);
     }
-    .bio button {
-        background: #0078f0;
-        color: white;
-    }
-    .bio button:hover {
-        background: #0060c0;
-    }
-.bio > div {
-    display: grid;
-    grid-template-rows: 100px;
-    grid-template-columns: repeat(2, 200px);
-}
-    .bio div & p {
-        grid-area: current-data;
-    }
-    .bio div & .change-data-container {
-        grid-area: change-data;
-    }
+
+        .user-info-card h1 {
+            color: #0078f0;
+
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #e6f0ff;
+            margin: 0 auto;
+            border: 3px solid #0078f0;
+            overflow: hidden;
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .bio {
+            display: grid;
+            grid-template-columns: repeat(2, 400px);
+            grid-template-rows: 50px 50px 100px;
+
+            justify-content: space-around;
+        }
+            .bio .buttons-container {
+                grid-area: 3 / 1 / 4 / 3;
+                justify-self: center;
+            }
+            .bio .buttons-container button {
+                min-height: 52px;
+
+                padding: 10px;
+                border-radius: 6px;
+                font-size: 14px;
+
+                cursor: pointer;
+                transition: all 0.2s;
+                border: none;
+            }
+            .bio .buttons-container button {
+                background: #0078f0;
+                color: white;
+            }
+            .bio .buttons-container button:hover {
+                background: #0060c0;
+            }
+        .bio > div {
+            display: grid;
+            grid-template-columns: repeat(2, 200px);
+
+            align-items: center;
+        }
+            .bio div & p {
+                grid-area: current-data;
+            }
+            .bio div & .change-data-container {
+                grid-area: change-data;
+            }
 
 .user-favorite-container {
     background-color: white;

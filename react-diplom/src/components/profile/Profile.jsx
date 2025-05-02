@@ -20,6 +20,8 @@ export default function Profile() {
     // const [token, getToken] = useState(() => window.localStorage.getItem('token'));
     const token = window.localStorage.getItem('token');
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         getUserInfo();
     }, []);
@@ -58,6 +60,16 @@ export default function Profile() {
         if (data) {
             window.location.reload();
         }
+    }
+
+    async function LogoutFromAccount() {
+        window.localStorage.removeItem('token');
+        window.localStorage.removeItem('email');
+        window.localStorage.removeItem('role');
+    
+        alert('Вы вышли из аккаунта');
+
+        navigate('/', {replace: false});
     }
 
     return(
@@ -102,11 +114,18 @@ export default function Profile() {
                                     ></input>
                                 </div>
                             </div>
-                            <button className='change-data'
-                                onClick={changeUserInfo}
-                            >
-                                Подтвердить новые данные профиля
-                            </button>
+                            <div className="buttons-container">
+                                <button className='change-data'
+                                    onClick={changeUserInfo}
+                                >
+                                    Подтвердить новые данные профиля
+                                </button>
+                                <button className='logout'
+                                    onClick={LogoutFromAccount}
+                                >
+                                    Выйти из аккаунта
+                                </button> 
+                            </div>
                         </div>
                     </div>
                     <div className="user-favorite-container">

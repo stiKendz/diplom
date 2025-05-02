@@ -25,23 +25,26 @@ export default function SingIn() {
             })
             .then(response => response.json());
 
+            if (email === '' || password === '') {
+                alert('Все поля должны быть заполнены')
+            }
 
-            window.localStorage.setItem('token', data.token);
-            window.localStorage.setItem('email', data.email);
-            window.localStorage.setItem('role', data.role);
+            if (data) {
+                alert('Неверное имя пользователя или пароль')
+            } else {
+                alert('Вы успешно вошли в аккаунт')
+                
+                window.localStorage.setItem('token', data.token);
+                window.localStorage.setItem('email', data.email);
+                window.localStorage.setItem('role', data.role);
+            }
+
 
             console.log(data);
         } catch (error) {
             console.error('Ошибка при выполнении запроса:', error);
+            alert('Возникла ошибка входе в аккаунт')
         }
-    }
-
-    const logOut = () => {
-        window.localStorage.removeItem('token');
-        window.localStorage.removeItem('email');
-        window.localStorage.removeItem('role');
-    
-        alert('Вы вышли из аккаунта');
     }
         
     return(
