@@ -19,17 +19,29 @@ export default function SingUp() {
     const navigate = useNavigate();
 
     async function UserSingUp() {
-        const response = await fetch('http://localhost:3000/register', {
+        const data = await fetch('http://localhost:3000/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ name, surname, password, email }),
         });
-    
-        const data = await response.json();
+        
+        try {
+            if (data.ok) {
+                const response = await data.json();
+                alert("Вы успешно зарегистрировались")
+            } else if (name === '' || surname === '' || password === '' || email === '') {
+                alert("Все поля должны быть заполнены")
+            } else {
+                alert('Некоректные данные для регистрации')
+            }
 
-        console.log(data);
+            console.log(data)
+        } catch (error) {
+            console.error('Ошибка при выполнении запроса:', error);
+            alert('Возникла ошибка при выполнении запроса')
+        }
     }
 
     return(
@@ -37,11 +49,11 @@ export default function SingUp() {
             <Header />
             <main className="singup">
                 <div className="main-container-singup">
-                    <button type="button" className='back-button'
+                    {/* <button type="button" className='back-button'
                         onClick={() => navigate('/', {replace: false})}
                     >
                         На главную
-                    </button>
+                    </button> */}
                     <div className="sing-up-window-container">
                         <div className="sing-up-window">
                             <input type="text" className="name-input" placeholder="Введите имя" autoComplete="off" onChange={e => setUserName(e.target.value)}/>

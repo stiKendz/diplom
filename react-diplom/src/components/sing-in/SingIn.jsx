@@ -23,27 +23,25 @@ export default function SingIn() {
                 },
                 body: JSON.stringify({ email, password }),
             })
-            .then(response => response.json());
+            
+            if (data.ok) {
+                const response = await data.json();
 
-            if (email === '' || password === '') {
-                alert('Все поля должны быть заполнены')
-            }
-
-            if (data) {
-                alert('Неверное имя пользователя или пароль')
-            } else {
                 alert('Вы успешно вошли в аккаунт')
                 
-                window.localStorage.setItem('token', data.token);
-                window.localStorage.setItem('email', data.email);
-                window.localStorage.setItem('role', data.role);
+                window.localStorage.setItem('token', response.token);
+                window.localStorage.setItem('email', response.email);
+                window.localStorage.setItem('role', response.role);
+            } else if (email === '' || password === '') {
+                alert('Все поля должны быть заполнены')
+            } else {
+                alert('Неверный логин или пароль')
             }
-
 
             console.log(data);
         } catch (error) {
             console.error('Ошибка при выполнении запроса:', error);
-            alert('Возникла ошибка входе в аккаунт')
+            alert('Возникла ошибка при выполнении запроса')
         }
     }
         
@@ -52,11 +50,6 @@ export default function SingIn() {
             <Header />
             <main className="singin">
                 <div className="main-container-singin">
-                    <button type='button' className='back-button'
-                        onClick={() => navigate("/", {replace: false})}
-                    >
-                        На главную
-                    </button>
                     <div className="sing-in-window-container">
                         <div className="sing-in-window">
                             <input type="email" className="email-input" placeholder="Введите адрес электронной почты" onChange={e => setEmail(e.target.value)}/>

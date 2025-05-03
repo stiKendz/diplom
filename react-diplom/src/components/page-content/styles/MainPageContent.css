@@ -23,6 +23,12 @@
 
             gap: 20px 0px;
         }
+        .main-page .main-container div.space {
+            display: flex;
+
+            width: 100%;
+            height: 40px;
+        }
             .main-page section.hello-card p.hello-message {
                 font-size: 30px;
             }

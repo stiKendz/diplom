@@ -40,7 +40,7 @@ export default function MainPageContent() {
                                     </section>
                                 </>
                             ) : (
-                                null    
+                                <div className='space'></div>   
                             )
                         }
                         <section className="filters-container">
@@ -66,10 +66,11 @@ export default function MainPageContent() {
                                 id="gearbox" 
                                 src={rollsRoyce} 
                                 filterName={"Выберите тип КПП"}
-                                itemOne={"MT"}
-                                itemTwo={"AT"}
-                                itemThree={"Вариатор"}
-                                itemFour={"Робот"}
+                                itemOne={"Механическая (MT)"}
+                                itemTwo={"Автоматическая (AT)"}
+                                itemThree={"Вариатор (CVT)"}
+                                itemFour={"Роботизированная (AMT/DSG)"}
+                                itemFive={"Гибридая"}
                             />
                             <Filter 
                                 id="vehicle" 
@@ -78,6 +79,7 @@ export default function MainPageContent() {
                                 itemOne={"FWD"}
                                 itemTwo={"RWD"}
                                 itemThree={"AWD"}
+                                itemFour={"Подключаемый полный"}
                             />
                             <Filter 
                                 id="bodyType" 
@@ -86,6 +88,7 @@ export default function MainPageContent() {
                                 itemOne={"Седан"}
                                 itemTwo={"Хэтчбек"}
                                 itemThree={"Универсал"}
+                                itemFour={"Купе"}
                             />
                             <RangeFilter 
                                 id='release'

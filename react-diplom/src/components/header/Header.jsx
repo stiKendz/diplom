@@ -1,8 +1,9 @@
 import React from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
+
 import { Link, Navigate, Outlet } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , useLocation } from 'react-router-dom';
 
 import './styles/Header.css'
 
@@ -17,7 +18,9 @@ export default function Header() {
     const tokenAllowed = useContext(TokenContext);
     const [token, getToken] = useState(() => window.localStorage.getItem('token'));
     const [role, getRole] = useState(() => window.localStorage.getItem('role'));
+
     const navigate = useNavigate();
+    let location = useLocation();
 
     return (
         <header>
@@ -28,7 +31,7 @@ export default function Header() {
                         <h1 className="company-name">Check Engine</h1>
                         <nav className="navigation-container">
                             {
-                                role === 'admin' && token ? (
+                                role === 'admin' && token && location.pathname != '/profile' ? (
                                     <>
                                         <button
                                             type="button" 
@@ -47,25 +50,44 @@ export default function Header() {
                                         </button>
                                     </>
 
-                                ) : role === 'user' && token ? (
+                                ) : role === 'user' 
+                                && token 
+                                && location.pathname != '/profile'
+                                && location.pathname != '/about-app' 
+                                ? (
                                     <>
                                         <button
                                             type="button" 
                                             className="profile-page"
                                             onClick={() => navigate('profile', {replace: false})}
-                                        >Профиль</button>
-                                        <button type="button" className="about-app"
-                                            onClick={() => navigate("about-app", {replace: false})}
+                                        >
+                                            Профиль</button>
+                                        <button 
+                                            type="button" 
+                                            className="about-app"
+                                            onClick={() => navigate('about-app', {replace: false})}
+                                        >
+                                            Про приложение
+                                        </button>
+                                    </>
+                                ) : !token && !role && location.pathname == '/' ? (
+                                    <>
+                                        <button 
+                                            type="button" 
+                                            className="about-app"
+                                            onClick={() => navigate('about-app', {replace: false})}
                                         >
                                             Про приложение
                                         </button>
                                     </>
                                 ) : (
                                     <>
-                                        <button type="button" className="about-app"
-                                            onClick={() => navigate("about-app", {replace: false})}
+                                        <button
+                                            type="button"
+                                            className="profile-page"
+                                            onClick={() => navigate('/', {replace: false})}
                                         >
-                                            Про приложение
+                                            На главную
                                         </button>
                                     </>
                                 )

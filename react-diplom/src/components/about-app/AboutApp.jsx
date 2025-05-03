@@ -16,11 +16,6 @@ export default function AboutApp() {
             <div className="main-container">  
                 <Header />
                 <div className="about-app-container">
-                    <button type="button" className="back-button"
-                        onClick={() => navigate('/', {replace: false})}
-                    >
-                        На главную
-                    </button>
                     <div className="about-app-card">
                         <h1>
                             Приложение позволяет быстро находить автомобили по заданным параметрам с
