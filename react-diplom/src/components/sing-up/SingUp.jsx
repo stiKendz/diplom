@@ -28,6 +28,10 @@ export default function SingUp() {
         });
         
         try {
+            if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
+                alert('Email должен содержать символы @ и .')
+            }
+
             if (data.ok) {
                 const response = await data.json();
                 alert("Вы успешно зарегистрировались")
@@ -58,7 +62,14 @@ export default function SingUp() {
                         <div className="sing-up-window">
                             <input type="text" className="name-input" placeholder="Введите имя" autoComplete="off" onChange={e => setUserName(e.target.value)}/>
                             <input type="text" className="surname-input" placeholder="Введите фамилию" autoComplete="off" onChange={e => setUserSurname(e.target.value)}/>
-                            <input type="text" className="email-input" placeholder="Введите адрес электронной почты" autoComplete="off" onChange={e => setUserEmail(e.target.value)}/>
+                            <input 
+                                type="email"
+                                pattern='^\S+@\S+\.\S+$' 
+                                className="email-input" 
+                                placeholder="Введите адрес электронной почты" 
+                                autoComplete="off" 
+                                onChange={e => setUserEmail(e.target.value)}
+                            />
                             <input type="text" className="password-input" placeholder="Придумайте пароль" autoComplete="off" onChange={e => setUserPassword(e.target.value)}/>
                             <button type="button" className="sing-up-button" onClick={UserSingUp}>Зарегистрироваться</button>
                         </div>

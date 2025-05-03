@@ -117,6 +117,7 @@ export default function MainPageContent() {
 
 function Filter({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive}) {
     const [showAddition, setShowAddition] = useState('false');
+    
 
     const filters = useContext(AdditionContext);
     const description = filters.find(filter => filter.name === id);
@@ -128,7 +129,7 @@ function Filter({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFou
     return(
         <>
             <div className="filter" id={id}>
-                <img id={id} src={src}></img>
+                <img id={id} src={src} onClick={fullScreenImage}></img>
                 <p className="description" id={id}>{filterName}</p>
                 <div className="items" id={id}>
                     {itemOne && <div className='item' id={id}>{itemOne}</div>}
