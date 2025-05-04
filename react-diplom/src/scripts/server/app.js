@@ -5,10 +5,13 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import bcrypt from 'bcryptjs';
 import http from 'http';
-import pool from './db.js';
+import adminPool from './db.js';
 import multer from 'multer';
 import fileUpload from 'express-fileupload';
 import { error } from 'console';
+import pg from 'pg';
+import fs from 'fs';
+import { connect } from 'http2';
 
 // код приложения
 // запуск сервера
@@ -26,16 +29,46 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
+
+    createDatabase();
 });
 
-// подключение бд к серверу
-pool.connect((err) => {
-    if (err) {
-        console.error(`Error connecting to database: ${err.stack}`);
-        return;
+// скрипт для создания базы данных, таблиц в ней и подключение её к серверу
+const { Pool } = pg;
+let pool = null;
+
+app.post('/createdb', async (req, res) => {
+    const adminClient = await adminPool.connect();
+
+    try {
+        await adminClient.query('CREATE DATABASE car_help');
+
+        pool = new Pool({ ...adminPool.options, database: 'car_help', password: '12345'});
+        const client = await pool.connect();
+
+        const createTables = fs.readFileSync('./src/scripts/server/createDbtables.sql', 'utf-8');
+        await client.query(createTables);
+
+        res.status(200).send('База данных инициализорована');
+    } catch (err) {
+        res.status(500).send(`Ошибка ${err.message}`);
+    } finally {
+        adminClient.release();
     }
-    console.log('Connected to database');
 });
+
+const createDatabase = async () => {
+    try {
+        const response = await fetch('http://localhost:3000/createdb', {
+            method: 'POST'
+        })
+        const result = await response.text();
+        console.log(result);
+    } catch (error) {
+        console.error('Произошла ошибка: ' + error)
+    }
+}
+
 
 // запросы
 // регистрация

@@ -4,12 +4,12 @@ import pg from 'pg';
 
 const { Pool } = pg;
 
-const pool = new Pool({
+const adminPool = new Pool({
     user: 'postgres',
-    database: 'car_help',
-    password: '12345',
     host: 'localhost',
-    port: 5432
-});
+    database: 'postgres',
+    password: '12345',
+    port: 5432,
+})
 
-export default pool;
+export default adminPool;

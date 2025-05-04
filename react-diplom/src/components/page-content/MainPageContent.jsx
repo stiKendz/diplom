@@ -126,10 +126,19 @@ function Filter({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFou
         setShowAddition(current => !current)
     }
 
+    function imageFullScreen({target}) {
+        if(!document.fullscreenElement) {
+            target.requestFullscreen()
+            .catch((error) => console.log(error));
+        } else {
+            document.exitFullscreen();
+        }
+    };
+
     return(
         <>
             <div className="filter" id={id}>
-                <img id={id} src={src} onClick={fullScreenImage}></img>
+                <img id={id} src={src} onClick={imageFullScreen}></img>
                 <p className="description" id={id}>{filterName}</p>
                 <div className="items" id={id}>
                     {itemOne && <div className='item' id={id}>{itemOne}</div>}
@@ -167,9 +176,18 @@ function RangeFilter({ id='', src='', filterName, minPlaceholder, maxPlaceholder
         setShowAddition(current => !current)
     }
 
+    function imageFullScreen({target}) {
+        if(!document.fullscreenElement) {
+            target.requestFullscreen()
+            .catch((error) => console.log(error));
+        } else {
+            document.exitFullscreen();
+        }
+    };
+
     return (
         <>
-            <div className="filter" id={id}>
+            <div className="filter" id={id} onClick={imageFullScreen}>
                 <img id={id} src={src}></img>
                 <p className="description" id={id}>{filterName}</p>
                 <div className="items" id={id}>

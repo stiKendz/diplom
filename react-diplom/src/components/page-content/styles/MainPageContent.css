@@ -68,6 +68,8 @@
 
                     width: 350px;
                     height: 300px;
+
+                    cursor: pointer;
                 }
                 .main-page .main-container section.filters-container .filter .description {
                     grid-area: filter-name;
