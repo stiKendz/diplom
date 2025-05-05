@@ -31,7 +31,7 @@ export default function Header() {
                         <h1 className="company-name">Check Engine</h1>
                         <nav className="navigation-container">
                             {
-                                role === 'admin' && token && location.pathname != '/profile' ? (
+                                role === 'admin' && token && location.pathname != '/profile' && location.pathname != '/admin' ? (
                                     <>
                                         <button
                                             type="button" 

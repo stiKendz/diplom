@@ -2,6 +2,8 @@ import React from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
 
+import './styles/AddCarDescription.css'
+
 export default function AddCar(){
     const [description, SetCarDescription] = useState('');
     const [car_id, SetCarIdInDescription] = useState('');

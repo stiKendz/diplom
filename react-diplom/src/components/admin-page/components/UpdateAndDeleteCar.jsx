@@ -2,6 +2,8 @@ import React from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
 
+import './UpdateAndDeleteCar.css'
+
 export default function UpdateAndDeleteCars() {
     return(
         <>

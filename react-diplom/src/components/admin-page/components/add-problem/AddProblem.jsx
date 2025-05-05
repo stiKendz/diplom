@@ -2,6 +2,8 @@ import React from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
 
+import './styles/AddProblem.css';
+
 export default function AddCar(){
     const [problem_name, SetCarProblemName] = useState('');
     const [problem_short_description, SetCarProblemShortDescription] = useState('');

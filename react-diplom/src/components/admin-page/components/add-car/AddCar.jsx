@@ -2,6 +2,8 @@ import React from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
 
+import './styles/AddCar.css';
+
 export default function AddCar(){
     const [concern, setCarConcern] = useState('');
     const [brand, SetCarBrand] = useState('');

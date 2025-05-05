@@ -2,6 +2,8 @@ import React from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
 
+import './AddProblemToCar.css'
+
 export default function AddProblemToCar() {
     const [car_id, SetCarId] = useState('');
     const [problem_id, SetCProblemId] = useState('');

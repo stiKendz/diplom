@@ -2,6 +2,8 @@ import React from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
 
+import './AddPhoto.css';
+
 export default function AddPhoto() {
     const [image, SetCarImage] = useState('');
     const [carId, SetCarId] = useState('');

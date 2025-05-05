@@ -32,6 +32,7 @@ export default function AdminPage() {
                         <p className="ps-message-car-problems"><span>Список</span> всех <span className="alter">проблем автомобилей</span> и их данные можно вывести по нажатию кнопки - "Просмотреть все проблемы автомобилей"</p>
                     </div>
                     <ShowAll />
+                    <h1 className='separator-message'>Панель управления</h1>
                     <AddEngine />
                     <AddCar />
                     <AddCarDescription />
