@@ -41,7 +41,10 @@ app.post('/createdb', async (req, res) => {
     const adminClient = await adminPool.connect();
 
     try {
-        await adminClient.query('CREATE DATABASE car_help');
+        await adminClient.query(`
+            SELECT 'CREATE DATABASE car_help'
+            WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'car_help')
+        `);
 
         pool = new Pool({ ...adminPool.options, database: 'car_help', password: '12345'});
         const client = await pool.connect();
@@ -90,6 +93,10 @@ app.post('/register', async (req, res) => {
             if (exitingUser.rowCount > 0) {
                 return res.status(409).json({message: 'Пользователь с таким адресом электронной почты уже зарегистрирован'})
             }
+
+            // const correctEmail = await client.query(
+            //     `SELECT * FROM users_table WHERE email = $1`, [email]
+            // );
 
             const result = await client.query(
                 'INSERT INTO users_table (name, surname, password, email) VALUES ($1, $2, $3, $4) RETURNING user_id',

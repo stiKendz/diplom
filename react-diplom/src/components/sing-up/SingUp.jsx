@@ -28,17 +28,15 @@ export default function SingUp() {
         });
         
         try {
-            if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
+            if (data.ok && email.indexOf('@') === -1 && email.indexOf('.') === -1) {
                 alert('Email должен содержать символы @ и .')
-            }
-
-            if (data.ok) {
+            } else if (data.ok) {
                 const response = await data.json();
                 alert("Вы успешно зарегистрировались")
             } else if (name === '' || surname === '' || password === '' || email === '') {
                 alert("Все поля должны быть заполнены")
             } else {
-                alert('Некоректные данные для регистрации')
+                alert('Некорректные данные для регистрации')
             }
 
             console.log(data)
