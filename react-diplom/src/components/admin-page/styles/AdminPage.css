@@ -54,7 +54,7 @@ main {
             margin: 0;
             padding: 10px;
             background-color: white;
-            border-left: 4px solid blue;
+            border-left: 4px solid #0078f0;
         }
     .show-all-container {
         grid-area: 1 / 2 / 2 / 5;
@@ -91,7 +91,7 @@ main {
 .ps-message-cars span,
 .ps-message-problems span,
 .ps-message-car-problems span {
-    color: blue;
+    color: #0078f0;
     font-weight: bold;
 }
   
