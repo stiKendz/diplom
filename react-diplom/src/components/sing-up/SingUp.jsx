@@ -19,6 +19,8 @@ export default function SingUp() {
     const navigate = useNavigate();
 
     async function UserSingUp() {
+        const correctEmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
         const data = await fetch('http://localhost:3000/register', {
             method: 'POST',
             headers: {
@@ -28,18 +30,29 @@ export default function SingUp() {
         });
         
         try {
-            if (data.ok && email.indexOf('@') === -1 && email.indexOf('.') === -1) {
-                alert('Email должен содержать символы @ и .')
+            if (data && !correctEmailRegex.test(email)) {
+                const response = await data.json();
+
+                alert('Адрес элетронной почты должен содержать @ и ., иметь корректное имя почтового домена');
+                console.log(response);
             } else if (data.ok) {
                 const response = await data.json();
+
                 alert("Вы успешно зарегистрировались")
+                console.log(response);
             } else if (name === '' || surname === '' || password === '' || email === '') {
+                const response  = await data.json();
+
                 alert("Все поля должны быть заполнены")
+                console.log(response);
             } else {
+                const response  = await data.json();
+                
                 alert('Некорректные данные для регистрации')
+                console.log(response);
             }
 
-            console.log(data)
+            
         } catch (error) {
             console.error('Ошибка при выполнении запроса:', error);
             alert('Возникла ошибка при выполнении запроса')

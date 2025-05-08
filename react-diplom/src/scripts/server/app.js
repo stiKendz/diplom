@@ -94,9 +94,10 @@ app.post('/register', async (req, res) => {
                 return res.status(409).json({message: 'Пользователь с таким адресом электронной почты уже зарегистрирован'})
             }
 
-            // const correctEmail = await client.query(
-            //     `SELECT * FROM users_table WHERE email = $1`, [email]
-            // );
+            const correctEmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if(!correctEmailRegex.test(email)) {
+                return res.status(401).json({message: 'Адрес элетронной почты должен содержать @ и . , иметь корректное имя почтового домена'})
+            }
 
             const result = await client.query(
                 'INSERT INTO users_table (name, surname, password, email) VALUES ($1, $2, $3, $4) RETURNING user_id',
