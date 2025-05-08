@@ -34,15 +34,20 @@ export function UpdateCar() {
 
     return(
         <>
-            <h2>Обновление модели автомобиля</h2>
-            <div className="update-cars">
-                <input type="number" className="update-id-input" placeholder="Введите ID автомобиля" 
-                    onChange={e => SetCarId(e.target.value)}
-                />
-                <p>пример: DC5, GC8, 8B </p>
-                <input type="text" className="update-model-name-input" placeholder="Введите новый номер модели" 
-                    onChange={e => SetModelNumber(e.target.value)}
-                />
+            <div className="update-car-container">
+                <div className="update-car-container-items">
+                    <h2>Обновление модели автомобиля</h2>
+                    <div className="update-cars">
+                        <input type="number" className="update-id-input" placeholder="Введите ID автомобиля" 
+                            onChange={e => SetCarId(e.target.value)}
+                        />
+                        <p>Пример: DC5, GC8, 8B </p>
+                        <input type="text" className="update-model-name-input" placeholder="Введите новый номер модели" 
+                            onChange={e => SetModelNumber(e.target.value)}
+                        />
+                        
+                    </div>
+                </div>
                 <button type="button" className="update-car-button" onClick={UpdateChangedCar}>Изменить модель</button>
             </div>
         </>
@@ -67,12 +72,21 @@ export function DeleteCar() {
 
     return(
         <>
-            <h2>Удаление автомобиля</h2>
-            <div className="delete-cars">
-                <input type="number" className="delete-car-input-id" placeholder="Введите ID автомобиля" 
-                    onChange={e => SetCarId(e.target.value)}
-                />
-                <button type="button" className="delete-car-button" onClick={DeleteChangedCar}>Удалить автомобиль</button>
+            <div className="delete-car-container">
+                <div className="delete-car-container-items">
+                    <h2>Удаление автомобиля</h2>
+                    <div className="delete-cars">
+                        <input type="number" className="delete-car-input-id" placeholder="Введите ID автомобиля" 
+                            onChange={e => SetCarId(e.target.value)}
+                        />
+                    </div>
+                </div>
+                <button 
+                    type="button" 
+                    className="delete-car-button" 
+                    onClick={DeleteChangedCar}>
+                    Удалить автомобиль
+                </button>
             </div>
         </>
     )

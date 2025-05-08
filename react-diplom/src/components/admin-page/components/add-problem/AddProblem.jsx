@@ -27,16 +27,16 @@ export default function AddCar(){
     return(
         <>
             <div className="add-problem-container">
-                <h2>Добавление проблемы автомобиля</h2>
                 <div className="add-problem-window">
+                    <h2>Добавление проблемы автомобиля</h2>
                     <div className="problem-parameter name">
-                        <p>пример: гнилые пороги</p>
+                        <p>Пример: гнилые пороги</p>
                         <input type="text" className="problem-name-input" placeholder="Название проблемы"  
                             onChange={e => SetCarProblemName(e.target.value)}
                         />
                     </div>
                     <div className="problem-parameter description">
-                        <input type="text" className="problem-description-input" placeholder="Краткое описание проблемы" 
+                        <textarea type="text" className="problem-description-textarea" placeholder="Краткое описание проблемы" 
                             onChange={e => SetCarProblemShortDescription(e.target.value)}
                         />
                     </div>
@@ -46,13 +46,13 @@ export default function AddCar(){
                         />
                     </div>
                     <div className="problem-parameter how-to-fixed">
-                        <p>Обратиться в автосервис ...</p>
-                        <input type="text" className="problem-how-to-fixed-input" placeholder=" Описание решения проблемы" 
+                        <p>Пример: Обратиться в автосервис ...</p>
+                        <textarea type="text" className="problem-how-to-fixed-textarea" placeholder=" Описание решения проблемы" 
                             onChange={e => SetCarProblemFixedWays(e.target.value)}
                         />
                     </div>
                     <div className="problem-parameter price">
-                        <p>пример: 100.000тыс.руб</p>
+                        <p>Пример: 100.000тыс.руб</p>
                         <input type="text" className="problem-price-input" placeholder="Цена решения проблемы (тыс.руб)" 
                             onChange={e => SetCarProblemRepairPrice(e.target.value)}
                         />

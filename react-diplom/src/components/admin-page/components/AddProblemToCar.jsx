@@ -24,16 +24,24 @@ export default function AddProblemToCar() {
     return (
         <>
             <div className="car-promlems-container">
-                <h2>Добавление проблемы автомобилю</h2>
-                <div className="car-problems-window">
-                    <input type="number" className="add-problem-to-car-carid-input" placeholder="Введите ID автомобиля" 
-                        onChange={e => SetCarId(e.target.value)}
-                    />
-                    <input type="number" className="add-problem-to-car-problemid-input" placeholder="Введите ID проблемы" 
-                        onChange={e => SetCProblemId(e.target.value)}
-                    />
-                    <button type="button" className="add-problem-to-car-button" onClick={AddProblemToSpeciousCar}>Добавить проблему</button>
+                <div className="car-problems-container-items">
+                    <h2>Добавление проблемы автомобилю</h2>
+                    <div className="car-problems-window">
+                        <input type="number" className="add-problem-to-car-carid-input" placeholder="Введите ID автомобиля" 
+                            onChange={e => SetCarId(e.target.value)}
+                        />
+                        <input type="number" className="add-problem-to-car-problemid-input" placeholder="Введите ID проблемы" 
+                            onChange={e => SetCProblemId(e.target.value)}
+                        />
+                        
+                    </div>
                 </div>
+                <button 
+                    type="button" 
+                    className="add-problem-to-car-button"
+                    onClick={AddProblemToSpeciousCar}>
+                    Добавить проблему
+                </button>
             </div>
         </>
     )

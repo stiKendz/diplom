@@ -24,13 +24,15 @@ export default function AddCar(){
     return(
         <>
             <div className="car-description-container">
-                <h2 className="car-decsription">Описание автомобиля</h2>
-                <input type="text" className="car-desription-input" placeholder="Краткое описание автомобиля"
-                onChange={e => SetCarDescription(e.target.value)}
-                />
-                <input type="number" className="car-description-id-input" placeholder="Введите ID автомобиля" 
-                onChange={e => SetCarIdInDescription(e.target.value)}
-                />
+                <div className="car-description-container-items">
+                    <h2 className="car-decsription">Описание автомобиля</h2>
+                    <textarea type="text" className="car-desription-area" placeholder="Краткое описание автомобиля"
+                        onChange={e => SetCarDescription(e.target.value)}
+                    />
+                    <input type="number" className="car-description-id-input" placeholder="Введите ID автомобиля" 
+                        onChange={e => SetCarIdInDescription(e.target.value)}
+                    />
+                </div>
                 <button type="button" className="add-description-button" onClick={AddCarDescription}>Добавить описание</button>
             </div>
         </>

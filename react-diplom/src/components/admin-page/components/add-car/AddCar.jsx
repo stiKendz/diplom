@@ -109,8 +109,8 @@ export default function AddCar(){
                         onChange={e => SetCarPrice(e.target.value)}
                         />
                     </div>
-                    <button type="button" className="add-car-button" onClick={AddCar}>Добавить автомобиль</button>
                 </div>
+                <button type="button" className="add-car-button" onClick={AddCar}>Добавить автомобиль</button>
             </div>
         </>
     )

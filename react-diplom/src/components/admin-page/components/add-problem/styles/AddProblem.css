@@ -1,3 +1,113 @@
-.add-problem-container {
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .add-problem-container {
     display: grid;
-}
+    grid-template-columns: 100%;
+    grid-template-rows: 850px 50px;
+  }
+  .add-problem-container button.add-problem-button {
+    position: relative;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    padding: 10px;
+    min-width: 150px;
+    min-height: 50px;
+  
+    color: #0078f0;
+    background-color: transparent;
+    border: 1.5px solid #0078f0;
+  
+    font-size: 14px;
+    user-select: none;
+  
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .add-problem-container button.add-problem-button:hover {
+    transform: scale(1.05);
+    transition: ease-in 0.2s;
+  }
+  .add-problem-container button.add-problem-button:focus {
+    transform: scale(1.05);
+    transition: ease-in 0.2s;
+  
+    outline: none;
+  }
+  .add-problem-container button.add-problem-button:active {
+    transform: scale(1.05);
+    transition: ease-in 0.2s;
+  
+    outline: none;
+  }
+  
+    .add-problem-window {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+  
+      gap: 20px;
+    }
+      .add-problem-window h2 {
+        font-size: 26px;
+        letter-spacing: 0.5px;
+      }
+      .add-problem-window div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+  
+        gap: 5px;
+        width: 100%;
+      }
+        .add-problem-window div p {
+          color: #0078f0;
+  
+          font-size: 16px;
+        }
+        .add-problem-window div input,
+        .add-problem-window div textarea {
+          min-width: 240px;
+  
+          padding: 3px;
+          padding-left: 5px;
+          border: 0px;
+          border-bottom: 1px solid black;
+  
+  
+          outline: none;
+        }
+        .add-problem-window div textarea {
+            width: 300px;
+            height: 150px;
+        }
+        .add-problem-window div input::selection,
+        .add-problem-window div textarea::selection  {
+          background-color: rgb(222, 220, 220);
+        }
+        .add-problem-window div input::placeholder {
+          color: black;
+  
+          transition: ease-in 0.2s;
+        }
+        .add-problem-window div input:focus::placeholder {
+          color: grey;
+  
+          transition: ease-in 0.2s;
+        }
+        .add-problem-window div input:focus {
+          color: grey;
+          border-bottom: 1px solid grey;
+  
+          transition: ease-in 0.2s;
+  
+          outline: none;
+        }
+  

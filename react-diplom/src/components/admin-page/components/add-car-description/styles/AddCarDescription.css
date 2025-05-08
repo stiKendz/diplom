@@ -1,3 +1,116 @@
-.car-description-container {
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .car-description-container {
     display: grid;
-}
+    grid-template-columns: 100%;
+    grid-template-rows: 850px 50px;
+  }
+  .car-description-container button.add-description-button {
+    position: relative;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    padding: 10px;
+    min-width: 150px;
+    min-height: 50px;
+  
+    color: #0078f0;
+    background-color: transparent;
+    border: 1.5px solid #0078f0;
+  
+    font-size: 14px;
+    user-select: none;
+  
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .car-description-container button.add-description-button:hover {
+    transform: scale(1.05);
+    transition: ease-in 0.2s;
+  }
+  .car-description-container button.add-description-button:focus {
+    transform: scale(1.05);
+    transition: ease-in 0.2s;
+  
+    outline: none;
+  }
+  .car-description-container button.add-description-button:active {
+    transform: scale(1.05);
+    transition: ease-in 0.2s;
+  
+    outline: none;
+  }
+  
+    .car-description-container-items {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+  
+      gap: 20px;
+    }
+      .car-description-container-items h2 {
+        font-size: 26px;
+        letter-spacing: 0.5px;
+      }
+      .car-description-container-items {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+  
+        gap: 5px;
+        width: 100%;
+      }
+        .car-description-container-items p {
+          color: #0078f0;
+  
+          font-size: 16px;
+        }
+        .car-description-container-items input,
+        .car-description-container-items textarea {
+          min-width: 240px;
+  
+          padding: 3px;
+          padding-left: 5px;
+          border: 0px;
+          border-bottom: 1px solid black;
+  
+  
+          outline: none;
+        }
+        .car-description-container-items textarea.car-desription-area {
+          width: 350px;
+          height: 300px;
+        }
+        .car-description-container-items input::selection,
+        .car-description-container-items textarea::selection {
+          background-color: rgb(222, 220, 220);
+        }
+        .car-description-container-items input::placeholder,
+        .car-description-container-items textarea::placeholder {
+          color: black;
+  
+          transition: ease-in 0.2s;
+        }
+        .car-description-container-items input:focus::placeholder,
+        .car-description-container-items textarea:focus::placeholder{
+          color: black;
+  
+          transition: ease-in 0.2s;
+        }
+        .car-description-container-items input:focus,
+        .car-description-container-items textarea:focus {
+          color: black;
+          border-bottom: 1px solid grey;
+  
+          transition: ease-in 0.2s;
+  
+          outline: none;
+        }
+  

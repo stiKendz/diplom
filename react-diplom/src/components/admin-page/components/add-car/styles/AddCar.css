@@ -1,3 +1,107 @@
-.add-car-container {
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .add-car-container {
     display: grid;
-}
+    grid-template-columns: 100%;
+    grid-template-rows: 850px 50px;
+  }
+  .add-car-container button.add-car-button {
+    position: relative;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    padding: 10px;
+    min-width: 150px;
+    min-height: 50px;
+  
+    color: #0078f0;
+    background-color: transparent;
+    border: 1.5px solid #0078f0;
+  
+    font-size: 14px;
+    user-select: none;
+  
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .add-car-container button.add-car-button:hover {
+    transform: scale(1.05);
+    transition: ease-in 0.2s;
+  }
+  .add-car-container button.add-car-button:focus {
+    transform: scale(1.05);
+    transition: ease-in 0.2s;
+  
+    outline: none;
+  }
+  .add-car-container button.add-car-button:active {
+    transform: scale(1.05);
+    transition: ease-in 0.2s;
+  
+    outline: none;
+  }
+  
+    .car-parameters-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+  
+      gap: 20px;
+    }
+      .car-parameters-container h2 {
+        font-size: 26px;
+        letter-spacing: 0.5px;
+      }
+      .car-parameters-container div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+  
+        gap: 5px;
+        width: 100%;
+      }
+        .car-parameters-container div p {
+          color: #0078f0;
+  
+          font-size: 16px;
+        }
+        .car-parameters-container div input {
+          min-width: 240px;
+  
+          padding: 3px;
+          padding-left: 5px;
+          border: 0px;
+          border-bottom: 1px solid black;
+  
+  
+          outline: none;
+        }
+        .car-parameters-container div input::selection {
+          background-color: rgb(222, 220, 220);
+        }
+        .car-parameters-container div input::placeholder {
+          color: black;
+  
+          transition: ease-in 0.2s;
+        }
+        .car-parameters-container div input:focus::placeholder {
+          color: grey;
+  
+          transition: ease-in 0.2s;
+        }
+        .car-parameters-container div input:focus {
+          color: grey;
+          border-bottom: 1px solid grey;
+  
+          transition: ease-in 0.2s;
+  
+          outline: none;
+        }
+  
