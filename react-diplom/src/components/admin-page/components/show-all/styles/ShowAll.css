@@ -1,3 +1,18 @@
-* {
-    color: black;
+.show-all-container {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-template-rows: 1fr;
 }
+    .show-all-container .buttons-container {
+        grid-area: 1 / 1 / 2 / 2;
+
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 75px);
+    }
+        .show-all-container .buttons-container .show-engines-button,
+        .show-all-container .buttons-container .show-cars-button,
+        .show-all-container .buttons-container .show-problems-button,
+        .show-all-container .buttons-container .show-car-problems-button {
+            display: flex;
+        }

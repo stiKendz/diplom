@@ -116,7 +116,7 @@ export default function MainPageContent() {
 
 
 function Filter({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive}) {
-    const [showAddition, setShowAddition] = useState('false');
+    const [showAddition, setShowAddition] = useState(false);
     
 
     const filters = useContext(AdditionContext);
@@ -167,7 +167,7 @@ function Filter({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFou
 
 
 function RangeFilter({ id='', src='', filterName, minPlaceholder, maxPlaceholder }) {
-    const [showAddition, setShowAddition] = useState('false');
+    const [showAddition, setShowAddition] = useState(false);
 
     const filters = useContext(AdditionContext);
     const description = filters.find(filter => filter.name === id);
@@ -187,8 +187,8 @@ function RangeFilter({ id='', src='', filterName, minPlaceholder, maxPlaceholder
 
     return (
         <>
-            <div className="filter" id={id} onClick={imageFullScreen}>
-                <img id={id} src={src}></img>
+            <div className="filter" id={id}>
+                <img id={id} src={src} onClick={imageFullScreen}></img>
                 <p className="description" id={id}>{filterName}</p>
                 <div className="items" id={id}>
                     <input

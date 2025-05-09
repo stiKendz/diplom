@@ -28,22 +28,42 @@ export default function ShowAll() {
     return(
         <>
             <div className="show-all-container">
-                <button type="button" className="show-engines-button" onClick={showEnginesFunction}>
-                    {showEngines ? 'Закрыть окно' : 'Промотреть все двигатели'}
-                </button>
-                { showEngines && <EnginesWindow /> }
-                <button type="button" className="show-cars-button" onClick={showCarsFunction}>
-                    {showCars ? 'Закрыть окно' : 'Промотреть все автомобили'}
-                </button>
-                { showCars && <CarsWindow /> }
-                <button type="button" className="show-problems-button" onClick={showProblemsFunction}>
-                    {showProblems ? 'Закрыть окно' : 'Промотреть все проблемы'}
-                </button>
-                { showProblems && <ProblemsWindow />}
-                <button type="button" className="show-car-problems-button" onClick={showCarsProblemsFunction}>
-                    {showCarsProblems ? 'Закрыть окно' : 'Промотреть все проблемы автомобилей'}
-                </button>
-                { showCarsProblems && <CarsProblemsWindow /> }
+                <div className="buttons-container">
+                    <button 
+                        type="button" 
+                        className="show-engines-button" 
+                        onClick={showEnginesFunction}
+                    >
+                        {showEngines ? 'Закрыть окно' : 'Промотреть все двигатели'}
+                    </button>
+                    <button 
+                        type="button" 
+                        className="show-cars-button" 
+                        onClick={showCarsFunction}
+                    >
+                        {showCars ? 'Закрыть окно' : 'Промотреть все автомобили'}
+                    </button>
+                    <button 
+                        type="button" 
+                        className="show-problems-button" 
+                        onClick={showProblemsFunction}
+                    >
+                        {showProblems ? 'Закрыть окно' : 'Промотреть все проблемы'}
+                    </button>
+                    <button 
+                        type="button" 
+                        className="show-car-problems-button" 
+                        onClick={showCarsProblemsFunction}
+                    >
+                        {showCarsProblems ? 'Закрыть окно' : 'Промотреть все проблемы автомобилей'}
+                    </button>
+                </div>
+                <div className="show-all-windows-container">
+                    { showEngines && <EnginesWindow /> }
+                    { showCars && <CarsWindow /> }
+                    { showProblems && <ProblemsWindow />}
+                    { showCarsProblems && <CarsProblemsWindow /> }
+                </div>
             </div>
         </>
     )
