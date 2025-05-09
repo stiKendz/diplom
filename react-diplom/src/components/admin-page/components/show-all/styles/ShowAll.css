@@ -15,4 +15,5 @@
         .show-all-container .buttons-container .show-problems-button,
         .show-all-container .buttons-container .show-car-problems-button {
             display: flex;
+            
         }
