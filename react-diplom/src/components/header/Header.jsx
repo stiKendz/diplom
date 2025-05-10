@@ -31,18 +31,25 @@ export default function Header() {
                         <h1 className="company-name">Check Engine</h1>
                         <nav className="navigation-container">
                             {
-                                role === 'admin' && token && location.pathname != '/profile' && location.pathname != '/admin' ? (
+                                role === 'admin' 
+                                && token 
+                                && location.pathname != '/profile' 
+                                && location.pathname != '/admin' 
+                                && location.pathname != '/about-app'
+                                ? (
                                     <>
                                         <button
                                             type="button" 
                                             className="profile-page"
                                             onClick={() => navigate('profile', {replace: false})}
-                                        >Профиль</button>
+                                        >
+                                            Профиль</button>
                                         <button 
                                             type="button" 
                                             className="admin-page-button"
                                             onClick={() => navigate('admin', {replace: false})}
-                                        >Страница администратора</button>
+                                        >
+                                            Страница администратора</button>
                                         <button type="button" className="about-page"
                                             onClick={() => navigate("about-app", {replace: false})}
                                         >

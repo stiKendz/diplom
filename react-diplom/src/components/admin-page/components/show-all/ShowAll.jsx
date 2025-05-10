@@ -4,6 +4,8 @@ import {useState, useContext} from 'react';
 
 import './styles/ShowAll.css'
 
+// import { Engine } from "../../../cars/car-full-info/CarFullInfo.jsx";
+
 
 export default function ShowAll() {
     const [showEngines, setShowEngines] = useState(false);
@@ -34,28 +36,28 @@ export default function ShowAll() {
                         className="show-engines-button" 
                         onClick={showEnginesFunction}
                     >
-                        {showEngines ? 'Закрыть окно' : 'Промотреть все двигатели'}
+                        {showEngines ? 'Закрыть окно двигателей' : 'Промотреть все двигатели'}
                     </button>
                     <button 
                         type="button" 
                         className="show-cars-button" 
                         onClick={showCarsFunction}
                     >
-                        {showCars ? 'Закрыть окно' : 'Промотреть все автомобили'}
+                        {showCars ? 'Закрыть окно автомобилей' : 'Промотреть все автомобили'}
                     </button>
                     <button 
                         type="button" 
                         className="show-problems-button" 
                         onClick={showProblemsFunction}
                     >
-                        {showProblems ? 'Закрыть окно' : 'Промотреть все проблемы'}
+                        {showProblems ? 'Закрыть окно проблем' : 'Промотреть все проблемы'}
                     </button>
                     <button 
                         type="button" 
                         className="show-car-problems-button" 
                         onClick={showCarsProblemsFunction}
                     >
-                        {showCarsProblems ? 'Закрыть окно' : 'Промотреть все проблемы автомобилей'}
+                        {showCarsProblems ? 'Закрыть окно проблем автомобилей' : 'Промотреть все проблемы автомобилей'}
                     </button>
                 </div>
                 <div className="show-all-windows-container">
@@ -74,7 +76,8 @@ function EnginesWindow({}) {
     return(
         <>
             <div className="engines-window-container">
-                <h1>Контейнер с двигателями</h1>
+                <h1>Двигатели</h1>
+                <EnginesList />
             </div>
         </>
     )
@@ -85,6 +88,7 @@ function CarsWindow({}) {
         <>
             <div className="cars-window-container">
                 <h1>Контейнер с машинами</h1>
+                <CarsList />
             </div>
         </>
     )
@@ -95,17 +99,95 @@ function ProblemsWindow({}) {
         <>
             <div className="problems-window-container">
                 <h1>Контейнер с проблемами</h1>
+                <ProblemsList />
             </div>
         </>
     )
 }
 
-function CarsProblemsWindow({closeCarsPoblemsWindow}) {
-
+function CarsProblemsWindow({}) {
     return(
         <>
             <div className="cars-problems-window-container">
                 <h1>Контейнер с проблемами у машин</h1>
+                <CarsAndProblemsList/>
+            </div>
+        </>
+    )
+}
+
+
+export function EnginesList() {
+    // запрос будет отличаться от того, что планируется добавить в вывод информации о двигателе
+
+    return(
+        <>
+            <div className="engine-info">
+                <div className="serial-name">Модель: </div>
+                <div className="size">Объем: </div>
+                <div className="type">Тип: </div>
+                <div className="engine_nano">Крутящий момент: </div>
+                <div className="engine_horse_power">Мощность: </div>
+                <div className="engine_expenditure_city">Расход по городу: </div>
+                <div className="engine_expenditure_track">Расход по трассе: </div>
+                <div className="camshaft-system">Система распредвалов: </div>
+            </div>
+        </>
+    )
+}
+
+export function CarsList() {
+    // переработать структуру
+
+    return(
+        <>
+            <div className="engine-info">
+                <div className="serial-name">Модель: </div>
+                <div className="size">Объем: </div>
+                <div className="type">Тип: </div>
+                <div className="engine_nano">Крутящий момент: </div>
+                <div className="engine_horse_power">Мощность: </div>
+                <div className="engine_expenditure_city">Расход по городу: </div>
+                <div className="engine_expenditure_track">Расход по трассе: </div>
+                <div className="camshaft-system">Система распредвалов: </div>
+            </div>
+        </>
+    )
+}
+
+export function ProblemsList() {
+    // переработать структуру
+
+    return(
+        <>
+            <div className="engine-info">
+                <div className="serial-name">Модель: </div>
+                <div className="size">Объем: </div>
+                <div className="type">Тип: </div>
+                <div className="engine_nano">Крутящий момент: </div>
+                <div className="engine_horse_power">Мощность: </div>
+                <div className="engine_expenditure_city">Расход по городу: </div>
+                <div className="engine_expenditure_track">Расход по трассе: </div>
+                <div className="camshaft-system">Система распредвалов: </div>
+            </div>
+        </>
+    )
+}
+
+export function CarsAndProblemsList() {
+    // переработать структуру
+
+    return(
+        <>
+            <div className="engine-info">
+                <div className="serial-name">Модель: </div>
+                <div className="size">Объем: </div>
+                <div className="type">Тип: </div>
+                <div className="engine_nano">Крутящий момент: </div>
+                <div className="engine_horse_power">Мощность: </div>
+                <div className="engine_expenditure_city">Расход по городу: </div>
+                <div className="engine_expenditure_track">Расход по трассе: </div>
+                <div className="camshaft-system">Система распредвалов: </div>
             </div>
         </>
     )

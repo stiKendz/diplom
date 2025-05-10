@@ -9,11 +9,62 @@
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: repeat(4, 75px);
+
+        gap: 20px;
     }
         .show-all-container .buttons-container .show-engines-button,
         .show-all-container .buttons-container .show-cars-button,
         .show-all-container .buttons-container .show-problems-button,
         .show-all-container .buttons-container .show-car-problems-button {
             display: flex;
-            
+            align-items: center;
+            justify-content: center;
+
+            letter-spacing: 0.5px;
+
+            color: black;
+            background-color: lightgray;
         }
+        .show-all-container .buttons-container .show-engines-button:hover {
+            background-color: lightgray;
+        }
+        .show-all-container .show-all-windows-container {
+            grid-area: 1 / 2 / 2 / 3;
+
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: start;
+            gap: 50px;
+
+            padding: 20px 5px 10px 20px;
+
+            overflow-y: scroll;
+        }
+        .show-all-container .show-all-windows-container::-webkit-scrollbar {
+            width: 10px;
+            height: auto;
+        }
+        .show-all-container .show-all-windows-container::-webkit-scrollbar-track {
+            background-color: white;
+        }
+        .show-all-container .show-all-windows-container::-webkit-scrollbar-thumb {
+            height: 75px;
+
+            background-color: #0078f0;
+            border-radius: 20px;
+        }
+            .show-all-container .show-all-windows-container .engines-window-container {
+                width: 100%;
+                height: auto;
+
+                display: flex;
+                flex-direction: column;
+            }
+                .show-all-container .show-all-windows-container .engines-window-container h1 {
+                    font-size: 26px;
+                    letter-spacing: 0.5px;
+                }
+                .show-all-container .show-all-windows-container .engines-window-container .engine-info {
+                    
+                }

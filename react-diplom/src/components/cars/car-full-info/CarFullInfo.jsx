@@ -59,14 +59,14 @@ export function Engine() {
     return(
         <>
             <div className="engine-info">
-                <div className="serial-name">4g18</div>
-                <div className="size">1.6</div>
-                <div className="type">Роторный</div>
-                <div className="engine_nano">Крутящий момент 200nm</div>
-                <div className="engine_horse_power">150 л.с</div>
-                <div className="engine_expenditure_city">Расход по городу - 8.2</div>
-                <div className="engine_expenditure_track">Расход по трассе 6.2</div>
-                <div className="camshaft-system">Система распредвалов - DOHC</div>
+                <div className="serial-name">Модель: </div>
+                <div className="size">Объем: </div>
+                <div className="type">Тип: </div>
+                <div className="engine_nano">Крутящий момент: </div>
+                <div className="engine_horse_power">Мощность: </div>
+                <div className="engine_expenditure_city">Расход по городу: </div>
+                <div className="engine_expenditure_track">Расход по трассе: </div>
+                <div className="camshaft-system">Система распредвалов: </div>
             </div>
         </>
     )
