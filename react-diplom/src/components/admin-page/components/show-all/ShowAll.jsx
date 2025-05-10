@@ -1,6 +1,6 @@
 import React from 'react';
 import { createContext } from 'react';
-import {useState, useContext} from 'react';
+import {useState, useContext, useEffect} from 'react';
 
 import './styles/ShowAll.css'
 
@@ -73,7 +73,7 @@ export default function ShowAll() {
 }
 
 
-function EnginesWindow({}) {
+function EnginesWindow() {
     return(
         <>
             <div className="engines-window-container">
@@ -119,20 +119,42 @@ function CarsProblemsWindow({}) {
 
 
 export function EnginesList() {
-    // запрос будет отличаться от того, что планируется добавить в вывод информации о двигателе
+    const [engines, setEngines] = useState([]);
+
+    useEffect(() => {
+        showAllEngines();
+    },[]);
+
+    async function showAllEngines() {
+        const response = await fetch('http://localhost:3000/getengines', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const engineData = await response.json();
+
+        if(engineData.allEngines) {
+            setEngines(engineData.allEngines)
+        };
+    }
 
     return(
         <>
-            <div className="engine-info">
-                <div className="serial-name">Модель: 11111</div>
-                <div className="size">Объем: 11111</div>
-                <div className="type">Тип: 11111</div>
-                <div className="engine_nano">Крутящий момент: 11111</div>
-                <div className="engine_horse_power">Мощность: 11111</div>
-                <div className="engine_expenditure_city">Расход по городу: 1111</div>
-                <div className="engine_expenditure_track">Расход по трассе: 1111</div>
-                <div className="camshaft-system">Система распредвалов: 11111</div>
-            </div>
+            {
+                engines.map((engine, index) => (
+                    <div key={index} className="engine-info">
+                        <div className="serial-name">Модель: {engine.engine_serial_name}</div>
+                        <div className="size">Объем: {engine.engine_size}</div>
+                        <div className="type">Тип: {engine.engine_type}</div>
+                        <div className="engine_nano">Крутящий момент: {engine.engine_nano}</div>
+                        <div className="engine_horse_power">Мощность: {engine.engine_horse_power}</div>
+                        <div className="engine_expenditure_city">Расход по городу: {engine.engine_expenditure_city}</div>
+                        <div className="engine_expenditure_track">Расход по трассе: {engine.engine_expenditure_track}</div>
+                        <div className="camshaft-system">Система распредвалов: {engine.camshaft_system}</div>
+                    </div>
+                ))
+            }
         </>
     )
 }

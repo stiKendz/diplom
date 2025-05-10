@@ -237,7 +237,9 @@ app.post('/addengine', async (req, res) => {
         } catch (err) {
             console.error(`Произошла в запросе при добавлении двигателя: ${err.message}`);
             res.status(500).json({message: 'ошибка при добавлении двигателя из-за ошибки в зопросе'})
-        };
+        } finally {
+            client.release();
+        }
     } catch (err) {
         console.error(`Произошла ошибка при добавлении двигателя: ${err.message}`);
         res.status(500).json({message: 'Произошла ошибка при добавлении двигателя из-за ошибки на сервере'})
@@ -257,16 +259,17 @@ app.get('/getengines', async (req, res) => {
             const result = response.rows;
     
             res.json({
-                message: 'все двигатели',
                 allEngines: result
             })
         } catch (err) {
-            console.log(`Ошибка вывода всех пользователей ${err.message}`);
-            res.status(500).json({message: 'Ошибка вывода всех пользователей на стороне запроса'});
+            console.log(`Ошибка вывода всех двигателей ${err.message}`);
+            res.status(500).json({message: 'Ошибка вывода всех двигателей на стороне запроса'});
+        } finally {
+            client.release();
         }
     } catch (err) {
-        console.log(`Ошибка вывода всех пользователей ${err.message}`);
-        res.status(500).json({message: 'Ошибка вывода всех пользователей на стороне сервера'});
+        console.log(`Ошибка вывода всех двигателей ${err.message}`);
+        res.status(500).json({message: 'Ошибка вывода всех двигателей на стороне сервера'});
     };
 });
 
@@ -342,6 +345,8 @@ app.post('/addcar', async (req, res) => {
         } catch(err) {
             console.error(`Ошибка добавления автомобиля ${err.message}`);
             res.status(500).json({message:'Ошибка добавления автомобиля из-за ошибки в запросе'});
+        } finally {
+            client.release();
         }
     } catch(err) {
         console.error(`Ошибка добавления автомобиля ${err.message}`);
@@ -368,6 +373,8 @@ app.get('/getcars', async (req, res) => {
         } catch (err) {
             console.error(`Ошибка вывода автомобилей из-за ошибки в запросе : ${err.message}`);
             res.status(400).json({message: 'Ошибка вывода всех автомобилей из-за ошибки в запросе'});
+        } finally {
+            client.release();
         }
     } catch (err) {
         console.error(`Ошибка вывода автомобилей :${err.message}`);
@@ -426,6 +433,8 @@ app.post('/addproblem', async (req, res) => {
         } catch(err) {
             console.error(`Произошла ошибка при добавлении проблемы: ${err.message}`);
             res.status(500).json({message: 'Произошла ошибка при добавлении проблемы из-за ошибки в запросе'});
+        } finally {
+            client.release();
         }
     } catch(err) {
         console.error(`Произошла ошибка при добавлении проблемы: ${err.message}`);
@@ -452,6 +461,8 @@ app.get('/getproblems', async (req, res) => {
         } catch(err) {
             console.error(`Ошибка при выводе всех проблем из-за ошибки в запросе: ${err.message}`);
             res.status(500).json({message: 'Ошибка при выводе всех проблем из-за ошибки в запросе'});
+        } finally {
+            client.release();
         }
     } catch(err) {
         console.error(`Ошибка при выводе всех проблем из-за ошибки на сервере: ${err.message}`);
@@ -509,11 +520,13 @@ app.post('/addproblemtocar', async (req, res) => {
         } catch(err) {
             console.error(`Ошибка при добавлении проблемы автомобилю из-за ошибки в запросе: ${err.message}`);
             res.status(500).json({message: 'Ошибка при добавлении проблемы автомобилю из-за ошибки в запросе'});
-        };
+        } finally {
+            client.release();
+        }
     } catch(err) {
         console.error(`Ошибка при добавлении проблемы автомобилю из-за ошибки на сервере: ${err.message}`);
         res.status(500).json({message: 'Ошибка при добавлении проблемы автомобилю из-за ошибки на сервере'});
-    };
+    }
 });
 
 // просмотр всех проблем у автомобилей (на странице администратора)
@@ -539,6 +552,8 @@ app.get('/getcarproblems', async (req, res) => {
         } catch(err) {
             console.error(`Возникла проблема в запросе при вызове просмотра всех проблем у автомобилей: ${err.message}`)
             res.status(500).json({message: 'Возникла проблема в запросе при вызове просмотра всех проблем у автомобилей'})
+        } finally {
+            clien.release();
         }
     } catch(err) {
         console.error(`Возникла проблема на сервере при вызове просмотра всех проблем у автомобилей: ${err.message}`)
@@ -588,6 +603,8 @@ app.post('/addcardescription', async (req, res) => {
         } catch(err) {
             console.error(`Не удалось добавить описание автомобилю из-за ошибки в запросе: ${err.message}`);
             res.status(500).json({message: 'Не удалось добавить описание автомобилю из-за ошибки в запросе'});
+        } finally {
+            client.release();
         }
     } catch(err) {
         console.error(`Не удалось добавить описание автомобилю из-за ошибки на сервере: ${err.message}`);
@@ -671,6 +688,8 @@ app.put('/updatemodel', async (req, res) => {
         } catch(err) {
             console.error(`Ошибка обновления модели автомобиля, из-за ошибки в запросе ${err.message}`)
             return res.status(500).json({message: 'Ошибка обновления модели автомобиля, из-за ошибки в запросе'})
+        } finally {
+            client.release();
         }
     } catch(err) {
         console.error(`Ошибка обновления модели автомобиля, из-за ошибки на сервере ${err.message}`)
@@ -709,6 +728,8 @@ app.delete('/deletecar', async (req, res) => {
         } catch(err) {
             console.log(`Ошибка удаления автомобиля из-за ошибки в запросе: ${err.message}`);
             return res.status(500).json({message: 'Ошибка удаления автомобиля из-за ошибки в запросе'});
+        } finally {
+            client.release();
         }
     } catch(err) {
         console.log(`Ошибка удаления автомобиля из-за ошибки на сервере: ${err.message}`);
