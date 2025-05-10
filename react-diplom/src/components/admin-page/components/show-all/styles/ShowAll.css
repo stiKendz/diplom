@@ -55,16 +55,108 @@
             border-radius: 20px;
         }
             .show-all-container .show-all-windows-container .engines-window-container {
+                display: flex;
+                flex-direction: column;
+
                 width: 100%;
                 height: auto;
 
-                display: flex;
-                flex-direction: column;
+                gap: 10px;
             }
-                .show-all-container .show-all-windows-container .engines-window-container h1 {
+                .show-all-container .show-all-windows-container .engines-window-container h1,
+                .show-all-container .show-all-windows-container .cars-window-container h1,
+                .show-all-container .show-all-windows-container .problems-window-container h1,
+                .show-all-container .show-all-windows-container .cars-problems-window-container h1 {
                     font-size: 26px;
                     letter-spacing: 0.5px;
+
+                    text-align: center;
                 }
                 .show-all-container .show-all-windows-container .engines-window-container .engine-info {
-                    
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+
+                    gap: 10px;
+
+                    border-left: 1px solid black;
+                    border-bottom: 1px solid black;
+                }
+                    .show-all-container .show-all-windows-container .engines-window-container .engine-info div {
+                        text-align: center;
+                    }
+            .show-all-container .show-all-windows-container .cars-window-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-items: start;
+
+                width: 100%;
+                height: auto;
+
+                gap: 10px;
+            }
+                .show-all-container .show-all-windows-container .cars-window-container .car-info {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: start;
+                    align-items: center;
+
+                    gap: 10px;
+
+                    border-left: 1px solid black;
+                    border-bottom: 1px solid black;
+                }
+                    .show-all-container .show-all-windows-container .cars-window-container .car-info img {
+                        width: 100px;
+                        height: 85px;
+                    }
+                    .show-all-container .show-all-windows-container .cars-window-container .car-info div {
+                        text-align: center;
+                    }
+            .show-all-container .show-all-windows-container .problems-window-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-items: start;
+
+                width: 100%;
+                height: auto;
+
+                gap: 10px;
+            }
+                .show-all-container .show-all-windows-container .problems-window-container .problem-info {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    align-items: center;
+
+                    width: 100%;
+                    gap: 10px;
+
+                    border-left: 1px solid black;
+                    border-bottom: 1px solid black;
+                }
+            .show-all-container .show-all-windows-container .cars-problems-window-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-items: start;
+
+                width: 100%;
+                height: auto;
+
+                gap: 10px;
+            }
+                .show-all-container .show-all-windows-container .cars-problems-window-container .car-problems-info {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    align-items: center;
+
+                    width: 100%;
+                    gap: 10px;
+
+                    border-left: 1px solid black;
+                    border-bottom: 1px solid black;
                 }

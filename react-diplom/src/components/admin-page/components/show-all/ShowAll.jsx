@@ -4,6 +4,7 @@ import {useState, useContext} from 'react';
 
 import './styles/ShowAll.css'
 
+import dc2 from '../../../../images/dc2.jpg'
 // import { Engine } from "../../../cars/car-full-info/CarFullInfo.jsx";
 
 
@@ -87,7 +88,7 @@ function CarsWindow({}) {
     return(
         <>
             <div className="cars-window-container">
-                <h1>Контейнер с машинами</h1>
+                <h1>Автомобили</h1>
                 <CarsList />
             </div>
         </>
@@ -98,7 +99,7 @@ function ProblemsWindow({}) {
     return(
         <>
             <div className="problems-window-container">
-                <h1>Контейнер с проблемами</h1>
+                <h1>Проблемы автомобилей</h1>
                 <ProblemsList />
             </div>
         </>
@@ -109,7 +110,7 @@ function CarsProblemsWindow({}) {
     return(
         <>
             <div className="cars-problems-window-container">
-                <h1>Контейнер с проблемами у машин</h1>
+                <h1>Проблемы у автомобилей</h1>
                 <CarsAndProblemsList/>
             </div>
         </>
@@ -123,14 +124,14 @@ export function EnginesList() {
     return(
         <>
             <div className="engine-info">
-                <div className="serial-name">Модель: </div>
-                <div className="size">Объем: </div>
-                <div className="type">Тип: </div>
-                <div className="engine_nano">Крутящий момент: </div>
-                <div className="engine_horse_power">Мощность: </div>
-                <div className="engine_expenditure_city">Расход по городу: </div>
-                <div className="engine_expenditure_track">Расход по трассе: </div>
-                <div className="camshaft-system">Система распредвалов: </div>
+                <div className="serial-name">Модель: 11111</div>
+                <div className="size">Объем: 11111</div>
+                <div className="type">Тип: 11111</div>
+                <div className="engine_nano">Крутящий момент: 11111</div>
+                <div className="engine_horse_power">Мощность: 11111</div>
+                <div className="engine_expenditure_city">Расход по городу: 1111</div>
+                <div className="engine_expenditure_track">Расход по трассе: 1111</div>
+                <div className="camshaft-system">Система распредвалов: 11111</div>
             </div>
         </>
     )
@@ -141,15 +142,17 @@ export function CarsList() {
 
     return(
         <>
-            <div className="engine-info">
-                <div className="serial-name">Модель: </div>
-                <div className="size">Объем: </div>
-                <div className="type">Тип: </div>
-                <div className="engine_nano">Крутящий момент: </div>
-                <div className="engine_horse_power">Мощность: </div>
-                <div className="engine_expenditure_city">Расход по городу: </div>
-                <div className="engine_expenditure_track">Расход по трассе: </div>
-                <div className="camshaft-system">Система распредвалов: </div>
+            <div className="car-info">
+                <img className='car-image'src={dc2}/>
+                <div className="brand">Honda</div>
+                <div className="model-name">Модель</div>
+                <div className="generation">Поколение авто:</div>
+                <div className="vehical">Привод</div>
+                <div className="gearbox">Тип КПП</div>
+                <div className="body-type">Тип кузова</div>
+                <div className="release-date">Старт производства: 2001</div>
+                <div className="end-release-date">Окончание производства: 2004</div>
+                <div className="price">Цена: 400.000.руб - 1.200.000.руб</div>
             </div>
         </>
     )
@@ -160,15 +163,12 @@ export function ProblemsList() {
 
     return(
         <>
-            <div className="engine-info">
-                <div className="serial-name">Модель: </div>
-                <div className="size">Объем: </div>
-                <div className="type">Тип: </div>
-                <div className="engine_nano">Крутящий момент: </div>
-                <div className="engine_horse_power">Мощность: </div>
-                <div className="engine_expenditure_city">Расход по городу: </div>
-                <div className="engine_expenditure_track">Расход по трассе: </div>
-                <div className="camshaft-system">Система распредвалов: </div>
+            <div className="problem-info">
+                <div className="problem_name">Название проблемы: </div>
+                <div className="problem_short_description">Описание проблемы: </div>
+                <div className="difficult">Сложность проблемы: </div>
+                <div className="how_to_fixed">Пути решения:</div>
+                <div className="problem_price">Цена устранения: </div>
             </div>
         </>
     )
@@ -179,15 +179,11 @@ export function CarsAndProblemsList() {
 
     return(
         <>
-            <div className="engine-info">
-                <div className="serial-name">Модель: </div>
-                <div className="size">Объем: </div>
-                <div className="type">Тип: </div>
-                <div className="engine_nano">Крутящий момент: </div>
-                <div className="engine_horse_power">Мощность: </div>
-                <div className="engine_expenditure_city">Расход по городу: </div>
-                <div className="engine_expenditure_track">Расход по трассе: </div>
-                <div className="camshaft-system">Система распредвалов: </div>
+            <div className="car-problems-info">
+                <div className="brand">Марка авто</div>
+                <div className="model-name">Модель</div>
+                <div className="generation">Поколение авто:</div>
+                <div className="problem_name">Название проблемы: </div>
             </div>
         </>
     )
