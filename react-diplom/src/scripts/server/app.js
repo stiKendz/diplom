@@ -367,7 +367,6 @@ app.get('/getcars', async (req, res) => {
             const result = response.rows;
 
             res.status(201).json({
-                message: 'Все автомобили',
                 allCars: result
             });
         } catch (err) {

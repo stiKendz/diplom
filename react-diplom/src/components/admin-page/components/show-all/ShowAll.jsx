@@ -160,22 +160,48 @@ export function EnginesList() {
 }
 
 export function CarsList() {
-    // переработать структуру
+    const [cars, setCars] = useState([]);
+
+    function correctDate(stringDate) {
+        return stringDate.split('T')[0];
+    }
+
+    useEffect(() => {
+        ShowAllCars();
+    },[])
+
+    async function ShowAllCars() {
+        const response = await fetch('http://localhost:3000/getcars', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const carsData = await response.json();
+
+        if (carsData.allCars) {
+            setCars(carsData.allCars);
+        }
+    }
 
     return(
         <>
-            <div className="car-info">
-                <img className='car-image'src={dc2}/>
-                <div className="brand">Honda</div>
-                <div className="model-name">Модель</div>
-                <div className="generation">Поколение авто:</div>
-                <div className="vehical">Привод</div>
-                <div className="gearbox">Тип КПП</div>
-                <div className="body-type">Тип кузова</div>
-                <div className="release-date">Старт производства: 2001</div>
-                <div className="end-release-date">Окончание производства: 2004</div>
-                <div className="price">Цена: 400.000.руб - 1.200.000.руб</div>
-            </div>
+            {
+                cars.map((car, index) => (
+                    <div key={index} className="car-info">
+                        <img className='car-image'src={dc2}/>
+                        <div className="brand">Марка: {car.brand}</div>
+                        <div className="model-name">Модель: {car.model_name}-{car.model_number}</div>
+                        <div className="generation">Поколение авто: {car.generation}</div>
+                        <div className="vehical">Привод: {car.car_vehicle}</div>
+                        <div className="gearbox">Тип КПП: {car.gearbox}</div>
+                        <div className="body-type">Тип кузова: {car.body_type}</div>
+                        <div className="release-date">Старт производства: {correctDate(car.release_date)}</div>
+                        <div className="end-release-date">Окончание производства: {correctDate(car.end_release_date)}</div>
+                        <div className="price">Цена: {car.price}</div>
+                    </div>
+                ))
+            }   
         </>
     )
 }
