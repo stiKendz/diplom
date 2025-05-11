@@ -454,7 +454,7 @@ app.get('/getproblems', async (req, res) => {
             const result = response.rows;
             
             res.status(201).json({
-                message: 'Все автомобили',
+                message: 'Все проблемы',
                 allProblems: result
             });
         } catch(err) {
@@ -535,18 +535,17 @@ app.get('/getcarproblems', async (req, res) => {
 
         try {
             const response = await clien.query(
-                `SELECT ct.car_id, ct.model_name, pt.problem_id, pt.problem_name 
+                `SELECT ct.car_id, ct.brand, ct.model_name, ct.generation, pt.problem_id, pt.problem_name 
                 FROM cars_table AS ct 
                 INNER JOIN car_problems_table AS cpt ON ct.car_id = cpt.car_id
-                INNER JOIN problems_table AS pt ON cpt.car_id = pt.problem_id
+                INNER JOIN problems_table AS pt ON cpt.problem_id = pt.problem_id
                 ORDER BY ct.car_id;
                 `
             )
             const result = response.rows;
 
             res.status(201).json({
-                message: 'Автомобили и их проблемы',
-                result: result
+                carsProblems: result
             });
         } catch(err) {
             console.error(`Возникла проблема в запросе при вызове просмотра всех проблем у автомобилей: ${err.message}`)

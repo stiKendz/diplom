@@ -144,6 +144,7 @@ export function EnginesList() {
             {
                 engines.map((engine, index) => (
                     <div key={index} className="engine-info">
+                        <div className="engine_id">ID двигателя: {engine.engine_id}</div>
                         <div className="serial-name">Модель: {engine.engine_serial_name}</div>
                         <div className="size">Объем: {engine.engine_size}</div>
                         <div className="type">Тип: {engine.engine_type}</div>
@@ -189,7 +190,8 @@ export function CarsList() {
             {
                 cars.map((car, index) => (
                     <div key={index} className="car-info">
-                        <img className='car-image'src={dc2}/>
+                        {/* <img className='car-image' src={dc2}/> */}
+                        <div className="car_id">ID автомобиля: {car.car_id}</div>
                         <div className="brand">Марка: {car.brand}</div>
                         <div className="model-name">Модель: {car.model_name}-{car.model_number}</div>
                         <div className="generation">Поколение авто: {car.generation}</div>
@@ -207,32 +209,80 @@ export function CarsList() {
 }
 
 export function ProblemsList() {
-    // переработать структуру
+    const [problems, SetProblem] = useState([]);
+
+    useEffect(() => {
+        ShowAllProblems();
+    },[])
+
+    async function ShowAllProblems() {
+        const response = await fetch('http://localhost:3000/getproblems', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        const problemsData = await response.json();
+
+        if (problemsData.allProblems) {
+            SetProblem(problemsData.allProblems);
+        };
+    }
 
     return(
         <>
-            <div className="problem-info">
-                <div className="problem_name">Название проблемы: </div>
-                <div className="problem_short_description">Описание проблемы: </div>
-                <div className="difficult">Сложность проблемы: </div>
-                <div className="how_to_fixed">Пути решения:</div>
-                <div className="problem_price">Цена устранения: </div>
-            </div>
+            {
+                problems.map((problem, index) => (
+                    <div key={index} className="problem-info">
+                        <div className="problem_id">ID проблемы: {problem.problem_id}</div>
+                        <div className="problem_name">Название проблемы: {problem.problem_name}</div>
+                        <div className="problem_short_description">Описание проблемы: {problem.problem_short_description}</div>    
+                        <div className="difficult">Сложность проблемы: {problem.difficult}</div>
+                        <div className="how_to_fixed">Пути решения: {problem.how_to_fixed}</div>
+                        <div className="problem_price">Цена устранения: {problem.problem_price}</div>
+                    </div>
+                ))
+            }
         </>
     )
 }
 
 export function CarsAndProblemsList() {
-    // переработать структуру
+    const [carsAndProblems, SetCarProblems] = useState([]);
+
+    useEffect(() => {
+        ShowAllCarsProblems();
+    },[])
+
+    async function ShowAllCarsProblems() {
+        const response = await fetch('http://localhost:3000/getcarproblems', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const carsProblemsData = await response.json();
+
+        if (carsProblemsData.carsProblems) {
+            SetCarProblems(carsProblemsData.carsProblems);
+        }
+    }
 
     return(
         <>
-            <div className="car-problems-info">
-                <div className="brand">Марка авто</div>
-                <div className="model-name">Модель</div>
-                <div className="generation">Поколение авто:</div>
-                <div className="problem_name">Название проблемы: </div>
-            </div>
+            {
+                carsAndProblems.map((problemRow, index) => (
+                    <div key={index} className="car-problems-info">
+                        <div className="car_id">ID авто: {problemRow.car_id}</div>
+                        <div className="brand">Марка авто: {problemRow.brand}</div>
+                        <div className="model-name">Модель: {problemRow.model_name}</div>
+                        <div className="generation">Поколение: {problemRow.generation}</div>
+                        <div className="generation">ID проблемы: {problemRow.problem_id}</div>
+                        <div className="problem_name">Название проблемы: {problemRow.problem_name}</div>
+                    </div>
+                ))
+            }
         </>
     )
 }
