@@ -41,10 +41,12 @@ app.post('/createdb', async (req, res) => {
     const adminClient = await adminPool.connect();
 
     try {
-        await adminClient.query(`
-            SELECT 'CREATE DATABASE car_help'
-            WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'car_help')
-        `);
+        try {
+            await adminClient.query(`CREATE DATABASE car_help`);
+        } catch (err) {
+            if (err.code !== '42P04') throw err;
+        }
+
 
         pool = new Pool({ ...adminPool.options, database: 'car_help', password: '12345'});
         const client = await pool.connect();
@@ -287,7 +289,8 @@ app.post('/addcar', async (req, res) => {
         gearbox,
         car_vehicle,
         body_type,
-        price
+        price_start,
+        price_end
     } = req.body;
 
     const carParams = {
@@ -302,7 +305,8 @@ app.post('/addcar', async (req, res) => {
         gearbox,
         car_vehicle,
         body_type,
-        price
+        price_start,
+        price_end
     }
 
     for (let key in carParams) {
@@ -331,8 +335,8 @@ app.post('/addcar', async (req, res) => {
             }
 
             const response = await client.query(
-                'INSERT INTO cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, gearbox, car_vehicle, body_type, price) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING car_id, engine_id',
-                [concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, gearbox, car_vehicle, body_type, price]
+                'INSERT INTO cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, gearbox, car_vehicle, body_type, price_start, price_end) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING car_id, engine_id',
+                [concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, gearbox, car_vehicle, body_type, price_start, price_end]
             )
             const carId = response.rows[0].car_id;
             const engineId = response.rows[0].engine_id;

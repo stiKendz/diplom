@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
+import CarCard from '../cars/car-card/CarCard';
 
 import { AdditionContext, filtersDescription } from './AdditionContext';
 import { TokenContext } from '../contexts/TokenContext';
@@ -19,6 +20,16 @@ import rollsRoyce from '../../images/rollsRoyce.jpg'
 export default function MainPageContent() {
     const navigate = useNavigate();
     const [token, getToken] = useState(() => window.localStorage.getItem('token'));
+
+    // const [concern, SetConcern] = useState('');
+    // const [brand, SetCompanyItem] = useState('');
+    // const [gearbox, Setgearbox] = useState('');
+    // const [car_vehicle, SetVehicle] = useState('');
+    // const [body_type, SetBodyType] = useState('');
+    // const [release_date, SetStartReleaseDate] = useState('');
+    // const [end_release_date, SetEndReleaseDate] = useState('');
+    // const [price_start, SetStartPrice] = useState('');
+    // const [price_end, SetEndPrice] = useState('');
 
     return(
         <div className="main-page">
@@ -52,7 +63,7 @@ export default function MainPageContent() {
                                 itemTwo={"PSA"}
                                 itemThree={"Toyota Motors"}
                                 itemFour={"FCA"}
-                                itemFive={"BMW Group"}                            
+                                itemFive={"BMW Group"}                     
                             />
                             <Filter 
                                 id="company"
@@ -105,6 +116,19 @@ export default function MainPageContent() {
                                 maxPlaceholder={'10.000.000'}
                             />
                         </section>
+                        <div className="output-result-container">
+                            <button 
+                                className='get-results-button'
+                            >
+                                Показать результаты
+                            </button>
+                            <h1 className='result-message'>
+                                Вам могут подойти следующие автомобили
+                            </h1>
+                            <div className="results-cars">
+
+                            </div>
+                        </div>
                     </div>
                     <Footer />
                     <Outlet />

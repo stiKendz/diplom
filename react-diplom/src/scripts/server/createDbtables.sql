@@ -28,7 +28,8 @@ create table cars_table (
 	gearbox varchar(64) not null, -- manual, automatic, variator
 	car_vehicle varchar(64) not null, -- awd, fwd, rwd
 	body_type varchar(64) not null, -- hatchback, sedan, universal and other
-	price varchar(128) not null -- 900.000тысруб
+	price_start varchar(128) not null, -- 900.000тысруб
+	price_end varchar(128) not null -- 1.900.000тысруб
 );
 
 
@@ -92,10 +93,10 @@ VALUES ('4g18', 1.6, 'inline', '196Hm', '98Hp', '8.0', '5.6', 'sohc'),
        ('RB26DETT', 2.6, 'inline', '250Hm', '280Hp', '12.5', '9.2', 'dohc'),
        ('EJ25', 2.5, 'opposite', '240Hm', '224Hp', '10.2', '7.8', 'sohc');
 
-INSERT INTO cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, gearbox, car_vehicle, body_type, price)
-VALUES ('JDM', 'Honda', 'Integra', 5, 'dc5', '2002-01-18', '2005-01-18', 1, 'manual', 'fwd', 'hatchback', '900.000тысруб'),
-       ('JDM', 'Toyota', 'Supra', 4, 'A80', '1993-05-11', '2002-08-17', 2, 'manual', 'rwd', 'coupe', '1.500.000тысруб'),
-       ('Euro', 'Volkswagen', 'Golf', 7, 'Mk7', '2012-11-14', '2019-12-30', 3, 'automatic', 'fwd', 'hatchback', '1.200.000тысруб');
+INSERT INTO cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, gearbox, car_vehicle, body_type, price_start, price_end)
+VALUES ('JDM', 'Honda', 'Integra', 5, 'dc5', '2002-01-18', '2005-01-18', 1, 'manual', 'fwd', 'hatchback', '900.000тысруб', '2.000.000тысруб'),
+       ('JDM', 'Toyota', 'Supra', 4, 'A80', '1993-05-11', '2002-08-17', 2, 'manual', 'rwd', 'coupe', '1.500.000тысруб', '2.000.000тысруб'),
+       ('Euro', 'Volkswagen', 'Golf', 7, 'Mk7', '2012-11-14', '2019-12-30', 3, 'automatic', 'fwd', 'hatchback', '1.200.000тысруб', '2.000.000тысруб');
 
 INSERT INTO images_table (car_id, src, for_car_name)
 VALUES (1, '123456789', 'honda'),

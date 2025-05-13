@@ -49,6 +49,10 @@ export default function App() {
                             path='/profile/car-full-info'
                             element={<CarFullInfo />}
                         />
+                        <Route 
+                            path='/car-full-info'
+                            element={<CarFullInfo />}
+                        />
                     </Routes>
                 </BrowserRouter>
             </StrictMode>

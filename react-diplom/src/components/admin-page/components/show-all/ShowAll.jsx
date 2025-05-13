@@ -195,12 +195,14 @@ export function CarsList() {
                         <div className="brand">Марка: {car.brand}</div>
                         <div className="model-name">Модель: {car.model_name}-{car.model_number}</div>
                         <div className="generation">Поколение авто: {car.generation}</div>
+                        <div className="engine_id">ID Двигателя: {car.engine_id}</div>
                         <div className="vehical">Привод: {car.car_vehicle}</div>
                         <div className="gearbox">Тип КПП: {car.gearbox}</div>
                         <div className="body-type">Тип кузова: {car.body_type}</div>
                         <div className="release-date">Старт производства: {correctDate(car.release_date)}</div>
                         <div className="end-release-date">Окончание производства: {correctDate(car.end_release_date)}</div>
-                        <div className="price">Цена: {car.price}</div>
+                        <div className="price-start">Минимальная цена: {car.price_start}</div>
+                        <div className="price-end">Максимальная цена: {car.price_end}</div>
                     </div>
                 ))
             }   

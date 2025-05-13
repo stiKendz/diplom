@@ -16,7 +16,8 @@ export default function AddCar(){
     const [gearbox, SetCarGearbox] = useState('');
     const [car_vehicle, SetCarVehicle] = useState('');
     const [body_type, SetCarBodyType] = useState('');
-    const [price, SetCarPrice] = useState('');
+    const [price_start, SetCarPriceStart] = useState('');
+    const [price_end, SetCarPriceEnd] = useState('');
  
     async function AddCar() {
         const response = await fetch('http://localhost:3000/addcar', {
@@ -24,7 +25,7 @@ export default function AddCar(){
             headers: {
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify({concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, gearbox, car_vehicle, body_type, price})
+            body: JSON.stringify({concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, gearbox, car_vehicle, body_type, price_start, price_end})
         });
  
         const data = await response.json();
@@ -103,10 +104,16 @@ export default function AddCar(){
                         onChange={e => SetCarBodyType(e.target.value)}
                         />
                     </div>
-                    <div className="car-parameter price">
+                    <div className="car-parameter price start">
                         <p>пример: 100.000тыс.руб</p>
-                        <input type="text" className="price-input" placeholder="Цена автомобиля:" 
-                        onChange={e => SetCarPrice(e.target.value)}
+                        <input type="text" className="price-input" placeholder="Цена автомобиля (минимальная):" 
+                        onChange={e => SetCarPriceStart(e.target.value)}
+                        />
+                    </div>
+                    <div className="car-parameter price end">
+                        <p>пример: 1.100.000тыс.руб</p>
+                        <input type="text" className="price-input" placeholder="Цена автомобиля (максимальная):" 
+                        onChange={e => SetCarPriceEnd(e.target.value)}
                         />
                     </div>
                 </div>
