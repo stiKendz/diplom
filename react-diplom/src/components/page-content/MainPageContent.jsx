@@ -126,7 +126,7 @@ export default function MainPageContent() {
                                 Вам могут подойти следующие автомобили
                             </h1>
                             <div className="results-cars">
-
+                                <CarCard />
                             </div>
                         </div>
                     </div>

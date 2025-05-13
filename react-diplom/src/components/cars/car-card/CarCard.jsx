@@ -9,7 +9,7 @@ import './styles/CarCard.css';
 
 import dc2 from '../../../images/dc2.jpg';
 
-export default function CarCard() {
+export default function CarCard({concern, brand, }) {
     const navigate = useNavigate();
 
     return(
@@ -19,10 +19,6 @@ export default function CarCard() {
                      <img className='car-image' src={dc2}/>
                      <div className="brand">Honda</div>
                      <div className="model-name">Модель</div>
-                     <div className="generation">Поколение авто:</div>
-                     <div className="vehical">Привод</div>
-                     <div className="gearbox">Тип КПП</div>
-                     <div className="body-type">Тип кузова</div>
                      <div className="release-date">Старт производства: 2001</div>
                      <div className="end-release-date">Окончание производства: 2004</div>
                      <div className="price">400.000.руб - 1.200.000.руб</div>
