@@ -9,7 +9,18 @@ import './styles/CarCard.css';
 
 import dc2 from '../../../images/dc2.jpg';
 
-export default function CarCard({concern, brand, }) {
+export default function CarCard({
+    brand, 
+    model_name, 
+    model_number,
+    car_vehicle, 
+    gearbox, 
+    body_type, 
+    release_date, 
+    end_release_date, 
+    price_start, 
+    price_end
+}) {
     const navigate = useNavigate();
 
     return(
@@ -17,11 +28,14 @@ export default function CarCard({concern, brand, }) {
              <div className="car-card">
                  <div className="car-info">
                      <img className='car-image' src={dc2}/>
-                     <div className="brand">Honda</div>
-                     <div className="model-name">Модель</div>
-                     <div className="release-date">Старт производства: 2001</div>
-                     <div className="end-release-date">Окончание производства: 2004</div>
-                     <div className="price">400.000.руб - 1.200.000.руб</div>
+                     <div className="brand">{brand}</div>
+                     <div className="model-name">{model_name} - {model_number}</div>
+                     {/* <div className="vehicle">Привод: {car_vehicle}</div>
+                     <div className="gearbox">Тип КПП: {gearbox}</div>
+                     <div className="body-type">Тип кузова: {body_type}</div> */}
+                     <div className="release-date">Старт производства: {release_date}</div>
+                     <div className="end-release-date">Окончание производства: {end_release_date}</div>
+                     <div className="price">{price_start} - {price_end}</div>
                  </div>
                  <div className="buttons-container">
                      <button className='add-to-favorite'>Добавить в избранное</button>

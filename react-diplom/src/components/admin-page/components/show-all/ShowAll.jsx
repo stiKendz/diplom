@@ -84,7 +84,7 @@ function EnginesWindow() {
     )
 }
 
-function CarsWindow({}) {
+function CarsWindow() {
     return(
         <>
             <div className="cars-window-container">
@@ -95,7 +95,7 @@ function CarsWindow({}) {
     )
 }
 
-function ProblemsWindow({}) {
+function ProblemsWindow() {
     return(
         <>
             <div className="problems-window-container">
