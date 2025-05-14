@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createContext } from 'react';
 import {useState, useContext} from 'react';
 import { Link, Navigate, Outlet } from 'react-router-dom';
@@ -42,7 +42,6 @@ export default function MainPageContent() {
     const showFilters = () => {
         return console.log('Массив фильтров ' + filtersArray.map((element) => element));
     };
-
     const dropFilters = () => {
         filtersArray.length = 0;
         return console.log('Массив фильтров ' + filtersArray);
@@ -180,6 +179,33 @@ export default function MainPageContent() {
                                     {
                                         Array.isArray(cars) && cars.length > 0 ? (
                                             cars.map((car, index) => (
+                                                <div key={index}>
+                                                    <div className="brand">Марка: {car.brand}</div>
+                                                    <div className="model-name">Модель: {car.model_name}-{car.model_number}</div>
+                                                    {/* <div className="vehical">Привод: {car.car_vehicle}</div> */}
+                                                    {/* <div className="gearbox">Тип КПП: {car.gearbox}</div> */}
+                                                    {/* <div className="body-type">Тип кузова: {car.body_type}</div> */}
+                                                    <div className="release-date">Старт производства: {correctDate(car.release_date)}</div>
+                                                    <div className="end-release-date">Окончание производства: {correctDate(car.end_release_date)}</div>
+                                                    <div className="price-start">Минимальная цена: {car.price_start}</div>
+                                                    <div className="price-end">Максимальная цена: {car.price_end}</div>
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <p>Нет доступных автомобилей</p>
+                                        )   
+                                    }
+                                    <h2>Разделитель 2</h2>
+                                    {
+                                        Array.isArray(cars) && cars.length > 0 ? (
+                                            cars.filter(car => {
+                                                const startPriceFilter = filtersArray[7];
+                                                const isPriceValid = startPriceFilter ? 
+                                                    parseFloat(car.price_start.replace(/\./g, '').replace(',', '.')) >= parseFloat(startPriceFilter.replace(/\./g, '').replace(',', '.')) 
+                                                    : false;
+
+                                                return isPriceValid;
+                                            }).map((car, index) => (
                                                 <div key={index}>
                                                     <div className="brand">Марка: {car.brand}</div>
                                                     <div className="model-name">Модель: {car.model_name}-{car.model_number}</div>
