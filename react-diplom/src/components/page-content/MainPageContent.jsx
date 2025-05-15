@@ -51,8 +51,24 @@ export default function MainPageContent() {
     }
 
     const getFilteredCars = async () => {
+        // Данную проверку на пустые поля добавлю позже, после реализации работы всех фильтров в приложении
+        // const dateStartPos = 5; 
+        // const dateEndPos = 6;
+        // const filtersArrayDates = dateEndPos >= dateStartPos ? dateEndPos - dateStartPos + 1 : 0;
+        // console.log(filtersArrayDates)
+        // if (filtersArrayDates !== 2) {
+        //     return alert('Пожалуйста, заполните оба поля с датой выпуска автомобиля');
+        // } else if (filtersArrayDates === 0 || filtersArrayDates === 1 || filtersArrayDates === undefined || filtersArrayDates === null) {
+        //     return alert('Пожалуйста, заполните оба поля с датой выпуска автомобиля');
+        // }
+
         const filteredFiltersArray = filtersArray.filter(Boolean);
-        console.log('Отправленный массив фильтров' + filteredFiltersArray)
+        console.log('Отправленный массив фильтров' + filteredFiltersArray);
+
+        const emptyString = filteredFiltersArray.find((element) => element == '-12-31' || element == '');
+        if (emptyString != undefined) {
+            return alert('Обнаружена пустая строка')
+        }
 
         try {
             const response = await fetch('http://localhost:3000/getfilteredcars', {
@@ -449,7 +465,14 @@ function RangeFilterRelease({ id='', src='', filterName, minPlaceholder, maxPlac
                         type="text"
                         className="range"
                         placeholder={minPlaceholder}
-                        onBlur={(e) => FiltersArrayFromContext[5] = e.target.value}
+                        onBlur={(e) => {
+                            const inputValue = e.target.value;
+                            if (inputValue.trim() === '') {
+                                FiltersArrayFromContext[5] = '';
+                            } else {
+                                FiltersArrayFromContext[5] = inputValue + '-01-' + '01';
+                            }
+                        }}
                     />
                     <span className="separator">-</span>
                     <input
@@ -457,7 +480,14 @@ function RangeFilterRelease({ id='', src='', filterName, minPlaceholder, maxPlac
                         type="text"
                         className="range"
                         placeholder={maxPlaceholder}
-                        onBlur={(e) => FiltersArrayFromContext[6] = e.target.value}
+                        onBlur={(e) => {
+                            const inputValue = e.target.value;
+                            if (inputValue.trim() === '') {
+                                FiltersArrayFromContext[6] = '';
+                            } else {
+                                FiltersArrayFromContext[6] = inputValue + '-12-' + '31';
+                            }
+                        }}
                     />
                 </div>
                 <div className="text-addition" id={id}>

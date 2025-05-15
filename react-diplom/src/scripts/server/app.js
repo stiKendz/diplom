@@ -811,13 +811,13 @@ app.post('/getfilteredcars', async (req, res) => {
     
     const query = `
         SELECT * FROM cars_table
-        WHERE release_date = ANY($1::date[])
+        WHERE release_date BETWEEN $1::date AND $2::date
     `;
 
     try {
         const client = await pool.connect();
         try {
-            const response = await client.query(query, [filters]);
+            const response = await client.query(query, [filters[0], filters[1]]);
             const result = response.rows;
 
             res.status(201).json({ allFilteredCars: result });
