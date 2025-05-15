@@ -25,18 +25,7 @@ export default function MainPageContent() {
     const navigate = useNavigate();
     const [token, getToken] = useState(() => window.localStorage.getItem('token'));
 
-    // const [concern, SetConcern] = useState('');
-    // const [brand, SetCompanyItem] = useState('');
-    // const [gearbox, Setgearbox] = useState('');
-    // const [car_vehicle, SetVehicle] = useState('');
-    // const [body_type, SetBodyType] = useState('');
-    // const [release_date, SetStartReleaseDate] = useState('');
-    // const [end_release_date, SetEndReleaseDate] = useState('');
-    // const [price_start, SetStartPrice] = useState('');
-    // const [price_end, SetEndPrice] = useState('');
-
     const cars = useCars();
-
 
     let filtersArray = [];
     const showFilters = () => {
@@ -61,9 +50,22 @@ export default function MainPageContent() {
         // } else if (filtersArrayDates === 0 || filtersArrayDates === 1 || filtersArrayDates === undefined || filtersArrayDates === null) {
         //     return alert('Пожалуйста, заполните оба поля с датой выпуска автомобиля');
         // }
+        
+        // console.log(typeof(filtersArray[6]));
+        // console.log(typeof(filtersArray[7]));
 
-        const filteredFiltersArray = filtersArray.filter(Boolean);
+        const filteredFiltersArray = filtersArray.filter(Boolean).map(filter => filter);
         console.log('Отправленный массив фильтров' + filteredFiltersArray);
+        
+        // const priceStart = parseInt(filteredFiltersArray[3]);
+        // const priceEnd = parseInt(filteredFiltersArray[4]);
+        // console.log(typeof(priceStart));
+        // console.log(typeof(priceEnd));
+        // console.log(filteredFiltersArray);
+
+        if (filteredFiltersArray === 0) {
+            return alert('Не выбраны фильтры для поиска');
+        }
 
         const emptyString = filteredFiltersArray.find((element) => element == '-12-31' || element == '');
         if (emptyString != undefined) {
@@ -112,16 +114,6 @@ export default function MainPageContent() {
                                 )
                             }
                             <section className="filters-container">
-                                {/* <FilterConcern
-                                    id="concern"
-                                    src={dcImage}
-                                    filterName={"Выберете концерн, который вы предпочитаете"}
-                                    itemOne={"VAG"}
-                                    itemTwo={"PSA"}
-                                    itemThree={"Toyota Motors"}
-                                    itemFour={"FCA"}
-                                    itemFive={"BMW Group"}                     
-                                />
                                 <FilterCompany
                                     id="company"
                                     src={w211Image}
@@ -129,7 +121,7 @@ export default function MainPageContent() {
                                     itemOne={"Peugeot"}
                                     itemTwo={"Honda"}
                                     itemThree={"Mercedes-Benz"}
-                                /> */}
+                                />
                                 <FilterGearbox
                                     id="gearbox" 
                                     src={rollsRoyce} 
@@ -140,15 +132,6 @@ export default function MainPageContent() {
                                     itemFour={"Роботизированная (AMT/DSG)"}
                                     itemFive={"Гибридая"}
                                 />
-                                <FilterVehicle 
-                                    id="vehicle" 
-                                    src={rollsRoyce} 
-                                    filterName={"Выберите привод"}
-                                    itemOne={"FWD"}
-                                    itemTwo={"RWD"}
-                                    itemThree={"AWD"}
-                                    itemFour={"Подключаемый полный"}
-                                />
                                 <FilterBodyType
                                     id="bodyType" 
                                     src={rollsRoyce} 
@@ -157,6 +140,15 @@ export default function MainPageContent() {
                                     itemTwo={"Хэтчбек"}
                                     itemThree={"Универсал"}
                                     itemFour={"Купе"}
+                                />
+                                <FilterVehicle 
+                                    id="vehicle" 
+                                    src={rollsRoyce} 
+                                    filterName={"Выберите привод"}
+                                    itemOne={"FWD"}
+                                    itemTwo={"RWD"}
+                                    itemThree={"AWD"}
+                                    itemFour={"Подключаемый полный"}
                                 />
                                 <RangeFilterRelease 
                                     id='release'
@@ -277,7 +269,114 @@ export default function MainPageContent() {
 }
 
 
+
+function FilterCompany({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive}) {
+    const [showAddition, setShowAddition] = useState(false);
+    
+    const FiltersArrayFromContext = useContext(FiltersArrayContext);
+
+    const filters = useContext(AdditionContext);
+    const description = filters.find(filter => filter.name === id);
+
+    function openAddition() {
+        setShowAddition(current => !current)
+    }
+
+    function imageFullScreen({target}) {
+        if(!document.fullscreenElement) {
+            target.requestFullscreen()
+            .catch((error) => console.log(error));
+        } else {
+            document.exitFullscreen();
+        }
+    };
+
+    return(
+        <>
+            <div className="filter" id={id}>
+                <img id={id} src={src} onClick={imageFullScreen}></img>
+                <p className="description" id={id}>{filterName}</p>
+                <div className="items" id={id}>
+                    {itemOne && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemOne}>{itemOne}</div>}
+                    {itemTwo && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemTwo}>{itemTwo}</div>}
+                    {itemThree && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemThree}>{itemThree}</div>}
+                    {itemFour && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemFour}>{itemFour}</div>}
+                    {itemFive && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemFive}>{itemFive}</div>}
+                </div>
+                <div className="text-addition" id={id}>
+                    <button className='open-addition' onClick={openAddition}>
+                        {showAddition ? 'Закрыть поясение' : 'Открыть пояснение'}
+                    </button> 
+                    {
+                        showAddition
+                        &&
+                        <FilterAddition
+                            bigAdditionText = {description.bigAddition}
+                            smallAdditionText = {description.smallAddition}
+                        />
+                    }
+                </div>
+            </div>
+        </>
+    )
+}
+
+
+
 function FilterGearbox({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive}) {
+    const [showAddition, setShowAddition] = useState(false);
+    
+    const FiltersArrayFromContext = useContext(FiltersArrayContext);
+
+    const filters = useContext(AdditionContext);
+    const description = filters.find(filter => filter.name === id);
+
+    function openAddition() {
+        setShowAddition(current => !current)
+    }
+
+    function imageFullScreen({target}) {
+        if(!document.fullscreenElement) {
+            target.requestFullscreen()
+            .catch((error) => console.log(error));
+        } else {
+            document.exitFullscreen();
+        }
+    };
+
+    return(
+        <>
+            <div className="filter" id={id}>
+                <img id={id} src={src} onClick={imageFullScreen}></img>
+                <p className="description" id={id}>{filterName}</p>
+                <div className="items" id={id}>
+                    {itemOne && <div className='item' id={id} onClick={() => FiltersArrayFromContext[1] = itemOne}>{itemOne}</div>}
+                    {itemTwo && <div className='item' id={id} onClick={() => FiltersArrayFromContext[1] = itemTwo}>{itemTwo}</div>}
+                    {itemThree && <div className='item' id={id} onClick={() => FiltersArrayFromContext[1] = itemThree}>{itemThree}</div>}
+                    {itemFour && <div className='item' id={id} onClick={() => FiltersArrayFromContext[1] = itemFour}>{itemFour}</div>}
+                    {itemFive && <div className='item' id={id} onClick={() => FiltersArrayFromContext[1] = itemFive}>{itemFive}</div>}
+                </div>
+                <div className="text-addition" id={id}>
+                    <button className='open-addition' onClick={openAddition}>
+                        {showAddition ? 'Закрыть поясение' : 'Открыть пояснение'}
+                    </button> 
+                    {
+                        showAddition
+                        &&
+                        <FilterAddition
+                            bigAdditionText = {description.bigAddition}
+                            smallAdditionText = {description.smallAddition}
+                        />
+                    }
+                </div>
+            </div>
+        </>
+    )
+}
+
+
+
+function FilterBodyType({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive}) {
     const [showAddition, setShowAddition] = useState(false);
     
     const FiltersArrayFromContext = useContext(FiltersArrayContext);
@@ -329,6 +428,7 @@ function FilterGearbox({id='', src='', filterName, itemOne, itemTwo, itemThree, 
 }
 
 
+
 function FilterVehicle({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive}) {
     const [showAddition, setShowAddition] = useState(false);
     
@@ -361,58 +461,6 @@ function FilterVehicle({id='', src='', filterName, itemOne, itemTwo, itemThree, 
                     {itemThree && <div className='item' id={id} onClick={() => FiltersArrayFromContext[3] = itemThree}>{itemThree}</div>}
                     {itemFour && <div className='item' id={id} onClick={() => FiltersArrayFromContext[3] = itemFour}>{itemFour}</div>}
                     {itemFive && <div className='item' id={id} onClick={() => FiltersArrayFromContext[3] = itemFive}>{itemFive}</div>}
-                </div>
-                <div className="text-addition" id={id}>
-                    <button className='open-addition' onClick={openAddition}>
-                        {showAddition ? 'Закрыть поясение' : 'Открыть пояснение'}
-                    </button> 
-                    {
-                        showAddition
-                        &&
-                        <FilterAddition
-                            bigAdditionText = {description.bigAddition}
-                            smallAdditionText = {description.smallAddition}
-                        />
-                    }
-                </div>
-            </div>
-        </>
-    )
-}
-
-
-function FilterBodyType({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive}) {
-    const [showAddition, setShowAddition] = useState(false);
-    
-    const FiltersArrayFromContext = useContext(FiltersArrayContext);
-
-    const filters = useContext(AdditionContext);
-    const description = filters.find(filter => filter.name === id);
-
-    function openAddition() {
-        setShowAddition(current => !current)
-    }
-
-    function imageFullScreen({target}) {
-        if(!document.fullscreenElement) {
-            target.requestFullscreen()
-            .catch((error) => console.log(error));
-        } else {
-            document.exitFullscreen();
-        }
-    };
-
-    return(
-        <>
-            <div className="filter" id={id}>
-                <img id={id} src={src} onClick={imageFullScreen}></img>
-                <p className="description" id={id}>{filterName}</p>
-                <div className="items" id={id}>
-                    {itemOne && <div className='item' id={id} onClick={() => FiltersArrayFromContext[4] = itemOne}>{itemOne}</div>}
-                    {itemTwo && <div className='item' id={id} onClick={() => FiltersArrayFromContext[4] = itemTwo}>{itemTwo}</div>}
-                    {itemThree && <div className='item' id={id} onClick={() => FiltersArrayFromContext[4] = itemThree}>{itemThree}</div>}
-                    {itemFour && <div className='item' id={id} onClick={() => FiltersArrayFromContext[4] = itemFour}>{itemFour}</div>}
-                    {itemFive && <div className='item' id={id} onClick={() => FiltersArrayFromContext[4] = itemFive}>{itemFive}</div>}
                 </div>
                 <div className="text-addition" id={id}>
                     <button className='open-addition' onClick={openAddition}>
@@ -468,9 +516,9 @@ function RangeFilterRelease({ id='', src='', filterName, minPlaceholder, maxPlac
                         onBlur={(e) => {
                             const inputValue = e.target.value;
                             if (inputValue.trim() === '') {
-                                FiltersArrayFromContext[5] = '';
+                                FiltersArrayFromContext[4] = '';
                             } else {
-                                FiltersArrayFromContext[5] = inputValue + '-01-' + '01';
+                                FiltersArrayFromContext[4] = inputValue + '-01-' + '01';
                             }
                         }}
                     />
@@ -483,9 +531,9 @@ function RangeFilterRelease({ id='', src='', filterName, minPlaceholder, maxPlac
                         onBlur={(e) => {
                             const inputValue = e.target.value;
                             if (inputValue.trim() === '') {
-                                FiltersArrayFromContext[6] = '';
+                                FiltersArrayFromContext[5] = '';
                             } else {
-                                FiltersArrayFromContext[6] = inputValue + '-12-' + '31';
+                                FiltersArrayFromContext[5] = inputValue + '-12-' + '31';
                             }
                         }}
                     />
@@ -507,6 +555,7 @@ function RangeFilterRelease({ id='', src='', filterName, minPlaceholder, maxPlac
         </>  
     );
 }
+
 
 
 function RangeFilterPrice({ id='', src='', filterName, minPlaceholder, maxPlaceholder }) {
@@ -541,7 +590,7 @@ function RangeFilterPrice({ id='', src='', filterName, minPlaceholder, maxPlaceh
                         type="text"
                         className="range"
                         placeholder={minPlaceholder}
-                        onBlur={(e) => FiltersArrayFromContext[7] = e.target.value}
+                        onBlur={(e) => FiltersArrayFromContext[6] = e.target.value}
                     />
                     <span className="separator">-</span>
                     <input
@@ -549,7 +598,7 @@ function RangeFilterPrice({ id='', src='', filterName, minPlaceholder, maxPlaceh
                         type="text"
                         className="range"
                         placeholder={maxPlaceholder}
-                        onBlur={(e) => FiltersArrayFromContext[8] = e.target.value}
+                        onBlur={(e) => FiltersArrayFromContext[7] = e.target.value}
                     />
                 </div>
                 <div className="text-addition" id={id}>

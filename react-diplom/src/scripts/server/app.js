@@ -806,18 +806,34 @@ app.put('/changeuserinfo', async (req, res) => {
 app.post('/getfilteredcars', async (req, res) => {
     const filters = req.body.filtersNames; 
     if (!Array.isArray(filters) || filters.length === 0) {
-        return res.status(400).json({ message: 'Массив названий автомобилей не предоставлен' });
+        return res.status(400).json({ message: 'Массив названий фильтров не предоставлен' });
+    }
+
+    const filtersConditions = [];
+    const filtersValues = [];
+
+    if (filters[4] && filters[5]) {
+        filtersConditions.push(`release_date BETWEEN $${filtersValues.length + 1}::date AND $${filtersValues.length + 2}::date`);
+        filtersValues.push(filters[4], filters[5]);
+    }
+
+    const startPrice = parseInt(filters[6]);
+    const endPrice = parseInt(filters[7]);
+
+    if (startPrice && endPrice) {
+        filtersConditions.push(`price_start >= $${filtersValues.length + 1}::int AND price_end <= $${filtersValues.length + 2}::int`);
+        filtersValues.push(startPrice, endPrice);
     }
     
     const query = `
         SELECT * FROM cars_table
-        WHERE release_date BETWEEN $1::date AND $2::date
+        ${filtersConditions.length ? 'WHERE ' + filtersConditions.join(' AND ') : ''}
     `;
 
     try {
         const client = await pool.connect();
         try {
-            const response = await client.query(query, [filters[0], filters[1]]);
+            const response = await client.query(query, filtersValues);
             const result = response.rows;
 
             res.status(201).json({ allFilteredCars: result });
