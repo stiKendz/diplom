@@ -37,8 +37,8 @@ export default function MainPageContent() {
 
     const cars = useCars();
 
-    let filtersArray = [];
 
+    let filtersArray = [];
     const showFilters = () => {
         return console.log('Массив фильтров ' + filtersArray.map((element) => element));
     };
@@ -46,10 +46,29 @@ export default function MainPageContent() {
         filtersArray.length = 0;
         return console.log('Массив фильтров ' + filtersArray);
     };
-
     function correctDate(stringDate) {
         return stringDate.split('T')[0];
     }
+
+    const getFilteredCars = async () => {
+        const filteredFiltersArray = filtersArray.filter(Boolean);
+        console.log('Отправленный массив фильтров' + filteredFiltersArray)
+
+        try {
+            const response = await fetch('http://localhost:3000/getfilteredcars', {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ filtersNames: filteredFiltersArray })
+            });
+
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error('Ошибка при получении автомобилей:', error);
+        }
+    };
 
 
     return(
@@ -140,10 +159,16 @@ export default function MainPageContent() {
                             </section>
                             <div className="output-result-container">
                                 <button 
-                                    className='get-results-button'
+                                    className='get-filters-button'
                                     onClick={showFilters}
                                 >
-                                    Показать результаты
+                                    Показать массив фильтров
+                                </button>
+                                <button 
+                                    className='get-results-button'
+                                    onClick={getFilteredCars}
+                                >
+                                    Показать результаты фильтрации
                                 </button>
                                 <button 
                                     className='drop-results-button'
@@ -222,6 +247,7 @@ export default function MainPageContent() {
                                             <p>Нет доступных автомобилей</p>
                                         )   
                                     }
+                                    <h2>Разделитель 3 - автомобили отфильтрованные в соответствии с фильтрами пользователя</h2>
                                 </div>
                             </div>
                         </div>

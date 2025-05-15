@@ -802,3 +802,33 @@ app.put('/changeuserinfo', async (req, res) => {
         client.release();
     }
 })
+
+app.post('/getfilteredcars', async (req, res) => {
+    const filters = req.body.filtersNames; 
+    if (!Array.isArray(filters) || filters.length === 0) {
+        return res.status(400).json({ message: 'Массив названий автомобилей не предоставлен' });
+    }
+    
+    const query = `
+        SELECT * FROM cars_table
+        WHERE release_date = ANY($1::date[])
+    `;
+
+    try {
+        const client = await pool.connect();
+        try {
+            const response = await client.query(query, [filters]);
+            const result = response.rows;
+
+            res.status(201).json({ allFilteredCars: result });
+        } catch (err) {
+            console.error(`Ошибка вывода автомобилей: ${err.message}`);
+            res.status(400).json({ message: 'Ошибка вывода автомобилей из-за ошибки в запросе' });
+        } finally {
+            client.release();
+        }
+    } catch (err) {
+        console.error(`Ошибка вывода автомобилей: ${err.message}`);
+        res.status(500).json({ message: 'Ошибка вывода автомобилей из-за ошибки на сервере' });
+    }
+});
