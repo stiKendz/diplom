@@ -821,7 +821,9 @@ app.post('/getfilteredcars', async (req, res) => {
     const endPrice = parseInt(filters[7]);
 
     if (startPrice && endPrice) {
-        filtersConditions.push(`price_start >= $${filtersValues.length + 1}::int AND price_end <= $${filtersValues.length + 2}::int`);
+        filtersConditions.push(`price_start BETWEEN $${filtersValues.length + 1}::int AND $${filtersValues.length + 2}::int
+            OR price_end BETWEEN $${filtersValues.length + 1}::int AND $${filtersValues.length + 2}::int
+            OR price_start < $${filtersValues.length + 1}::int AND price_end > $${filtersValues.length + 2}::int`);
         filtersValues.push(startPrice, endPrice);
     }
     
