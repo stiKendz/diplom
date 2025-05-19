@@ -94,9 +94,11 @@ VALUES ('4g18', 1.6, 'inline', '196Hm', '98Hp', '8.0', '5.6', 'sohc'),
        ('EJ25', 2.5, 'opposite', '240Hm', '224Hp', '10.2', '7.8', 'sohc');
 
 INSERT INTO cars_table (concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, gearbox, car_vehicle, body_type, price_start, price_end)
-VALUES ('JDM', 'Honda', 'Integra', 5, 'dc5', '2002-01-18', '2005-01-18', 1, 'Механическая (MT)', 'FWD', 'Седан', 900000, 2000000),
-       ('JDM', 'Toyota', 'Supra', 4, 'A80', '1993-05-11', '2002-08-17', 2, 'manual', 'rwd', 'coupe', 1500000, 2000000),
-       ('Euro', 'Volkswagen', 'Golf', 7, 'Mk7', '2012-11-14', '2019-12-30', 3, 'automatic', 'fwd', 'hatchback', 1200000, 2000000);
+VALUES ('JDM', 'Honda', 'Integra', 5, 'dc5', '2002-01-18', '2005-01-18', 1, 'Механическая (MT)', 'FWD', 'Купе', 900000, 2000000),
+	   ('JDM', 'Subaru', 'Impreza', 2, 'GC7', '1998-01-18', '2003-01-18', 1, 'Механическая (MT)', 'FWD', 'Купе', 700000, 2500000),
+	   ('JDM', 'Honda', 'Accord', 7, '12V55W', '2017-01-18', '2020-01-18', 1, 'Механическая (MT)', 'AWD', 'Седан', 1900000, 2600000),
+       ('JDM', 'Toyota', 'Supra', 4, 'A80', '1993-05-11', '2002-08-17', 2, 'Механическая (MT)', 'RWD', 'Купе', 1500000, 2000000),
+       ('Euro', 'Volkswagen', 'Golf', 7, 'Mk7', '2012-11-14', '2019-12-30', 3, 'Автоматическая (AT)', 'FWD', 'Хэтчбек', 1200000, 2000000);
 
 INSERT INTO images_table (car_id, src, for_car_name)
 VALUES (1, '123456789', 'honda'),

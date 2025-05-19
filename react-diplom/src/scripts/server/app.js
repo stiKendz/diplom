@@ -12,6 +12,7 @@ import { error } from 'console';
 import pg from 'pg';
 import fs from 'fs';
 import { connect } from 'http2';
+import { type } from 'os';
 
 // код приложения
 // запуск сервера
@@ -812,6 +813,31 @@ app.post('/getfilteredcars', async (req, res) => {
     const filtersConditions = [];
     const filtersValues = [];
 
+    if (filters[0] === 'Любая') {
+        filtersConditions.push(`brand = $${filtersValues.length + 1} OR brand LIKE '%'`);
+        filtersValues.push(filters[0]);
+        console.log('проверка на любую модель')
+    } else if (filters[0]) {
+        filtersConditions.push(`brand = $${filtersValues.length + 1}`);
+        filtersValues.push(filters[0]);
+        console.log('выбор по модели')
+    } 
+
+    if (filters[1]) {
+        filtersConditions.push(`gearbox = $${filtersValues.length + 1}`);
+        filtersValues.push(filters[1]);
+    }
+
+    if (filters[2]) {
+        filtersConditions.push(`body_type = $${filtersValues.length + 1}`);
+        filtersValues.push(filters[2]);
+    }
+
+    if (filters[3]) {
+        filtersConditions.push(`car_vehicle = $${filtersValues.length + 1}`);
+        filtersValues.push(filters[3]);
+    } 
+
     if (filters[4] && filters[5]) {
         filtersConditions.push(`release_date BETWEEN $${filtersValues.length + 1}::date AND $${filtersValues.length + 2}::date`);
         filtersValues.push(filters[4], filters[5]);
@@ -821,9 +847,9 @@ app.post('/getfilteredcars', async (req, res) => {
     const endPrice = parseInt(filters[7]);
 
     if (startPrice && endPrice) {
-        filtersConditions.push(`price_start BETWEEN $${filtersValues.length + 1}::int AND $${filtersValues.length + 2}::int
+        filtersConditions.push(`( price_start BETWEEN $${filtersValues.length + 1}::int AND $${filtersValues.length + 2}::int
             OR price_end BETWEEN $${filtersValues.length + 1}::int AND $${filtersValues.length + 2}::int
-            OR price_start < $${filtersValues.length + 1}::int AND price_end > $${filtersValues.length + 2}::int`);
+            OR price_start < $${filtersValues.length + 1}::int AND price_end > $${filtersValues.length + 2}::int )`);
         filtersValues.push(startPrice, endPrice);
     }
     
@@ -831,6 +857,11 @@ app.post('/getfilteredcars', async (req, res) => {
         SELECT * FROM cars_table
         ${filtersConditions.length ? 'WHERE ' + filtersConditions.join(' AND ') : ''}
     `;
+    
+    // для проверки
+    console.log(filters[0]);
+    console.log(filtersValues);
+    console.log(query);
 
     try {
         const client = await pool.connect();

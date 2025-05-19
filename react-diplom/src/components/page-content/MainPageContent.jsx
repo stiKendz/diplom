@@ -118,37 +118,41 @@ export default function MainPageContent() {
                                     id="company"
                                     src={w211Image}
                                     filterName={"Выберете марку автомобиля"}
-                                    itemOne={"Peugeot"}
-                                    itemTwo={"Honda"}
-                                    itemThree={"Mercedes-Benz"}
+                                    itemOne={"Любая"}
+                                    itemTwo={"Peugeot"}
+                                    itemThree={"Honda"}
+                                    itemFour={"Mercedes-Benz"}
                                 />
                                 <FilterGearbox
                                     id="gearbox" 
                                     src={rollsRoyce} 
                                     filterName={"Выберите тип КПП"}
-                                    itemOne={"Механическая (MT)"}
-                                    itemTwo={"Автоматическая (AT)"}
-                                    itemThree={"Вариатор (CVT)"}
-                                    itemFour={"Роботизированная (AMT/DSG)"}
-                                    itemFive={"Гибридая"}
+                                    itemOne={"Любая"}
+                                    itemTwo={"Механическая (MT)"}
+                                    itemThree={"Автоматическая (AT)"}
+                                    itemFour={"Вариатор (CVT)"}
+                                    itemFive={"Роботизированная (AMT/DSG)"}
+                                    itemSix={"Гибридая"}
                                 />
                                 <FilterBodyType
                                     id="bodyType" 
                                     src={rollsRoyce} 
                                     filterName={"Выберите тип кузова"}
-                                    itemOne={"Седан"}
-                                    itemTwo={"Хэтчбек"}
-                                    itemThree={"Универсал"}
-                                    itemFour={"Купе"}
+                                    itemOne={"Любой"}
+                                    itemTwo={"Седан"}
+                                    itemThree={"Хэтчбек"}
+                                    itemFour={"Универсал"}
+                                    itemFive={"Купе"}
                                 />
                                 <FilterVehicle 
                                     id="vehicle" 
                                     src={rollsRoyce} 
                                     filterName={"Выберите привод"}
-                                    itemOne={"FWD"}
-                                    itemTwo={"RWD"}
-                                    itemThree={"AWD"}
-                                    itemFour={"Подключаемый полный"}
+                                    itemOne={"Любой"}
+                                    itemTwo={"FWD"}
+                                    itemThree={"RWD"}
+                                    itemFour={"AWD"}
+                                    itemFive={"Подключаемый полный"}
                                 />
                                 <RangeFilterRelease 
                                     id='release'
@@ -270,7 +274,7 @@ export default function MainPageContent() {
 
 
 
-function FilterCompany({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive}) {
+function FilterCompany({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive, itemSix}) {
     const [showAddition, setShowAddition] = useState(false);
     
     const FiltersArrayFromContext = useContext(FiltersArrayContext);
@@ -302,6 +306,7 @@ function FilterCompany({id='', src='', filterName, itemOne, itemTwo, itemThree, 
                     {itemThree && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemThree}>{itemThree}</div>}
                     {itemFour && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemFour}>{itemFour}</div>}
                     {itemFive && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemFive}>{itemFive}</div>}
+                    {itemSix && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemSix}>{itemSix}</div>}
                 </div>
                 <div className="text-addition" id={id}>
                     <button className='open-addition' onClick={openAddition}>
@@ -323,7 +328,7 @@ function FilterCompany({id='', src='', filterName, itemOne, itemTwo, itemThree, 
 
 
 
-function FilterGearbox({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive}) {
+function FilterGearbox({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive, itemSix}) {
     const [showAddition, setShowAddition] = useState(false);
     
     const FiltersArrayFromContext = useContext(FiltersArrayContext);
@@ -355,6 +360,7 @@ function FilterGearbox({id='', src='', filterName, itemOne, itemTwo, itemThree, 
                     {itemThree && <div className='item' id={id} onClick={() => FiltersArrayFromContext[1] = itemThree}>{itemThree}</div>}
                     {itemFour && <div className='item' id={id} onClick={() => FiltersArrayFromContext[1] = itemFour}>{itemFour}</div>}
                     {itemFive && <div className='item' id={id} onClick={() => FiltersArrayFromContext[1] = itemFive}>{itemFive}</div>}
+                    {itemSix && <div className='item' id={id} onClick={() => FiltersArrayFromContext[1] = itemSix}>{itemSix}</div>}
                 </div>
                 <div className="text-addition" id={id}>
                     <button className='open-addition' onClick={openAddition}>
@@ -376,7 +382,7 @@ function FilterGearbox({id='', src='', filterName, itemOne, itemTwo, itemThree, 
 
 
 
-function FilterBodyType({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive}) {
+function FilterBodyType({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive, itemSix}) {
     const [showAddition, setShowAddition] = useState(false);
     
     const FiltersArrayFromContext = useContext(FiltersArrayContext);
@@ -408,6 +414,7 @@ function FilterBodyType({id='', src='', filterName, itemOne, itemTwo, itemThree,
                     {itemThree && <div className='item' id={id} onClick={() => FiltersArrayFromContext[2] = itemThree}>{itemThree}</div>}
                     {itemFour && <div className='item' id={id} onClick={() => FiltersArrayFromContext[2] = itemFour}>{itemFour}</div>}
                     {itemFive && <div className='item' id={id} onClick={() => FiltersArrayFromContext[2] = itemFive}>{itemFive}</div>}
+                    {itemSix && <div className='item' id={id} onClick={() => FiltersArrayFromContext[2] = itemSix}>{itemSix}</div>}
                 </div>
                 <div className="text-addition" id={id}>
                     <button className='open-addition' onClick={openAddition}>
@@ -429,7 +436,7 @@ function FilterBodyType({id='', src='', filterName, itemOne, itemTwo, itemThree,
 
 
 
-function FilterVehicle({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive}) {
+function FilterVehicle({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive, itemSix}) {
     const [showAddition, setShowAddition] = useState(false);
     
     const FiltersArrayFromContext = useContext(FiltersArrayContext);
@@ -461,6 +468,7 @@ function FilterVehicle({id='', src='', filterName, itemOne, itemTwo, itemThree, 
                     {itemThree && <div className='item' id={id} onClick={() => FiltersArrayFromContext[3] = itemThree}>{itemThree}</div>}
                     {itemFour && <div className='item' id={id} onClick={() => FiltersArrayFromContext[3] = itemFour}>{itemFour}</div>}
                     {itemFive && <div className='item' id={id} onClick={() => FiltersArrayFromContext[3] = itemFive}>{itemFive}</div>}
+                    {itemSix && <div className='item' id={id} onClick={() => FiltersArrayFromContext[3] = itemSix}>{itemSix}</div>}
                 </div>
                 <div className="text-addition" id={id}>
                     <button className='open-addition' onClick={openAddition}>
