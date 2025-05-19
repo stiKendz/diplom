@@ -22,6 +22,8 @@
             height: 200px;
 
             gap: 20px 0px;
+
+            margin-top: 100px;
         }
         .main-page .main-container div.space {
             display: flex;
@@ -175,9 +177,6 @@
                     .main-page .main-container section.filters-container .filter .text-addition button:hover::before {
                         left: 0;
                     }
-                    .main-page .main-container section.filters-container .filter .text-addition button:active {
-                        transform: translateY(1px);
-                    }
                         .main-page .main-container section.filters-container .filter .text-addition .big-addition {
                             text-align: justify;
 
@@ -219,6 +218,67 @@
                 display: flex;
                 flex-direction: column;
             }
+            .main-page .main-container .output-result-container .buttons-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: center;
+
+                width: 100%;
+            }
+                .main-page .main-container .output-result-container .buttons-container button.get-results-button {     
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+            
+                    padding: 10px;
+                    min-width: 150px;
+                    min-height: 50px;
+            
+                    color: #0078f0;
+                    background-color: transparent;
+                    border: 1.5px solid #0078f0;
+                    border-radius: 0;
+            
+                    font-size: 14px;
+                    user-select: none;
+            
+                    overflow: hidden;
+                    cursor: pointer;
+
+                    transform: none;
+                    }
+                    .main-page .main-container .output-result-container .buttons-container button.get-results-button::after {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: #0078f0;
+                        z-index: -1;
+                        transition: transform 0.3s ease;
+                    }
+                    .main-page .main-container .output-result-container .buttons-container button.get-results-button::before {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        left: -100%;
+                        width: 100%;
+                        height: 100%;
+                        background-color: lightgrey;
+                        z-index: -1;
+                        transition: left 0.3s ease;
+                    }
+                    .main-page .main-container .output-result-container .buttons-container button.get-results-button::after {
+                        transform: translateX(100%);
+                    }
+                    .main-page .main-container .output-result-container .buttons-container button.get-results-button:hover::before {
+                        left: 0;
+                    }
+                    .main-page .main-container .output-result-container .buttons-container button.get-results-button:active {
+                        transform: none;
+                    }
                 .main-page .main-container .output-result-container .results-cars .filtered-cars {
                     display: flex;
                     align-items: start;

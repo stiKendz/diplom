@@ -24,8 +24,10 @@ const FiltersArrayContext = createContext();
 export default function MainPageContent() {
     const navigate = useNavigate();
     const [token, getToken] = useState(() => window.localStorage.getItem('token'));
+    const [showResults, setShowResults] = useState(false);
 
     const cars = useCars();
+
 
     let filtersArray = [];
     const showFilters = () => {
@@ -94,7 +96,8 @@ export default function MainPageContent() {
             console.log(filteredCars);
 
             if (filteredCars.allFilteredCars) {
-                setFilteredCars(filteredCars.allFilteredCars)
+                setFilteredCars(filteredCars.allFilteredCars);
+                setShowResults(true);
             }
 
         } catch (error) {
@@ -117,145 +120,141 @@ export default function MainPageContent() {
                                             <p className="hello-message">Сделайте правильный выбор в мире автомобилей</p>
                                             <p className="information-message"> 
                                                 <span onClick={() => navigate('sing-in', {replace: false})}>Войдите </span> 
-                                                или 
-                                                <span onClick={() => navigate('sing-up', {replace: false})}> зарегистрируйтесь </span>
-                                                для использования приложения
+                                                для использования приложения. Нет аккаунта?
+                                                <span onClick={() => navigate('sing-up', {replace: false})}> Зарегистрируйтесь </span>
+                                                
                                             </p>
                                         </section>
                                     </>
                                 ) : (
-                                    <div className='space'></div>   
+                                    <>
+                                        <div className='space'></div> 
+                                        <section className="filters-container">
+                                            <FilterCompany
+                                                id="company"
+                                                src={w211Image}
+                                                filterName={"Выберете марку автомобиля"}
+                                                itemOne={"Любая"}
+                                                itemTwo={"Peugeot"}
+                                                itemThree={"Honda"}
+                                                itemFour={"Mercedes-Benz"}
+                                            />
+                                            <FilterGearbox
+                                                id="gearbox" 
+                                                src={rollsRoyce} 
+                                                filterName={"Выберите тип КПП"}
+                                                itemOne={"Любая"}
+                                                itemTwo={"Механическая (MT)"}
+                                                itemThree={"Автоматическая (AT)"}
+                                                itemFour={"Вариатор (CVT)"}
+                                                itemFive={"Роботизированная (AMT/DSG)"}
+                                                itemSix={"Гибридая"}
+                                            />
+                                            <FilterBodyType
+                                                id="bodyType" 
+                                                src={rollsRoyce} 
+                                                filterName={"Выберите тип кузова"}
+                                                itemOne={"Любой"}
+                                                itemTwo={"Седан"}
+                                                itemThree={"Хэтчбек"}
+                                                itemFour={"Универсал"}
+                                                itemFive={"Купе"}
+                                            />
+                                            <FilterVehicle 
+                                                id="vehicle" 
+                                                src={rollsRoyce} 
+                                                filterName={"Выберите привод"}
+                                                itemOne={"Любой"}
+                                                itemTwo={"FWD"}
+                                                itemThree={"RWD"}
+                                                itemFour={"AWD"}
+                                                itemFive={"Подключаемый полный"}
+                                            />
+                                            <RangeFilterRelease 
+                                                id='release'
+                                                src={dcImage}
+                                                filterName={"Выберите год выпуска"}
+                                                minPlaceholder={'1980'}
+                                                maxPlaceholder={'2025'}
+                                            />
+                                            <RangeFilterPrice
+                                                id='price'
+                                                src={dcImage}
+                                                filterName={"Выберите цену"}
+                                                minPlaceholder={'60.000'}
+                                                maxPlaceholder={'10.000.000'}
+                                            />
+                                        </section>
+                                        <div className="output-result-container">
+                                            <div className="buttons-container">
+                                                <button 
+                                                    className='get-results-button'
+                                                    onClick={getFilteredCars}
+                                                >
+                                                    Подобрать автомобили
+                                                </button>
+                                            </div>
+                                            {
+                                                showResults && (
+                                                    <>
+                                                        <h1 className='result-message'>
+                                                            Вам могут подойти следующие автомобили
+                                                        </h1>
+                                                        <div className="results-cars">
+                                                            <div className="filtered-cars">
+                                                                {
+                                                                    Array.isArray(filteredCarsArray) && filteredCarsArray.length > 0 ? (
+                                                                        filteredCarsArray.map((car, index) => (
+                                                                            <CarCard key={index} 
+                                                                                brand={car.brand}
+                                                                                model_name={car.model_name}
+                                                                                model_number={car.model_number}
+                                                                                // car_vehicle={car.car_vehicle}
+                                                                                // gearbox={car.gearbox}
+                                                                                // body_type={car.body_type}
+                                                                                release_date={correctDate(car.release_date)}
+                                                                                end_release_date={correctDate(car.end_release_date)}
+                                                                                price_start={car.price_start}
+                                                                                price_end={car.price_end}
+                                                                            />
+                                                                        ))
+                                                                    ) : (
+                                                                        <p>Нет доступных автомобилей</p>
+                                                                    )   
+                                                                }
+                                                            </div>  
+                                                            <h2>Разделитель</h2>
+                                                            {
+                                                                Array.isArray(cars) && cars.length > 0 ? (
+                                                                    cars.map((car, index) => (
+                                                                        <div key={index}>
+                                                                            <div className="brand">Марка: {car.brand}</div>
+                                                                            <div className="model-name">Модель: {car.model_name}-{car.model_number}</div>
+                                                                            {/* <div className="vehical">Привод: {car.car_vehicle}</div> */}
+                                                                            {/* <div className="gearbox">Тип КПП: {car.gearbox}</div> */}
+                                                                            {/* <div className="body-type">Тип кузова: {car.body_type}</div> */}
+                                                                            <div className="release-date">Старт производства: {correctDate(car.release_date)}</div>
+                                                                            <div className="end-release-date">Окончание производства: {correctDate(car.end_release_date)}</div>
+                                                                            <div className="price-start">Минимальная цена: {car.price_start}</div>
+                                                                            <div className="price-end">Максимальная цена: {car.price_end}</div>
+                                                                        </div>
+                                                                    ))
+                                                                ) : (
+                                                                    <p>Нет доступных автомобилей</p>
+                                                                )   
+                                                            }
+                                                        </div>
+                                                    </>
+                                                ) 
+                                            }
+                                        </div>
+                                    </> 
                                 )
                             }
-                            <section className="filters-container">
-                                <FilterCompany
-                                    id="company"
-                                    src={w211Image}
-                                    filterName={"Выберете марку автомобиля"}
-                                    itemOne={"Любая"}
-                                    itemTwo={"Peugeot"}
-                                    itemThree={"Honda"}
-                                    itemFour={"Mercedes-Benz"}
-                                />
-                                <FilterGearbox
-                                    id="gearbox" 
-                                    src={rollsRoyce} 
-                                    filterName={"Выберите тип КПП"}
-                                    itemOne={"Любая"}
-                                    itemTwo={"Механическая (MT)"}
-                                    itemThree={"Автоматическая (AT)"}
-                                    itemFour={"Вариатор (CVT)"}
-                                    itemFive={"Роботизированная (AMT/DSG)"}
-                                    itemSix={"Гибридая"}
-                                />
-                                <FilterBodyType
-                                    id="bodyType" 
-                                    src={rollsRoyce} 
-                                    filterName={"Выберите тип кузова"}
-                                    itemOne={"Любой"}
-                                    itemTwo={"Седан"}
-                                    itemThree={"Хэтчбек"}
-                                    itemFour={"Универсал"}
-                                    itemFive={"Купе"}
-                                />
-                                <FilterVehicle 
-                                    id="vehicle" 
-                                    src={rollsRoyce} 
-                                    filterName={"Выберите привод"}
-                                    itemOne={"Любой"}
-                                    itemTwo={"FWD"}
-                                    itemThree={"RWD"}
-                                    itemFour={"AWD"}
-                                    itemFive={"Подключаемый полный"}
-                                />
-                                <RangeFilterRelease 
-                                    id='release'
-                                    src={dcImage}
-                                    filterName={"Выберите год выпуска"}
-                                    minPlaceholder={'1980'}
-                                    maxPlaceholder={'2025'}
-                                />
-                                <RangeFilterPrice
-                                    id='price'
-                                    src={dcImage}
-                                    filterName={"Выберите цену"}
-                                    minPlaceholder={'60.000'}
-                                    maxPlaceholder={'10.000.000'}
-                                />
-                            </section>
-                            <div className="output-result-container">
-                                <div className="buttons-container">
-                                    <button 
-                                        className='get-filters-button'
-                                        onClick={showFilters}
-                                    >
-                                        Показать массив фильтров
-                                    </button>
-                                    <button 
-                                        className='get-results-button'
-                                        onClick={getFilteredCars}
-                                    >
-                                        Показать результаты фильтрации
-                                    </button>
-                                    <button 
-                                        className='drop-results-button'
-                                        onClick={dropFilters}
-                                    >
-                                        Сбросить фильтры
-                                    </button>
-                                </div>
-                                <h1 className='result-message'>
-                                    Вам могут подойти следующие автомобили
-                                </h1>
-                                <div className="results-cars">
-                                    <div className="filtered-cars">
-                                        {
-                                            Array.isArray(filteredCarsArray) && filteredCarsArray.length > 0 ? (
-                                                filteredCarsArray.map((car, index) => (
-                                                    <CarCard key={index} 
-                                                        brand={car.brand}
-                                                        model_name={car.model_name}
-                                                        model_number={car.model_number}
-                                                        // car_vehicle={car.car_vehicle}
-                                                        // gearbox={car.gearbox}
-                                                        // body_type={car.body_type}
-                                                        release_date={correctDate(car.release_date)}
-                                                        end_release_date={correctDate(car.end_release_date)}
-                                                        price_start={car.price_start}
-                                                        price_end={car.price_end}
-                                                    />
-                                                ))
-                                            ) : (
-                                                <p>Нет доступных автомобилей</p>
-                                            )   
-                                        }
-                                    </div>  
-                                    <h2>Разделитель</h2>
-                                    {
-                                        Array.isArray(cars) && cars.length > 0 ? (
-                                            cars.map((car, index) => (
-                                                <div key={index}>
-                                                    <div className="brand">Марка: {car.brand}</div>
-                                                    <div className="model-name">Модель: {car.model_name}-{car.model_number}</div>
-                                                    {/* <div className="vehical">Привод: {car.car_vehicle}</div> */}
-                                                    {/* <div className="gearbox">Тип КПП: {car.gearbox}</div> */}
-                                                    {/* <div className="body-type">Тип кузова: {car.body_type}</div> */}
-                                                    <div className="release-date">Старт производства: {correctDate(car.release_date)}</div>
-                                                    <div className="end-release-date">Окончание производства: {correctDate(car.end_release_date)}</div>
-                                                    <div className="price-start">Минимальная цена: {car.price_start}</div>
-                                                    <div className="price-end">Максимальная цена: {car.price_end}</div>
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <p>Нет доступных автомобилей</p>
-                                        )   
-                                    }
-                                </div>
-                            </div>
                         </div>
                         <Footer />
                     </div>
-                        <Outlet />
+                    <Outlet />
                 </FiltersArrayContext>
             </AdditionContext>
         </TokenContext.Provider>
