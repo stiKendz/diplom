@@ -823,19 +823,34 @@ app.post('/getfilteredcars', async (req, res) => {
         console.log('выбор по модели')
     } 
 
-    if (filters[1]) {
+    if (filters[1] === 'Любая') {
+        filtersConditions.push(`gearbox = $${filtersValues.length + 1} OR gearbox LIKE '%'`);
+        filtersValues.push(filters[1]);
+        console.log('проверка на любую коробку передач');
+    } else if (filters[1]) {
         filtersConditions.push(`gearbox = $${filtersValues.length + 1}`);
         filtersValues.push(filters[1]);
+        console.log('выбор по опреденной коробке');
     }
 
-    if (filters[2]) {
+    if (filters[2] === 'Любой') {
+        filtersConditions.push(`body_type = $${filtersValues.length + 1} OR body_type LIKE '%'`);
+        filtersValues.push(filters[2]);
+        console.log('проверка на любой тип кузова');
+    } else if (filters[2]) {
         filtersConditions.push(`body_type = $${filtersValues.length + 1}`);
         filtersValues.push(filters[2]);
+        console.log('выбор по определенному типу кузова');
     }
 
-    if (filters[3]) {
+    if (filters[3] === 'Любой') {
+        filtersConditions.push(`car_vehicle = $${filtersValues.length + 1} OR car_vehicle LIKE '%'`);
+        filtersValues.push(filters[3]);
+        console.log('проверка на любой тип привода');
+    } else if (filters[3]) {
         filtersConditions.push(`car_vehicle = $${filtersValues.length + 1}`);
         filtersValues.push(filters[3]);
+        console.log('выбор по определенному типу привода');
     } 
 
     if (filters[4] && filters[5]) {

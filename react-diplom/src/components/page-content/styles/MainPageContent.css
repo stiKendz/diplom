@@ -213,3 +213,17 @@
 
             padding-bottom: 10px;
         }
+            .main-page .main-container .output-result-container .results-cars {
+                width: 100%;    
+
+                display: flex;
+                flex-direction: column;
+            }
+                .main-page .main-container .output-result-container .results-cars .filtered-cars {
+                    display: flex;
+                    align-items: start;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    
+                    gap: 20px;
+                }

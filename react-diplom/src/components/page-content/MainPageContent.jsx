@@ -39,6 +39,14 @@ export default function MainPageContent() {
         return stringDate.split('T')[0];
     }
 
+
+    const [filteredCarsArray, setFilteredCars] = useState([]);
+
+    useEffect(() => {
+        setFilteredCars();
+    },[])
+
+
     const getFilteredCars = async () => {
         // Данную проверку на пустые поля добавлю позже, после реализации работы всех фильтров в приложении
         // const dateStartPos = 5; 
@@ -50,18 +58,19 @@ export default function MainPageContent() {
         // } else if (filtersArrayDates === 0 || filtersArrayDates === 1 || filtersArrayDates === undefined || filtersArrayDates === null) {
         //     return alert('Пожалуйста, заполните оба поля с датой выпуска автомобиля');
         // }
-        
-        // console.log(typeof(filtersArray[6]));
-        // console.log(typeof(filtersArray[7]));
+        const rangeInputs = document.querySelectorAll('input.range');
+        rangeInputs.forEach(input => {
+            input.value = '';
+        });
+
+        if (!token) {
+            return alert('Пожалуйста, войдите или зарегистрируйтесь перед использованием приложения.')
+        } else if (token && filtersArray.some(filter => !filter) || filtersArray.length === 0) {
+            return alert('Пожалуйста, заполните все поля.')
+        }
 
         const filteredFiltersArray = filtersArray.filter(Boolean).map(filter => filter);
         console.log('Отправленный массив фильтров' + filteredFiltersArray);
-        
-        // const priceStart = parseInt(filteredFiltersArray[3]);
-        // const priceEnd = parseInt(filteredFiltersArray[4]);
-        // console.log(typeof(priceStart));
-        // console.log(typeof(priceEnd));
-        // console.log(filteredFiltersArray);
 
         if (filteredFiltersArray === 0) {
             return alert('Не выбраны фильтры для поиска');
@@ -81,8 +90,13 @@ export default function MainPageContent() {
                 body: JSON.stringify({ filtersNames: filteredFiltersArray })
             });
 
-            const data = await response.json();
-            console.log(data);
+            const filteredCars = await response.json();
+            console.log(filteredCars);
+
+            if (filteredCars.allFilteredCars) {
+                setFilteredCars(filteredCars.allFilteredCars)
+            }
+
         } catch (error) {
             console.error('Ошибка при получении автомобилей:', error);
         }
@@ -170,48 +184,52 @@ export default function MainPageContent() {
                                 />
                             </section>
                             <div className="output-result-container">
-                                <button 
-                                    className='get-filters-button'
-                                    onClick={showFilters}
-                                >
-                                    Показать массив фильтров
-                                </button>
-                                <button 
-                                    className='get-results-button'
-                                    onClick={getFilteredCars}
-                                >
-                                    Показать результаты фильтрации
-                                </button>
-                                <button 
-                                    className='drop-results-button'
-                                    onClick={dropFilters}
-                                >
-                                    Сбросить результаты
-                                </button>
+                                <div className="buttons-container">
+                                    <button 
+                                        className='get-filters-button'
+                                        onClick={showFilters}
+                                    >
+                                        Показать массив фильтров
+                                    </button>
+                                    <button 
+                                        className='get-results-button'
+                                        onClick={getFilteredCars}
+                                    >
+                                        Показать результаты фильтрации
+                                    </button>
+                                    <button 
+                                        className='drop-results-button'
+                                        onClick={dropFilters}
+                                    >
+                                        Сбросить фильтры
+                                    </button>
+                                </div>
                                 <h1 className='result-message'>
                                     Вам могут подойти следующие автомобили
                                 </h1>
                                 <div className="results-cars">
-                                    {
-                                        Array.isArray(cars) && cars.length > 0 ? (
-                                            cars.map((car, index) => (
-                                                <CarCard key={index} 
-                                                    brand={car.brand}
-                                                    model_name={car.model_name}
-                                                    model_number={car.model_number}
-                                                    // car_vehicle={car.car_vehicle}
-                                                    // gearbox={car.gearbox}
-                                                    // body_type={car.body_type}
-                                                    release_date={correctDate(car.release_date)}
-                                                    end_release_date={correctDate(car.end_release_date)}
-                                                    price_start={car.price_start}
-                                                    price_end={car.price_end}
-                                                />
-                                            ))
-                                        ) : (
-                                            <p>Нет доступных автомобилей</p>
-                                        )   
-                                    }
+                                    <div className="filtered-cars">
+                                        {
+                                            Array.isArray(filteredCarsArray) && filteredCarsArray.length > 0 ? (
+                                                filteredCarsArray.map((car, index) => (
+                                                    <CarCard key={index} 
+                                                        brand={car.brand}
+                                                        model_name={car.model_name}
+                                                        model_number={car.model_number}
+                                                        // car_vehicle={car.car_vehicle}
+                                                        // gearbox={car.gearbox}
+                                                        // body_type={car.body_type}
+                                                        release_date={correctDate(car.release_date)}
+                                                        end_release_date={correctDate(car.end_release_date)}
+                                                        price_start={car.price_start}
+                                                        price_end={car.price_end}
+                                                    />
+                                                ))
+                                            ) : (
+                                                <p>Нет доступных автомобилей</p>
+                                            )   
+                                        }
+                                    </div>  
                                     <h2>Разделитель</h2>
                                     {
                                         Array.isArray(cars) && cars.length > 0 ? (
@@ -232,34 +250,6 @@ export default function MainPageContent() {
                                             <p>Нет доступных автомобилей</p>
                                         )   
                                     }
-                                    <h2>Разделитель 2</h2>
-                                    {
-                                        Array.isArray(cars) && cars.length > 0 ? (
-                                            cars.filter(car => {
-                                                const startPriceFilter = filtersArray[7];
-                                                const isPriceValid = startPriceFilter ? 
-                                                    parseFloat(car.price_start.replace(/\./g, '').replace(',', '.')) >= parseFloat(startPriceFilter.replace(/\./g, '').replace(',', '.')) 
-                                                    : false;
-
-                                                return isPriceValid;
-                                            }).map((car, index) => (
-                                                <div key={index}>
-                                                    <div className="brand">Марка: {car.brand}</div>
-                                                    <div className="model-name">Модель: {car.model_name}-{car.model_number}</div>
-                                                    {/* <div className="vehical">Привод: {car.car_vehicle}</div> */}
-                                                    {/* <div className="gearbox">Тип КПП: {car.gearbox}</div> */}
-                                                    {/* <div className="body-type">Тип кузова: {car.body_type}</div> */}
-                                                    <div className="release-date">Старт производства: {correctDate(car.release_date)}</div>
-                                                    <div className="end-release-date">Окончание производства: {correctDate(car.end_release_date)}</div>
-                                                    <div className="price-start">Минимальная цена: {car.price_start}</div>
-                                                    <div className="price-end">Максимальная цена: {car.price_end}</div>
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <p>Нет доступных автомобилей</p>
-                                        )   
-                                    }
-                                    <h2>Разделитель 3 - автомобили отфильтрованные в соответствии с фильтрами пользователя</h2>
                                 </div>
                             </div>
                         </div>
