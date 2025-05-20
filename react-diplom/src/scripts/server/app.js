@@ -1017,3 +1017,43 @@ app.post('/checkcarinfavorite', async (req, res) => {
         res.status(400).json({ message: 'Ошибка при проверке автомобиля в избранном из-за ошибки на сервере' });
     }
 });
+
+
+// Получение всех автомобилей для определенного пользователя
+app.post('/getfavoritecars', async (req, res) => {
+    const {email} = req.body;
+
+    if (!email) {
+        return res.status(400).json({noEmailMessage: 'Не удается прочесть email пользователя'});
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const userResponse = await client.query(`SELECT user_id FROM users_table WHERE email = $1`, [email]);
+            const userId = userResponse.rows[0].user_id;
+
+            const userFavoriteCars = await client.query(`SELECT car_id FROM user_cars_table WHERE user_id = $1`, [userId]);
+            if (userFavoriteCars.rowCount < 1) {
+                return res.status(200).json({noCarsInFavorite: 'У пользователя нет автомобилей в избранном', cars: []});
+            }
+
+            const carIds = userFavoriteCars.rows.map(row => row.car_id);
+            const favoriteCarsData = await client.query(`SELECT * FROM cars_table WHERE car_id = ANY($1::int[])`, [carIds])
+
+            return res.status(200).json({
+                favoriteCarsMessage: 'Все избранные автомобили',
+                favoriteCars: favoriteCarsData.rows 
+            })
+        } catch (err) {
+            console.error(`Ошибка при получении автомобилей из избранного: ${err.message}`);
+            res.status(400).json({ message: 'Ошибка при получении автомобилей из избранного из-за ошибки в запросе' });
+        } finally {
+            client.release();
+        }
+    } catch (err) {
+        console.error(`Ошибка при получении автомобилей из избранного: ${err.message}`);
+        res.status(400).json({ message: 'Ошибка при получении автомобилей из избранного из-за ошибки на сервере' });
+    }
+});
