@@ -1,6 +1,6 @@
 import React from 'react';
 import { createContext } from 'react';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 
@@ -27,6 +27,25 @@ export default function CarCard({
 
     const [inFavorite, setInFavorite] = useState(false);
 
+    async function checkFavorite() {
+        const email = window.localStorage.getItem('email');
+        const response = await fetch('http://localhost:3000/checkcarinfavorite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({email, car_id: String(car_id)})
+        });
+
+        const data = await response.json();
+        if (data.carInFavorite) {
+            setInFavorite(true);
+        }
+    }
+    useEffect(() => {
+        checkFavorite();
+    },[car_id]);
+
     async function AddToFavorite() {
         const email = window.localStorage.getItem('email');
         
@@ -43,13 +62,30 @@ export default function CarCard({
 
         const data = await response.json();
         console.log(data);
+
+        if (data.favoriteCarErrorMessage) {
+            alert('Данный автомобиль уже присутствует в вашем списке избранного');
+        }
     }
     async function DeleteFromFavorite() {
+        const email = window.localStorage.getItem('email');
+        
 
+        console.log(typeof(email));
+
+        const response = await fetch('http://localhost:3000/deletecarfromfavorite', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({email, car_id: String(car_id)})
+        })
+
+        const data = await response.json();
+        console.log(data);
     }
 
     
-
     return(
          <>
              <div className="car-card">
@@ -68,7 +104,7 @@ export default function CarCard({
                     {
                         inFavorite === false ? (
                             <>
-                                <button className='add-to-favorite' onClick={() => { AddToFavorite(); setInFavorite(true); }}>Добавить в избранное</button>
+                                <button className='add-to-favorite' onClick={() => { AddToFavorite() }}>Добавить в избранное</button>
                                 <button className='open-full-info'
                                     onClick={() => navigate('car-full-info', {replace:false})}
                                 >
@@ -78,7 +114,7 @@ export default function CarCard({
                         ) : (
                             <>
                                 <p>В избранном ❤️</p>
-                                <button className='delete-from-favorite' onClick={() => { setInFavorite(false); }}>Удалить из избранного</button>
+                                <button className='delete-from-favorite' onClick={() => { DeleteFromFavorite() }}>Удалить из избранного</button>
                                 <button className='open-full-info'
                                     onClick={() => navigate('car-full-info', {replace:false})}
                                 >

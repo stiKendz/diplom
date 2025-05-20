@@ -915,6 +915,14 @@ app.post('/addcartofavorite', async(req, res) => {
             const userId = userResponse.rows[0].user_id;
             console.log('id пользователя ' + userId);
             
+            const exitingFavoriteCar = await client.query(`SELECT user_id, car_id 
+                FROM user_cars_table 
+                WHERE user_id = $1 AND car_id = $2`, 
+                [userId, car_id]
+            )
+            if (exitingFavoriteCar.rowCount > 0) {
+                return res.status(400).json({favoriteCarErrorMessage: 'Данный автомобиль уже присутствует в избранном'});
+            }
 
             const result = await client.query(`INSERT INTO user_cars_table (user_id, car_id) VALUES ($1, $2) RETURNING user_id, car_id`, [userId, car_id])
             console.log(result);
@@ -938,3 +946,74 @@ app.post('/addcartofavorite', async(req, res) => {
         res.status(400).json({ message: 'Ошибка при добавлении автомобиля в избранное из-за ошибки на сервере'});
     }
 })
+
+// удаление автомобиля из избранного 
+app.delete('/deletecarfromfavorite', async(req, res) => {
+    const {email, car_id} = req.body;
+
+    if (!email || !car_id) {
+        return res.status(400).json({message: 'Не получается прочесть id автомобиля или электронную почту пользователя'});
+    }
+
+    try {
+        const client = await pool.connect();
+        try {
+            const userResponse = await client.query(`SELECT user_id FROM users_table WHERE email = $1`, [email]);
+            console.log(userResponse);
+            
+            const userId = userResponse.rows[0].user_id;
+            console.log('id пользователя ' + userId);
+            
+
+            const result = await client.query(`DELETE FROM user_cars_table where car_id = $1 AND user_id = $2 RETURNING car_id, user_id`, [car_id, userId])
+            console.log(result);
+
+            const deletedUserId = result.rows[0].user_id;
+            const deletedCarId = result.rows[0].car_id;
+
+            res.status(201).json({
+                message: 'Удаленные данные',
+                userid: deletedUserId,
+                carid: deletedCarId
+            });
+        } catch (err) {
+            console.error(`Ошибка при удалении автомобиля из избранного: ${err.message}`);
+            res.status(400).json({ message: 'Ошибка при удалении автомобиля из избранного из-за ошибки в запросе'});
+        } finally {
+            client.release();
+        }
+    } catch (err) {
+        console.error(`Ошибка при удалении автомобиля из избранного: ${err.message}`);
+        res.status(400).json({ message: 'Ошибка при удалении автомобиля из избранного из-за ошибки на сервере'});
+    }
+})
+
+
+// Запрос на проверку нахожения автомобиля в избранном
+app.post('/checkcarinfavorite', async (req, res) => {
+    const {email, car_id} = req.body;
+
+    if (!email || !car_id) {
+        return res.status(400).json({ message: 'Не получается прочесть id автомобиля или электронную почту пользователя' });
+    }
+
+    try {
+        const client = await pool.connect();
+        try {
+            const userResponse = await client.query(`SELECT user_id FROM users_table WHERE email = $1`, [email]);
+            const userId = userResponse.rows[0].user_id;
+
+            const exitingFavoriteCar = await client.query(`SELECT car_id FROM user_cars_table WHERE user_id = $1 AND car_id = $2`, [userId, car_id]);
+
+            res.status(201).json({ carInFavorite: exitingFavoriteCar.rowCount > 0 });
+        } catch (err) {
+            console.error(`Ошибка при проверке автомобиля в избранном: ${err.message}`);
+            res.status(400).json({ message: 'Ошибка при проверке автомобиля в избранном из-за ошибки в запросе' });
+        } finally {
+            client.release();
+        }
+    } catch (err) {
+        console.error(`Ошибка при проверке автомобиля в избранном: ${err.message}`);
+        res.status(400).json({ message: 'Ошибка при проверке автомобиля в избранном из-за ошибки на сервере' });
+    }
+});
