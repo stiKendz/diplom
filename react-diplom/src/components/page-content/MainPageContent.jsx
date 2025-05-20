@@ -206,6 +206,7 @@ export default function MainPageContent() {
                                                                     Array.isArray(filteredCarsArray) && filteredCarsArray.length > 0 ? (
                                                                         filteredCarsArray.map((car, index) => (
                                                                             <CarCard key={index} 
+                                                                                car_id={car.car_id}
                                                                                 brand={car.brand}
                                                                                 model_name={car.model_name}
                                                                                 model_number={car.model_number}

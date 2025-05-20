@@ -804,6 +804,7 @@ app.put('/changeuserinfo', async (req, res) => {
     }
 })
 
+// работа фильтров
 app.post('/getfilteredcars', async (req, res) => {
     const filters = req.body.filtersNames; 
     if (!Array.isArray(filters) || filters.length === 0) {
@@ -896,3 +897,44 @@ app.post('/getfilteredcars', async (req, res) => {
         res.status(500).json({ message: 'Ошибка вывода автомобилей из-за ошибки на сервере' });
     }
 });
+
+// добавление автомобиля в избранное
+app.post('/addcartofavorite', async(req, res) => {
+    const {email, car_id} = req.body;
+
+    if (!email || !car_id) {
+        return res.status(400).json({message: 'Не получается получить id автомобиля или электронную почту пользователя'});
+    }
+
+    try {
+        const client = await pool.connect();
+        try {
+            const userResponse = await client.query(`SELECT user_id FROM users_table WHERE email = $1`, [email]);
+            console.log(userResponse);
+            
+            const userId = userResponse.rows[0].user_id;
+            console.log('id пользователя ' + userId);
+            
+
+            const result = await client.query(`INSERT INTO user_cars_table (user_id, car_id) VALUES ($1, $2) RETURNING user_id, car_id`, [userId, car_id])
+            console.log(result);
+
+            const addedUserId = result.rows[0].user_id;
+            const addedCarId = result.rows[0].car_id;
+
+            res.status(201).json({
+                message: 'Данные',
+                userid: addedUserId,
+                carid: addedCarId
+            });
+        } catch (err) {
+            console.error(`Ошибка при добавлении автомобиля в избранное: ${err.message}`);
+            res.status(400).json({ message: 'Ошибка при добавлении автомобиля в избранное из-за ошибки в запросе'});
+        } finally {
+            client.release();
+        }
+    } catch (err) {
+        console.error(`Ошибка при добавлении автомобиля в избранное: ${err.message}`);
+        res.status(400).json({ message: 'Ошибка при добавлении автомобиля в избранное из-за ошибки на сервере'});
+    }
+})

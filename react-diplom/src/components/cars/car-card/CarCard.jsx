@@ -10,6 +10,7 @@ import './styles/CarCard.css';
 import dc2 from '../../../images/dc2.jpg';
 
 export default function CarCard({
+    car_id,
     brand, 
     model_name, 
     model_number,
@@ -22,6 +23,32 @@ export default function CarCard({
     price_end
 }) {
     const navigate = useNavigate();
+
+
+    const [inFavorite, setInFavorite] = useState(false);
+
+    async function AddToFavorite() {
+        const email = window.localStorage.getItem('email');
+        
+
+        console.log(typeof(email));
+
+        const response = await fetch('http://localhost:3000/addcartofavorite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({email, car_id: String(car_id)})
+        })
+
+        const data = await response.json();
+        console.log(data);
+    }
+    async function DeleteFromFavorite() {
+
+    }
+
+    
 
     return(
          <>
@@ -38,13 +65,28 @@ export default function CarCard({
                      <div className="price">{price_start} - {price_end}</div>
                  </div>
                  <div className="buttons-container">
-                     <button className='add-to-favorite'>Добавить в избранное</button>
-                     <button className='delete-from-favorite'>Удалить из избранного</button>
-                     <button className='open-full-info'
-                         onClick={() => navigate('car-full-info', {replace:false})}
-                     >
-                         Страница автомобиля
-                     </button>
+                    {
+                        inFavorite === false ? (
+                            <>
+                                <button className='add-to-favorite' onClick={() => { AddToFavorite(); setInFavorite(true); }}>Добавить в избранное</button>
+                                <button className='open-full-info'
+                                    onClick={() => navigate('car-full-info', {replace:false})}
+                                >
+                                    Страница автомобиля
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <p>В избранном ❤️</p>
+                                <button className='delete-from-favorite' onClick={() => { setInFavorite(false); }}>Удалить из избранного</button>
+                                <button className='open-full-info'
+                                    onClick={() => navigate('car-full-info', {replace:false})}
+                                >
+                                    Страница автомобиля
+                                </button>
+                            </>
+                        )
+                    }
                  </div>
              </div>
              <Outlet />
