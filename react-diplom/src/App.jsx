@@ -14,6 +14,7 @@ import AboutApp from './components/about-app/AboutApp';
 import CarFullInfo from './components/cars/car-full-info/CarFullInfo';
 
 import { CarsProvider } from './components/contexts/CarsContext';
+import { FilteresCarsProvider } from './components/contexts/FIlteredCarsContext';
 
 import Handler from './scripts/app/handler';
 
@@ -22,42 +23,44 @@ export default function App() {
         <>
             <StrictMode>
                 <CarsProvider>
-                    <BrowserRouter>
-                        <Routes>
-                            <Route 
-                                path="/" 
-                                element={<MainPageContent />}
-                            />
-                            <Route 
-                                path="sing-in" 
-                                element={<SingIn />}
-                            />
-                            <Route 
-                                path="sing-up" 
-                                element={<SingUp />}
-                            />
-                            <Route 
-                                path="profile" 
-                                element={<Profile />}
-                            />
-                            <Route 
-                                path="admin" 
-                                element={<AdminPage />}
-                            />
-                            <Route 
-                                path="about-app"
-                                element={<AboutApp></AboutApp>}
-                            />
-                            <Route 
-                                path='/profile/car-full-info'
-                                element={<CarFullInfo />}
-                            />
-                            <Route 
-                                path='/car-full-info'
-                                element={<CarFullInfo />}
-                            />
-                        </Routes>
-                    </BrowserRouter>
+                    <FilteresCarsProvider>
+                        <BrowserRouter>
+                            <Routes>
+                                <Route 
+                                    path="/" 
+                                    element={<MainPageContent />}
+                                />
+                                <Route 
+                                    path="sing-in" 
+                                    element={<SingIn />}
+                                />
+                                <Route 
+                                    path="sing-up" 
+                                    element={<SingUp />}
+                                />
+                                <Route 
+                                    path="profile" 
+                                    element={<Profile />}
+                                />
+                                <Route 
+                                    path="admin" 
+                                    element={<AdminPage />}
+                                />
+                                <Route 
+                                    path="about-app"
+                                    element={<AboutApp></AboutApp>}
+                                />
+                                <Route 
+                                    path='/profile/car-full-info'
+                                    element={<CarFullInfo />}
+                                />
+                                <Route 
+                                    path='/car-full-info'
+                                    element={<CarFullInfo />}
+                                />
+                            </Routes>
+                        </BrowserRouter>
+                    </FilteresCarsProvider>
                 </CarsProvider>
             </StrictMode>
         </>

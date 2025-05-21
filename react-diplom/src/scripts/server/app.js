@@ -809,53 +809,55 @@ app.post('/getfilteredcars', async (req, res) => {
     const filters = req.body.filtersNames; 
     if (!Array.isArray(filters) || filters.length === 0) {
         return res.status(400).json({ message: 'Массив названий фильтров не предоставлен' });
-    }
+    } else if (filters.length < 8) {
+        return res.status(400).json({ noFilterMessage: 'Одного из фильтров не хватает, пожалуйста, заполните все поля'});
+    } 
 
     const filtersConditions = [];
     const filtersValues = [];
 
     if (filters[0] === 'Любая') {
-        filtersConditions.push(`brand = $${filtersValues.length + 1} OR brand LIKE '%'`);
+        filtersConditions.push(`(brand = $${filtersValues.length + 1} OR brand LIKE '%')`);
         filtersValues.push(filters[0]);
         console.log('проверка на любую модель')
     } else if (filters[0]) {
-        filtersConditions.push(`brand = $${filtersValues.length + 1}`);
+        filtersConditions.push(`(brand = $${filtersValues.length + 1})`);
         filtersValues.push(filters[0]);
         console.log('выбор по модели')
     } 
 
     if (filters[1] === 'Любая') {
-        filtersConditions.push(`gearbox = $${filtersValues.length + 1} OR gearbox LIKE '%'`);
+        filtersConditions.push(`(gearbox = $${filtersValues.length + 1} OR gearbox LIKE '%')`);
         filtersValues.push(filters[1]);
         console.log('проверка на любую коробку передач');
     } else if (filters[1]) {
-        filtersConditions.push(`gearbox = $${filtersValues.length + 1}`);
+        filtersConditions.push(`(gearbox = $${filtersValues.length + 1})`);
         filtersValues.push(filters[1]);
         console.log('выбор по опреденной коробке');
     }
 
     if (filters[2] === 'Любой') {
-        filtersConditions.push(`body_type = $${filtersValues.length + 1} OR body_type LIKE '%'`);
+        filtersConditions.push(`(body_type = $${filtersValues.length + 1} OR body_type LIKE '%')`);
         filtersValues.push(filters[2]);
         console.log('проверка на любой тип кузова');
     } else if (filters[2]) {
-        filtersConditions.push(`body_type = $${filtersValues.length + 1}`);
+        filtersConditions.push(`(body_type = $${filtersValues.length + 1})`);
         filtersValues.push(filters[2]);
         console.log('выбор по определенному типу кузова');
     }
 
     if (filters[3] === 'Любой') {
-        filtersConditions.push(`car_vehicle = $${filtersValues.length + 1} OR car_vehicle LIKE '%'`);
+        filtersConditions.push(`(car_vehicle = $${filtersValues.length + 1} OR car_vehicle LIKE '%')`);
         filtersValues.push(filters[3]);
         console.log('проверка на любой тип привода');
     } else if (filters[3]) {
-        filtersConditions.push(`car_vehicle = $${filtersValues.length + 1}`);
+        filtersConditions.push(`(car_vehicle = $${filtersValues.length + 1})`);
         filtersValues.push(filters[3]);
         console.log('выбор по определенному типу привода');
     } 
 
     if (filters[4] && filters[5]) {
-        filtersConditions.push(`release_date BETWEEN $${filtersValues.length + 1}::date AND $${filtersValues.length + 2}::date`);
+        filtersConditions.push(`(release_date BETWEEN $${filtersValues.length + 1}::date AND $${filtersValues.length + 2}::date)`);
         filtersValues.push(filters[4], filters[5]);
     }
 
@@ -876,6 +878,7 @@ app.post('/getfilteredcars', async (req, res) => {
     
     // для проверки
     console.log(filters[0]);
+    console.log(filters.length);
     console.log(filtersValues);
     console.log(query);
 
@@ -931,7 +934,7 @@ app.post('/addcartofavorite', async(req, res) => {
             const addedCarId = result.rows[0].car_id;
 
             res.status(201).json({
-                message: 'Данные',
+                successFavoriteMessage: 'Данные',
                 userid: addedUserId,
                 carid: addedCarId
             });
@@ -972,7 +975,7 @@ app.delete('/deletecarfromfavorite', async(req, res) => {
             const deletedCarId = result.rows[0].car_id;
 
             res.status(201).json({
-                message: 'Удаленные данные',
+                successDeleteFromFavoriteMessage: 'Удаленные данные',
                 userid: deletedUserId,
                 carid: deletedCarId
             });

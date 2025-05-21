@@ -45,11 +45,10 @@ export default function CarCard({
     useEffect(() => {
         checkFavorite();
     },[car_id]);
+    
 
     async function AddToFavorite() {
         const email = window.localStorage.getItem('email');
-        
-
         console.log(typeof(email));
 
         const response = await fetch('http://localhost:3000/addcartofavorite', {
@@ -66,11 +65,13 @@ export default function CarCard({
         if (data.favoriteCarErrorMessage) {
             alert('Данный автомобиль уже присутствует в вашем списке избранного');
         }
+
+        if (data.successFavoriteMessage) {
+            setInFavorite(true);
+        }
     }
     async function DeleteFromFavorite() {
         const email = window.localStorage.getItem('email');
-        
-
         console.log(typeof(email));
 
         const response = await fetch('http://localhost:3000/deletecarfromfavorite', {
@@ -83,6 +84,10 @@ export default function CarCard({
 
         const data = await response.json();
         console.log(data);
+
+        if (data.successDeleteFromFavoriteMessage) {
+            setInFavorite(false);
+        }
     }
 
     

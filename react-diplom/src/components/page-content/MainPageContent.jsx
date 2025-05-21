@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { createContext } from 'react';
-import {useState, useContext} from 'react';
+import { useState, useContext } from 'react';
 import { Link, Navigate, Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +12,7 @@ import { AdditionContext, filtersDescription } from './AdditionContext';
 import { TokenContext } from '../contexts/TokenContext';
 
 import { useCars } from '../contexts/CarsContext';
+import { UseFilteredCarsContext } from '../contexts/FIlteredCarsContext';
 
 import './styles/MainPageContent.css'
 
@@ -24,29 +25,32 @@ const FiltersArrayContext = createContext();
 export default function MainPageContent() {
     const navigate = useNavigate();
     const [token, getToken] = useState(() => window.localStorage.getItem('token'));
-    const [showResults, setShowResults] = useState(false);
+
+    // const [showResults, setShowResults] = useState(false);
+    // const [filteredCarsArray, setFilteredCars] = useState([]);
+
+    let filtersArray = [];
+   
+    const { showResults, setShowResults, filteredCarsArray, setFilteredCars } = UseFilteredCarsContext();
+     useEffect(() => {
+        setFilteredCars();
+        console.log(filtersArray);
+        console.log(showResults);
+    },[])
+
 
     const cars = useCars();
 
-
-    let filtersArray = [];
-    const showFilters = () => {
-        return console.log('Массив фильтров ' + filtersArray.map((element) => element));
-    };
-    const dropFilters = () => {
-        filtersArray.length = 0;
-        return console.log('Массив фильтров ' + filtersArray);
-    };
+    // const showFilters = () => {
+    //     return console.log('Массив фильтров ' + filtersArray.map((element) => element));
+    // };
+    // const dropFilters = () => {
+    //     filtersArray.length = 0;
+    //     return console.log('Массив фильтров ' + filtersArray);
+    // };
     function correctDate(stringDate) {
         return stringDate.split('T')[0];
     }
-
-
-    const [filteredCarsArray, setFilteredCars] = useState([]);
-
-    useEffect(() => {
-        setFilteredCars();
-    },[])
 
 
     const getFilteredCars = async () => {
@@ -98,6 +102,10 @@ export default function MainPageContent() {
             if (filteredCars.allFilteredCars) {
                 setFilteredCars(filteredCars.allFilteredCars);
                 setShowResults(true);
+            }
+
+            if (filteredCars.noFilterMessage) {
+                alert('Пожалуйста, заполните все поля');
             }
 
         } catch (error) {
@@ -231,9 +239,9 @@ export default function MainPageContent() {
                                                                         <div key={index}>
                                                                             <div className="brand">Марка: {car.brand}</div>
                                                                             <div className="model-name">Модель: {car.model_name}-{car.model_number}</div>
-                                                                            {/* <div className="vehical">Привод: {car.car_vehicle}</div> */}
-                                                                            {/* <div className="gearbox">Тип КПП: {car.gearbox}</div> */}
-                                                                            {/* <div className="body-type">Тип кузова: {car.body_type}</div> */}
+                                                                            <div className="vehical">Привод: {car.car_vehicle}</div>
+                                                                            <div className="gearbox">Тип КПП: {car.gearbox}</div>
+                                                                            <div className="body-type">Тип кузова: {car.body_type}</div>
                                                                             <div className="release-date">Старт производства: {correctDate(car.release_date)}</div>
                                                                             <div className="end-release-date">Окончание производства: {correctDate(car.end_release_date)}</div>
                                                                             <div className="price-start">Минимальная цена: {car.price_start}</div>
