@@ -29,45 +29,32 @@ export default function MainPageContent() {
     // const [showResults, setShowResults] = useState(false);
     // const [filteredCarsArray, setFilteredCars] = useState([]);
 
-    let filtersArray = [];
+    // let filtersArray = [];
    
-    const { showResults, setShowResults, filteredCarsArray, setFilteredCars } = UseFilteredCarsContext();
+    const { showResults, setShowResults, filteredCarsArray, setFilteredCars, filtersArray, setFiltersArray } = UseFilteredCarsContext();
      useEffect(() => {
         setFilteredCars();
         console.log(filtersArray);
         console.log(showResults);
+
+        if (filtersArray.length >= 8) {
+            getFilteredCars();
+        }
     },[])
 
 
     const cars = useCars();
 
-    // const showFilters = () => {
-    //     return console.log('Массив фильтров ' + filtersArray.map((element) => element));
-    // };
-    // const dropFilters = () => {
-    //     filtersArray.length = 0;
-    //     return console.log('Массив фильтров ' + filtersArray);
-    // };
     function correctDate(stringDate) {
         return stringDate.split('T')[0];
     }
 
 
     const getFilteredCars = async () => {
-        // Данную проверку на пустые поля добавлю позже, после реализации работы всех фильтров в приложении
-        // const dateStartPos = 5; 
-        // const dateEndPos = 6;
-        // const filtersArrayDates = dateEndPos >= dateStartPos ? dateEndPos - dateStartPos + 1 : 0;
-        // console.log(filtersArrayDates)
-        // if (filtersArrayDates !== 2) {
-        //     return alert('Пожалуйста, заполните оба поля с датой выпуска автомобиля');
-        // } else if (filtersArrayDates === 0 || filtersArrayDates === 1 || filtersArrayDates === undefined || filtersArrayDates === null) {
-        //     return alert('Пожалуйста, заполните оба поля с датой выпуска автомобиля');
-        // }
-        const rangeInputs = document.querySelectorAll('input.range');
-        rangeInputs.forEach(input => {
-            input.value = '';
-        });
+        // const rangeInputs = document.querySelectorAll('input.range');
+        // rangeInputs.forEach(input => {
+        //     input.value = '';
+        // });
 
         if (!token) {
             return alert('Пожалуйста, войдите или зарегистрируйтесь перед использованием приложения.')

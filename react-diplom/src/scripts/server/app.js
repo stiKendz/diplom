@@ -857,7 +857,11 @@ app.post('/getfilteredcars', async (req, res) => {
     } 
 
     if (filters[4] && filters[5]) {
-        filtersConditions.push(`(release_date BETWEEN $${filtersValues.length + 1}::date AND $${filtersValues.length + 2}::date)`);
+        filtersConditions.push(`( release_date BETWEEN $${filtersValues.length + 1}::date AND $${filtersValues.length + 2}::date
+            OR (end_release_date BETWEEN $${filtersValues.length + 1}::date AND $${filtersValues.length + 2}::date)
+            OR (release_date <= $${filtersValues.length + 1}::date AND end_release_date >= $${filtersValues.length + 2}::date)
+            OR (release_date = $${filtersValues.length + 2}::date AND end_release_date >= $${filtersValues.length + 1}::date)
+         )`);
         filtersValues.push(filters[4], filters[5]);
     }
 
