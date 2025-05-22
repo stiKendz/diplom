@@ -1065,6 +1065,7 @@ app.post('/getfavoritecars', async (req, res) => {
     }
 });
 
+
 // Получение определенного автомобиля из базы данных
 app.post('/getcardata', async (req, res) => {
     const {car_id} = req.body;
@@ -1093,5 +1094,47 @@ app.post('/getcardata', async (req, res) => {
     } catch (err) {
         console.error(`Ошибка при получении автомобиля из-за ошибки на сервере: ${err.message}`);
         res.status(400).json({ message: 'Ошибка при получении автомобиля из-за ошибки на сервере' });
+    }
+});
+
+
+// Получение описания автомобиля 
+app.post('/getcardescription', async(req, res) => {
+    const { car_id } = req.body;
+
+    if (!car_id) {
+        return res.status(400).json({noCarIdMessage: 'Невозможно прочесть id автомобиля'});
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const response = await client.query(`SELECT csdt.description 
+                FROM cars_table AS ct 
+                LEFT JOIN car_short_description_table AS csdt 
+                ON ct.car_id = csdt.car_id 
+                WHERE ct.car_id = $1`, [car_id]);
+            const carDescription = response.rows[0].description;
+
+            if (carDescription === null) {
+                return res.status(200).json({
+                    noDescription: 'У данного автомобиля пока что нету описания. Но вскоре обязательно появится!'
+                })
+            }
+            
+            return res.status(200).json({
+                successGetCarDescription: 'Описание автомобиля получено успешно',
+                selectedCarDescription: carDescription
+            });
+        } catch (err) {
+            console.error(`Ошибка при получении описания автомобиля из-за ошибки в запросе: ${err.message}`);
+            res.status(400).json({ message: 'Ошибка при получении описания автомобиля из-за ошибки в запросе' });
+        } finally {
+            client.release();
+        }
+    } catch (err) {
+        console.error(`Ошибка при получении описания автомобиля из-за ошибки на сервере: ${err.message}`);
+        res.status(400).json({ message: 'Ошибка при получении описания автомобиля из-за ошибки на сервере' });
     }
 })

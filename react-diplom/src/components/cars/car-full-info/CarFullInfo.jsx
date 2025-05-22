@@ -16,9 +16,11 @@ export default function CarFullInfo() {
     const { car_id } = pageLocation.state || {};
 
     const [carData, setCarData] = useState([]);
+    const [carDescription, setCarDescription] = useState([]);
 
     useEffect(() => {
         getCarData();
+        getCarDescription();
     },[]);
 
     async function getCarData() {
@@ -40,6 +42,30 @@ export default function CarFullInfo() {
             setCarData(data.selectedCarData);
             console.log(data);
         }
+    }
+
+    async function getCarDescription() {
+        const response = await fetch('http://localhost:3000/getcardescription', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({car_id})
+        });
+        const data = await response.json();
+
+        if (data.noDescription) {
+            setCarDescription(data.noDescription);
+        } else if (data.successGetCarDescription) {
+            setCarDescription(data.selectedCarDescription);
+        }
+
+        console.log(data);
+    }
+
+
+    function correctDate(stringDate) {
+        return stringDate.split('T')[0];
     }
 
     return(
@@ -64,10 +90,10 @@ export default function CarFullInfo() {
                                             <div className="vehicle">{car.car_vehicle}</div>
                                             <div className="gearbox">{car.gearbox}</div>
                                             <div className="body-type">{car.body_type}</div>
-                                            <div className="release-date">{car.release_date}</div>
-                                            <div className="end-release-date">{car.end_release_date}</div>
+                                            <div className="release-date">Старт производства: {correctDate(car.release_date)}</div>
+                                            <div className="end-release-date">Окончание производства: {correctDate(car.end_release_date)}</div>
                                             <div className="price_start">Цена от: {car.price_start}р</div>
-                                            <div className="price_end">Цена до: {car.price_end}р</div>
+                                            <div className="price_end">До: {car.price_end}р</div>
                                         </div>
                                     ))
                             ) : (
@@ -81,7 +107,7 @@ export default function CarFullInfo() {
                         </div>
                     </div>
                     <div className="car-description-container">
-                        <div className="description">Описание автомобиля</div>
+                        <div className="description">Описание автомобиля: {carDescription}</div>
                     </div>
                     <div className="car-problems-container">
                         <div className="name">Название проблемы</div>
