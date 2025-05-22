@@ -21,7 +21,7 @@ create table cars_table (
 	brand varchar(64) not null, -- Honda
 	model_name varchar(64) not null, -- Integra
 	generation int not null, -- 5
-	model_number varchar(64) unique not null, -- dc5
+	model_number varchar(64) not null, -- dc5
 	release_date date not null, -- 2002-01-18
 	end_release_date date not null, -- 2005-01-18
 	engine_id int not null, -- 1 -- связь engine_table (engine_id)

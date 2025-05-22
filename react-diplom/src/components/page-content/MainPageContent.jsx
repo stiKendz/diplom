@@ -205,9 +205,9 @@ export default function MainPageContent() {
                                                                                 brand={car.brand}
                                                                                 model_name={car.model_name}
                                                                                 model_number={car.model_number}
-                                                                                // car_vehicle={car.car_vehicle}
-                                                                                // gearbox={car.gearbox}
-                                                                                // body_type={car.body_type}
+                                                                                car_vehicle={car.car_vehicle}
+                                                                                gearbox={car.gearbox}
+                                                                                body_type={car.body_type}
                                                                                 release_date={correctDate(car.release_date)}
                                                                                 end_release_date={correctDate(car.end_release_date)}
                                                                                 price_start={car.price_start}

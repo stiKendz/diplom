@@ -1064,3 +1064,34 @@ app.post('/getfavoritecars', async (req, res) => {
         res.status(400).json({ message: 'Ошибка при получении автомобилей из избранного из-за ошибки на сервере' });
     }
 });
+
+// Получение определенного автомобиля из базы данных
+app.post('/getcardata', async (req, res) => {
+    const {car_id} = req.body;
+
+    if (!car_id) {
+        return res.status(400).json({noCarIdMessage: 'Невозможно прочесть id автомобиля'});
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const response = await client.query(`SELECT * FROM cars_table WHERE car_id =$1`, [car_id]);
+            const carData = response.rows;
+            
+            return res.status(200).json({
+                successGetCarData: 'Данные об автомобле получены успешно',
+                selectedCarData: carData
+            });
+        } catch (err) {
+            console.error(`Ошибка при получении автомобиля из-за ошибки в запросе: ${err.message}`);
+            res.status(400).json({ message: 'Ошибка при получении автомобиля из-за ошибки в запросе' });
+        } finally {
+            client.release();
+        }
+    } catch (err) {
+        console.error(`Ошибка при получении автомобиля из-за ошибки на сервере: ${err.message}`);
+        res.status(400).json({ message: 'Ошибка при получении автомобиля из-за ошибки на сервере' });
+    }
+})

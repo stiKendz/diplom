@@ -1,6 +1,8 @@
 import React from 'react';
 import { createContext } from 'react';
-import {useState, useContext} from 'react';
+import { useState, useContext, useEffect } from 'react';
+
+import { useLocation } from 'react-router-dom';
 
 import Header from '../../header/Header'
 import Footer from '../../footer/Footer'
@@ -10,6 +12,36 @@ import './styles/CarFullInfo.css'
 import dc2 from '../../../images/dc2.jpg';
 
 export default function CarFullInfo() {
+    const pageLocation = useLocation();
+    const { car_id } = pageLocation.state || {};
+
+    const [carData, setCarData] = useState([]);
+
+    useEffect(() => {
+        getCarData();
+    },[]);
+
+    async function getCarData() {
+        const response = await fetch('http://localhost:3000/getcardata', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({car_id})
+        });
+        const data = await response.json();
+
+        if (data.noCarIdMessage) {
+            alert('Ошибка. Не удалось получить id автомобиля');
+            console.log(data);
+        }
+
+        if (data.successGetCarData) {
+            setCarData(data.selectedCarData);
+            console.log(data);
+        }
+    }
+
     return(
         <main>
             <Header />
@@ -20,17 +52,30 @@ export default function CarFullInfo() {
                 </div>
                 <div className="car-info-container">
                     <div className="short-description-container">
-                        <div className="concern">JDM</div>
-                        <div className="brand">Honda</div>
-                        <div className="model-name">Integra</div>
-                        <div className="model-number">DC2</div>
-                        <div className="generation">2</div>
-                        <div className="vehical">FWD</div>
-                        <div className="gearbox">MT</div>
-                        <div className="body-type">Sedan</div>
-                        <div className="release-date">2001</div>
-                        <div className="end-release-date">2004</div>
-                        <div className="price">400.000 - 1.200.000</div>
+                        {
+                            Array.isArray(carData) && carData.length > 0 ? (
+                                    carData.map((car) => (
+                                        <div className="car-data-container" key={car.car_id}>
+                                            <div className="concern">{car.concern}</div>
+                                            <div className="brand">{car.brand}</div>
+                                            <div className="model-name">{car.model_name}</div>
+                                            <div className="model-number">{car.model_number}</div>
+                                            <div className="generation">{car.generation}</div>
+                                            <div className="vehicle">{car.car_vehicle}</div>
+                                            <div className="gearbox">{car.gearbox}</div>
+                                            <div className="body-type">{car.body_type}</div>
+                                            <div className="release-date">{car.release_date}</div>
+                                            <div className="end-release-date">{car.end_release_date}</div>
+                                            <div className="price_start">Цена от: {car.price_start}р</div>
+                                            <div className="price_end">Цена до: {car.price_end}р</div>
+                                        </div>
+                                    ))
+                            ) : (
+                                <>
+                                    <p>Не удалось загрузить данные</p>
+                                </>
+                            )
+                        }
                         <div className="engine-container">
                             <Engine />
                         </div>

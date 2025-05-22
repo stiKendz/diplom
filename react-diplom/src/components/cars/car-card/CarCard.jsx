@@ -12,7 +12,7 @@ import dc2 from '../../../images/dc2.jpg';
 export default function CarCard({
     car_id,
     brand, 
-    model_name, 
+    model_name,
     model_number,
     car_vehicle, 
     gearbox, 
@@ -98,9 +98,9 @@ export default function CarCard({
                      <img className='car-image' src={dc2}/>
                      <div className="brand">{brand}</div>
                      <div className="model-name">{model_name} - {model_number}</div>
-                     {/* <div className="vehicle">Привод: {car_vehicle}</div>
+                     <div className="vehicle">Привод: {car_vehicle}</div>
                      <div className="gearbox">Тип КПП: {gearbox}</div>
-                     <div className="body-type">Тип кузова: {body_type}</div> */}
+                     <div className="body-type">Тип кузова: {body_type}</div>
                      <div className="release-date">Старт производства: {release_date}</div>
                      <div className="end-release-date">Окончание производства: {end_release_date}</div>
                      <div className="price">{price_start} - {price_end}</div>
@@ -111,7 +111,10 @@ export default function CarCard({
                             <>
                                 <button className='add-to-favorite' onClick={() => { AddToFavorite() }}>Добавить в избранное</button>
                                 <button className='open-full-info'
-                                    onClick={() => navigate('car-full-info', {replace:false})}
+                                    onClick={() => navigate('car-full-info', {
+                                        replace: false,
+                                        state: { car_id }
+                                    })}
                                 >
                                     Страница автомобиля
                                 </button>
@@ -121,7 +124,10 @@ export default function CarCard({
                                 <p>В избранном ❤️</p>
                                 <button className='delete-from-favorite' onClick={() => { DeleteFromFavorite() }}>Удалить из избранного</button>
                                 <button className='open-full-info'
-                                    onClick={() => navigate('car-full-info', {replace:false})}
+                                    onClick={() => navigate('car-full-info', {
+                                        replace: false,
+                                        state: { car_id }
+                                    })}
                                 >
                                     Страница автомобиля
                                 </button>
