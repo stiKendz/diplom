@@ -81,8 +81,8 @@ export default function CarFullInfo() {
                     <img src={dc2}/>
                 </div>
                 <div className="car-info-container">
-                    <div className="short-description-container">
-                        <h2>Информация об автомобиле</h2>
+                    <div className="info">
+                        <h2 className='info-message'>Информация об автомобиле</h2>
                         {
                             Array.isArray(carData) && carData.length > 0 ? (
                                     carData.map((car) => (
@@ -95,8 +95,8 @@ export default function CarFullInfo() {
                                             <div className="vehicle">{car.car_vehicle}</div>
                                             <div className="gearbox">{car.gearbox}</div>
                                             <div className="body-type">{car.body_type}</div>
-                                            <div className="release-date">Старт производства: {correctDate(car.release_date)}</div>
-                                            <div className="end-release-date">Окончание производства: {correctDate(car.end_release_date)}</div>
+                                            <div className="release-date">Производилась с: {correctDate(car.release_date)}</div>
+                                            <div className="end-release-date">До: {correctDate(car.end_release_date)}</div>
                                             <div className="price_start">Цена от: {car.price_start}р</div>
                                             <div className="price_end">До: {car.price_end}р</div>
                                         </div>
@@ -109,7 +109,7 @@ export default function CarFullInfo() {
                         }
                     </div>
                     <div className="engine-container">
-                        <h2>Информация о двигателе</h2>
+                        <h2 className='engine-message'>Информация о двигателе</h2>
                         {
                             Array.isArray(carEngineData) && carEngineData.length > 0 ? (
                                 carEngineData.map((engine) => (
@@ -133,10 +133,10 @@ export default function CarFullInfo() {
                         }
                     </div>
                     <div className="car-description-container">
-                        <div className="description">Описание автомобиля: {carDescription}</div>
+                        <div className="description">{carDescription}</div>
                     </div>
                     <div className='car-problems-container'>
-                        <h2>Проблемы автомобиля</h2>
+                        <h2 className='problems-message'>Проблемы автомобиля</h2>
                         {
                             Array.isArray(carProblemsData) && carProblemsData.length === 0 ? (
                                 <>
