@@ -1078,22 +1078,43 @@ app.post('/getcardata', async (req, res) => {
         const client = await pool.connect();
 
         try {
-            const response = await client.query(`SELECT * FROM cars_table WHERE car_id =$1`, [car_id]);
+            const response = await client.query(`SELECT * FROM cars_table WHERE car_id = $1`, [car_id]);
             const carData = response.rows;
+
+
+            const engineId = response.rows[0].engine_id;
+            console.log('Полученный id двигателя : ' + engineId);
+            if (engineId === null || !engineId) {
+                return res.status(400).json({noEngineId: 'Не удалось получить id - автомобиля'})
+            }
+            const engineResponse = await client.query(`SELECT * FROM engine_table WHERE engine_id = $1`, [engineId]);
+            const engineData = engineResponse.rows;
             
+
+            const carProblems = await client.query(`SELECT problem_id FROM car_problems_table WHERE car_id = $1`, [car_id]);
+            // if (carProblems.rowCount < 1) {
+            //     return res.status(200).json({noCarsInFavorite: 'У данного автомобиля нет проблем, или они ещё не добавлены', problems: []});
+            // }
+
+            const problemIds = carProblems.rows.map(row => row.problem_id);
+            const selectedProblems = await client.query(`SELECT * FROM problems_table WHERE problem_id = ANY($1::int[])`, [problemIds]);
+            const carProblemsData = selectedProblems.rows;
+
             return res.status(200).json({
                 successGetCarData: 'Данные об автомобле получены успешно',
-                selectedCarData: carData
+                selectedCarData: carData,
+                carEngineData: engineData,
+                carProblemsData: carProblemsData
             });
         } catch (err) {
-            console.error(`Ошибка при получении автомобиля из-за ошибки в запросе: ${err.message}`);
-            res.status(400).json({ message: 'Ошибка при получении автомобиля из-за ошибки в запросе' });
+            console.error(`Ошибка при получении данных автомобиля из-за ошибки в запросе: ${err.message}`);
+            res.status(400).json({ message: 'Ошибка при получении данных автомобиля из-за ошибки в запросе' });
         } finally {
             client.release();
         }
     } catch (err) {
-        console.error(`Ошибка при получении автомобиля из-за ошибки на сервере: ${err.message}`);
-        res.status(400).json({ message: 'Ошибка при получении автомобиля из-за ошибки на сервере' });
+        console.error(`Ошибка при получении данных автомобиля из-за ошибки на сервере: ${err.message}`);
+        res.status(400).json({ message: 'Ошибка при получении данных автомобиля из-за ошибки на сервере' });
     }
 });
 

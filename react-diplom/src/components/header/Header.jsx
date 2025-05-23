@@ -36,6 +36,8 @@ export default function Header() {
                                 && location.pathname != '/profile' 
                                 && location.pathname != '/admin' 
                                 && location.pathname != '/about-app'
+                                && location.pathname != '/car-full-info'
+                                && location.pathname != '/profile/car-full-info'
                                 ? (
                                     <>
                                         <button
@@ -60,7 +62,9 @@ export default function Header() {
                                 ) : role === 'user' 
                                 && token 
                                 && location.pathname != '/profile'
-                                && location.pathname != '/about-app' 
+                                && location.pathname != '/about-app'
+                                && location.pathname != '/car-full-info'
+                                && location.pathname != '/profile/car-full-info'
                                 ? (
                                     <>
                                         <button

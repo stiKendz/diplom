@@ -17,6 +17,8 @@ export default function CarFullInfo() {
 
     const [carData, setCarData] = useState([]);
     const [carDescription, setCarDescription] = useState([]);
+    const [carEngineData, setCarEngineData] = useState([]);
+    const [carProblemsData, setCarProblemsData] = useState([]);
 
     useEffect(() => {
         getCarData();
@@ -40,6 +42,8 @@ export default function CarFullInfo() {
 
         if (data.successGetCarData) {
             setCarData(data.selectedCarData);
+            setCarEngineData(data.carEngineData);
+            setCarProblemsData(data.carProblemsData);
             console.log(data);
         }
     }
@@ -78,6 +82,7 @@ export default function CarFullInfo() {
                 </div>
                 <div className="car-info-container">
                     <div className="short-description-container">
+                        <h2>Информация об автомобиле</h2>
                         {
                             Array.isArray(carData) && carData.length > 0 ? (
                                     carData.map((car) => (
@@ -102,22 +107,54 @@ export default function CarFullInfo() {
                                 </>
                             )
                         }
-                        <div className="engine-container">
-                            <Engine />
-                        </div>
+                    </div>
+                    <div className="engine-container">
+                        <h2>Информация о двигателе</h2>
+                        {
+                            Array.isArray(carEngineData) && carEngineData.length > 0 ? (
+                                carEngineData.map((engine) => (
+                                    <Engine 
+                                        key={engine.engine_id}
+                                        engine_serial_name={engine.engine_serial_name}
+                                        engine_size={engine.engine_size}
+                                        engine_type={engine.engine_type}
+                                        engine_nano={engine.engine_nano}
+                                        engine_horse_power={engine.engine_horse_power}
+                                        engine_expenditure_city={engine.engine_expenditure_city}
+                                        engine_expenditure_track={engine.engine_expenditure_track}
+                                        camshaft_system={engine.camshaft_system}
+                                    />
+                                ))
+                            ) : (
+                                <>
+                                    <p>Невозможно получить данные о двигателе</p>
+                                </>
+                            )
+                        }
                     </div>
                     <div className="car-description-container">
                         <div className="description">Описание автомобиля: {carDescription}</div>
                     </div>
-                    <div className="car-problems-container">
-                        <div className="name">Название проблемы</div>
-                        <div className="short-description">Краткое описание проблемы</div>
-                        <div className="how-to-fix">Как исправить проблему</div>
-                        <div className="fix-price">Цена исправления проблемы</div>
-                        <div className="buttons-container">
-                            <button type='button'>Предидущая проблема</button>
-                            <button type='button'>Следующая проблема</button>
-                        </div>
+                    <div className='car-problems-container'>
+                        <h2>Проблемы автомобиля</h2>
+                        {
+                            Array.isArray(carProblemsData) && carProblemsData.length === 0 ? (
+                                <>
+                                    <p>У данного автомобиля нет проблем, или они ещё не добавлены/не обнаружены.</p>
+                                </>
+                            ) : (
+                                carProblemsData.map((problem) => (
+                                    <Problem 
+                                        key={problem.problem_id}
+                                        problem_name={problem.problem_name}
+                                        problem_short_description={problem.problem_short_description}
+                                        difficult={problem.difficult}
+                                        how_to_fixed={problem.how_to_fixed}
+                                        problem_price={problem.problem_price}
+                                    />
+                                ))
+                            ) 
+                        }
                     </div>
                 </div>
             </div>
@@ -126,18 +163,48 @@ export default function CarFullInfo() {
     )
 }
 
-export function Engine() {
+export function Engine({ 
+    engine_serial_name, 
+    engine_size, 
+    engine_type, 
+    engine_nano, 
+    engine_horse_power, 
+    engine_expenditure_city, 
+    engine_expenditure_track, 
+    camshaft_system 
+}) {
     return(
         <>
             <div className="engine-info">
-                <div className="serial-name">Модель: </div>
-                <div className="size">Объем: </div>
-                <div className="type">Тип: </div>
-                <div className="engine_nano">Крутящий момент: </div>
-                <div className="engine_horse_power">Мощность: </div>
-                <div className="engine_expenditure_city">Расход по городу: </div>
-                <div className="engine_expenditure_track">Расход по трассе: </div>
-                <div className="camshaft-system">Система распредвалов: </div>
+                <div className="serial-name">Модель: {engine_serial_name}</div>
+                <div className="size">Объем: {engine_size}</div>
+                <div className="type">Тип: {engine_type}</div>
+                <div className="engine_nano">Крутящий момент: {engine_nano}</div>
+                <div className="engine_horse_power">Мощность л.с: {engine_horse_power}</div>
+                <div className="engine_expenditure_city">Расход по городу: {engine_expenditure_city}</div>
+                <div className="engine_expenditure_track">Расход по трассе: {engine_expenditure_track}</div>
+                <div className="camshaft-system">Система распредвалов: {camshaft_system}</div>
+            </div>
+        </>
+    )
+}
+
+
+export function Problem({ 
+    problem_name, 
+    problem_short_description, 
+    difficult, 
+    how_to_fixed, 
+    problem_price
+}) {
+    return(
+        <>
+            <div className="car-problem-info">
+                <div className="name">Название проблемы: {problem_name}</div>
+                <div className="short-description">Краткое описание проблемы: {problem_short_description}</div>
+                <div className="problem-difficult">Сложность проблемы от 1 до 5 : {difficult}</div>
+                <div className="how-to-fix">Пути решения проблемы: {how_to_fixed} </div>
+                <div className="fix-price">Цена решения проблемы: {problem_price}</div>
             </div>
         </>
     )
