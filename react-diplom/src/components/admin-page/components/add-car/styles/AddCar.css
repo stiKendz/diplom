@@ -6,11 +6,11 @@
   .add-car-container {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 850px 50px;
+    grid-template-rows: 900px 50px;
   }
   .add-car-container button.add-car-button {
     position: relative;
-  
+
     display: flex;
     justify-content: center;
     align-items: center;

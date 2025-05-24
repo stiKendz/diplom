@@ -1,3 +1,85 @@
 .add-photo-container {
     display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 310px;
 }
+    .add-photo-container h2 {
+        text-align: center;
+    }
+    .add-photo-container .add-photo-window {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+
+        gap: 48px 0px;
+    }
+        .add-photo-container .add-photo-window input {
+            min-width: 240px;
+  
+            padding: 3px;
+            padding-left: 5px;
+            border: 0px;
+            border-bottom: 1px solid black;
+    
+    
+            outline: none;
+        }
+        .add-photo-container .add-photo-window input::selection {
+          background-color: rgb(222, 220, 220);
+        }
+        .add-photo-container .add-photo-window input::placeholder {
+          color: black;
+  
+          transition: ease-in 0.2s;
+        }
+        .add-photo-container .add-photo-window input:focus::placeholder {
+          color: grey;
+  
+          transition: ease-in 0.2s;
+        }
+        .add-photo-container .add-photo-window input:focus {
+          color: grey;
+          border-bottom: 1px solid grey;
+  
+          transition: ease-in 0.2s;
+  
+          outline: none;
+        }
+        .add-photo-container .add-photo-window button {
+            position: relative;
+        
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        
+            padding: 10px;
+            min-width: 150px;
+            min-height: 50px;
+        
+            color: #0078f0;
+            background-color: transparent;
+            border: 1.5px solid #0078f0;
+        
+            font-size: 14px;
+            user-select: none;
+        
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .add-photo-container .add-photo-window button:hover {
+            transform: scale(1.05);
+            transition: ease-in 0.2s;
+        }
+        .add-photo-container .add-photo-window button:focus {
+            transform: scale(1.05);
+            transition: ease-in 0.2s;
+        
+            outline: none;
+        }
+        .add-photo-container .add-photo-window button:active {
+            transform: scale(1.05);
+            transition: ease-in 0.2s;
+        
+            outline: none;
+        }

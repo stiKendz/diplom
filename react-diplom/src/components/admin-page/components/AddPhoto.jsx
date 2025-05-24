@@ -34,12 +34,13 @@ export default function AddPhoto() {
     return(
         <>
             <div className="add-photo-container">
+                <h2>Добавить фотографию</h2>
                 <div className="add-photo-window" encType="multipart/form-data">
                     <img className="uploaded-image" encType="" />
                     <input type="file" name="file" className="add-image-input" encType="" 
                         onChange={SetCarImage}
                     />
-                    <input type="number" className="car-id-input" placeholder="id автомобиля для добавления к нему фотографии" 
+                    <input type="number" className="car-id-input" placeholder="ID автомобиля" 
                         onChange={SetCarId}
                     />
                     <input type="text" className="car-model-name" placeholder="Введите название номера модели" 

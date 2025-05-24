@@ -12,6 +12,8 @@ import Footer from '../footer/Footer';
 
 import { TokenContext } from '../contexts/TokenContext';
 
+import noPhoto from '../../images/no-photos.png'
+
 export default function Profile() {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
@@ -79,7 +81,7 @@ export default function Profile() {
                     <div className="user-info-card">
                         <h1>Информация о пользователе</h1>
                         <div className="profile-photo">
-                            <img />
+                            <img src={noPhoto}/>
                         </div>
                         <div className="bio">
                             <div className="name-container">
