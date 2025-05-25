@@ -615,41 +615,101 @@ app.post('/addcardescription', async (req, res) => {
     }
 });
 
+
 // загрузка фотографии (на странице администратора)
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 app.post('/uploadimage', upload.single('image'), async (req, res) => {
-    try {
-        const image = req.file.buffer; // получение изображения из буфера multer
-        const {carId, carModelName} = req.body;
+    const image = req.file.buffer;
+    const {carId, carModelName} = req.body;
         
-        if (!carId || !carModelName || !image) {
-            // return res.status(400).json({message: 'все поля должны быть заполены'})
-            console.log('одно из полей не заполнено')
-        };
-
-        const result = await pool.query(
-            'INSERT INTO images_table (car_id, src, for_car_name) VALUES ($1, $2, $3) RETURNING image_id, car_id', 
-            [carId, image, carModelName]
-        ); 
-        // добавить пояснялку на страницу, что нужен НОМЕР модели в поле ввода названия модели-- w204, gc8, ek2, b240
-        
-        if(result.rows.length === 0) {
-            // return res.status(400).json({message: 'Изображение не было загружено'});
-            console.log('в result ничего нет')
-        };
-
-        const uploadIds = {
-            imageId: result.rows[0].image_id,
-            whatCarId: result.rows[0].car_id
-        };
-
-        console.log('Изображение успешно загружено');
-    } catch (err){
-        console.error('Ошибка загрузки изображения', err.message);
+    if (!carId || !carModelName || !image) {
+        console.log('Одно из полей не заполнено');
+        return res.status(400).json({emptyInputError: 'Все поля должны быть заполены'});
     };
+    
+    try {
+        const client = await pool.connect();
+
+        try {
+            const result = await client.query(
+                'INSERT INTO images_table (car_id, src, for_car_name) VALUES ($1, $2, $3) RETURNING image_id, car_id', 
+                [carId, image, carModelName]
+            ); 
+            // добавить пояснялку на страницу, что нужен НОМЕР модели в поле ввода названия модели-- w204, gc8, ek2, b240
+            
+            if (result.rows.length === 0) {
+                console.log('На сервер был отправлен пустой массив, данные не получены, не загружены.');
+                return res.status(400).json({errorUploadImage: 'Изображение не было загружено'});
+            };
+
+            const uploadIds = {
+                imageId: result.rows[0].image_id,
+                whatCarId: result.rows[0].car_id
+            };
+
+            return res.status(200).json({
+                successUploadImage: 'Изображение было успешно загружено',
+                uploadedResult: uploadIds
+            });
+        } catch (err) {
+            console.error(`Ошибка загрузки изображения, из-за ошибки в запросе ${err.message}`)
+            return res.status(500).json({message: 'Ошибка загрузки изображения, из-за ошибки в запросе'})
+        } finally {
+            client.release();
+        }
+    } catch (err){
+        console.error(`Ошибка загрузки изображения, из-за ошибки на сервере ${err.message}`)
+        return res.status(500).json({message: 'Ошибка загрузки изображения, из-за ошибки на сервере'})
+    }
 });
+
+
+// Получение фотографии автомобиля
+app.post('/getcarimage', async (req, res)=> {
+    const { car_id } = req.body;
+
+    if (!car_id) {
+        return res.status(400).json({ carIdError: 'Не получается прочесть id автомобиля' });
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const result = await client.query(`
+                SELECT it.src 
+                FROM cars_table AS ct 
+                LEFT JOIN images_table AS it 
+                ON ct.car_id = it.car_id 
+                WHERE ct.car_id = $1
+            `, [car_id]);
+
+            if (result.rows.length === 0 || !result.rows[0].src) {
+                return res.status(400).json({ imageError: 'Ошибка получения изображения, с ним что-то не так' });
+            }
+
+            const imageSrc = result.rows[0].src;
+            const base64Image = imageSrc.toString('base64');
+            console.log(base64Image);
+
+            return res.status(200).json({
+                successGetCarImage: 'Изображение успешно получено',
+                selectedImage: `data:image/png;base64,${base64Image}`
+            });
+        } catch(err) {
+            console.error(`Ошибка получения фотографии автомобиля, из-за ошибки в запросе ${err.message}`)
+            return res.status(500).json({message: 'Ошибка получения фотографии автомобиля, из-за ошибки в запросе'})
+        } finally {
+            client.release();
+        }
+    } catch(err) {
+        console.error(`Ошибка получения фотографии автомобиля, из-за ошибки в запросе ${err.message}`)
+        return res.status(500).json({message: 'Ошибка получения фотографии автомобиля, из-за ошибки в запросе'})
+    }
+})
+
 
 // обновление номера модели автомобиля (на странице администратора)
 app.put('/updatemodel', async (req, res) => {

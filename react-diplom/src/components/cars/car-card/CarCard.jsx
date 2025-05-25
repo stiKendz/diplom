@@ -24,7 +24,7 @@ export default function CarCard({
 }) {
     const navigate = useNavigate();
 
-
+    const [carImage, setCarImage] = useState(false);
     const [inFavorite, setInFavorite] = useState(false);
 
     async function checkFavorite() {
@@ -42,8 +42,31 @@ export default function CarCard({
             setInFavorite(true);
         }
     }
+
+    async function getCarImage() {
+        const response = await fetch('http://localhost:3000/getcarimage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({car_id: String(car_id)})
+        })
+        const data = await response.json();
+
+        if (data.carIdError) {
+            alert('Не удалось получить/прочеть ID автомобиля');
+        } else if (data.imageError) {
+            alert('Ошибка получения/вывода фотографии автомобиля');
+        }
+
+        if (data.successGetCarImage) {
+            setCarImage(data.selectedImage);
+        }
+    }
+
     useEffect(() => {
         checkFavorite();
+        getCarImage();
     },[car_id]);
     
 
@@ -90,12 +113,12 @@ export default function CarCard({
         }
     }
 
-    
+
     return(
          <>
              <div className="car-card">
                  <div className="car-info">
-                     <img className='car-image' src={dc2}/>
+                     <img className='car-image' src={carImage} alt='Нет фото'/>
                      <div className="brand">{brand}</div>
                      <div className="model-name">{model_name} - {model_number}</div>
                      <div className="vehicle">Привод: {car_vehicle}</div>
