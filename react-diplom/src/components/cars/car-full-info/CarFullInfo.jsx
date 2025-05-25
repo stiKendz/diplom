@@ -19,11 +19,28 @@ export default function CarFullInfo() {
     const [carDescription, setCarDescription] = useState([]);
     const [carEngineData, setCarEngineData] = useState([]);
     const [carProblemsData, setCarProblemsData] = useState([]);
+    const [carImage, setCarImage] = useState(null);
 
     useEffect(() => {
         getCarData();
         getCarDescription();
-    },[]);
+        getCarImage();
+    }, []);
+
+    async function getCarImage() {
+        const response = await fetch('http://localhost:3000/getcarimage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({car_id: String(car_id)})
+        });
+        const data = await response.json();
+
+        if (data.successGetCarImage) {
+            setCarImage(data.selectedImage);
+        }
+    }
 
     async function getCarData() {
         const response = await fetch('http://localhost:3000/getcardata', {
@@ -78,7 +95,7 @@ export default function CarFullInfo() {
             <div className="car-full-info-container">
                 <h3>Полная информация об автомобиле</h3>
                 <div className="image-container">
-                    <img src={dc2}/>
+                    <img src={carImage} alt='Нет фото'/>
                 </div>
                 <div className="car-info-container">
                     <div className="info">

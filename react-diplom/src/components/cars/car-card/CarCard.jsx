@@ -56,7 +56,7 @@ export default function CarCard({
         if (data.carIdError) {
             alert('Не удалось получить/прочеть ID автомобиля');
         } else if (data.imageError) {
-            alert('Ошибка получения/вывода фотографии автомобиля');
+            console.log('Ошибка получения/вывода фотографии автомобиля');
         }
 
         if (data.successGetCarImage) {

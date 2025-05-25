@@ -16,9 +16,13 @@ import { UseFilteredCarsContext } from '../contexts/FIlteredCarsContext';
 
 import './styles/MainPageContent.css'
 
-import dcImage from '../../images/dc2.jpg'
-import w211Image from '../../images/w211.jpg'
-import rollsRoyce from '../../images/rollsRoyce.jpg'
+import carBrand from '../../images/main-page-images/free-icon-cars-13833572.png';
+import carGearbox from '../../images/main-page-images/free-icon-manual-transmission-6052483.png';
+import carBodyType from '../../images/main-page-images/free-icon-body-car-16858484.png';
+import carVehicle from '../../images/main-page-images/free-icon-four-wheel-drive-2520422.png';
+import carYearInterval from '../../images/main-page-images/free-icon-time-management-5188254.png';
+import carPriceInterval from '../../images/main-page-images/free-icon-price-tag-2657935.png';
+
 
 const FiltersArrayContext = createContext();
 
@@ -127,7 +131,7 @@ export default function MainPageContent() {
                                         <section className="filters-container">
                                             <FilterCompany
                                                 id="company"
-                                                src={w211Image}
+                                                src={carBrand}
                                                 filterName={"Выберете марку автомобиля"}
                                                 itemOne={"Любая"}
                                                 itemTwo={"Peugeot"}
@@ -136,7 +140,7 @@ export default function MainPageContent() {
                                             />
                                             <FilterGearbox
                                                 id="gearbox" 
-                                                src={rollsRoyce} 
+                                                src={carGearbox} 
                                                 filterName={"Выберите тип КПП"}
                                                 itemOne={"Любая"}
                                                 itemTwo={"Механическая (MT)"}
@@ -147,7 +151,7 @@ export default function MainPageContent() {
                                             />
                                             <FilterBodyType
                                                 id="bodyType" 
-                                                src={rollsRoyce} 
+                                                src={carBodyType} 
                                                 filterName={"Выберите тип кузова"}
                                                 itemOne={"Любой"}
                                                 itemTwo={"Седан"}
@@ -157,7 +161,7 @@ export default function MainPageContent() {
                                             />
                                             <FilterVehicle 
                                                 id="vehicle" 
-                                                src={rollsRoyce} 
+                                                src={carVehicle} 
                                                 filterName={"Выберите привод"}
                                                 itemOne={"Любой"}
                                                 itemTwo={"FWD"}
@@ -167,14 +171,14 @@ export default function MainPageContent() {
                                             />
                                             <RangeFilterRelease 
                                                 id='release'
-                                                src={dcImage}
+                                                src={carYearInterval}
                                                 filterName={"Выберите год выпуска"}
                                                 minPlaceholder={'1980'}
                                                 maxPlaceholder={'2025'}
                                             />
                                             <RangeFilterPrice
                                                 id='price'
-                                                src={dcImage}
+                                                src={carPriceInterval}
                                                 filterName={"Выберите цену"}
                                                 minPlaceholder={'60.000'}
                                                 maxPlaceholder={'10.000.000'}

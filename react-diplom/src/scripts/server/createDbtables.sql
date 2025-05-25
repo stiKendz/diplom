@@ -127,4 +127,5 @@ VALUES (1, '123456789', 'honda'),
 	   (3, '', 'vw');
 
 delete from images_table where car_id = 2;
+delete from images_table where car_id = 1;
 select * from cars_table ut right join images_table it on ut.car_id = it.car_id;
