@@ -7,7 +7,7 @@ import { useNavigate , useLocation } from 'react-router-dom';
 
 import './styles/Header.css'
 
-import logo from '../../images/check-engine.jpg'
+import logo from '../../images/main-page-images/icons8-двигатель-100.png';
 
 import AboutApp from '../about-app/AboutApp';
 

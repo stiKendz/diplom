@@ -126,7 +126,7 @@ export default function CarCard({
                      <div className="body-type">Тип кузова: {body_type}</div>
                      <div className="release-date">Старт производства: {release_date}</div>
                      <div className="end-release-date">Окончание производства: {end_release_date}</div>
-                     <div className="price">{price_start} - {price_end}</div>
+                     <div className="price">{price_start}р - {price_end}р</div>
                  </div>
                  <div className="buttons-container">
                     {
