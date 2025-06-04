@@ -17,7 +17,7 @@ body {
 }
   .car-full-info-container {
     display: grid;
-    grid-template-rows: 30px 400px 900px;
+    grid-template-rows: 30px 400px auto;
 
     width: 100%;
     max-width: 1200px;
@@ -48,7 +48,7 @@ body {
         .car-full-info-container .car-info-container {
             display: grid;
             grid-template-columns: repeat(2, 500px);
-            grid-template-rows: 50px 200px 500px 50px 200px;
+            grid-template-rows: 50px 200px 500px 50px auto;
 
             justify-content: center;
 
@@ -109,8 +109,8 @@ body {
                     padding: 20px 5px;
                 }
             .car-full-info-container .car-info-container .car-problems-container {
-                display: grid;
-                grid-template-rows: auto;
+                display: flex;
+                flex-direction: column;
 
                 grid-area: 4 / 1 / 5 / 3;
             }

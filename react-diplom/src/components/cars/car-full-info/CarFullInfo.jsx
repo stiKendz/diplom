@@ -104,16 +104,16 @@ export default function CarFullInfo() {
                             Array.isArray(carData) && carData.length > 0 ? (
                                     carData.map((car) => (
                                         <div className="car-data-container" key={car.car_id}>
-                                            <div className="concern">{car.concern}</div>
-                                            <div className="brand">{car.brand}</div>
-                                            <div className="model-name">{car.model_name}</div>
-                                            <div className="model-number">{car.model_number}</div>
-                                            <div className="generation">{car.generation}</div>
-                                            <div className="vehicle">{car.car_vehicle}</div>
-                                            <div className="gearbox">{car.gearbox}</div>
-                                            <div className="body-type">{car.body_type}</div>
-                                            <div className="release-date">Производилась с: {correctDate(car.release_date)}</div>
-                                            <div className="end-release-date">До: {correctDate(car.end_release_date)}</div>
+                                            <div className="concern">Концерн: {car.concern}</div>
+                                            <div className="brand">Марка: {car.brand}</div>
+                                            <div className="model-name">Модель: {car.model_name}</div>
+                                            <div className="model-number">Номер модели: {car.model_number}</div>
+                                            <div className="generation">Поколение: {car.generation}</div>
+                                            <div className="vehicle">Привод: {car.car_vehicle}</div>
+                                            <div className="gearbox">Коробка передач: {car.gearbox}</div>
+                                            <div className="body-type">Тип кузова: {car.body_type}</div>
+                                            <div className="release-date">Выпускался с: {correctDate(car.release_date)}</div>
+                                            <div className="end-release-date">По: {correctDate(car.end_release_date)}</div>
                                             <div className="price_start">Цена от: {car.price_start}р</div>
                                             <div className="price_end">До: {car.price_end}р</div>
                                         </div>
@@ -218,9 +218,9 @@ export function Problem({
         <>
             <div className="car-problem-info">
                 <div className="name">Название проблемы: {problem_name}</div>
-                <div className="short-description">Краткое описание проблемы: {problem_short_description}</div>
-                <div className="problem-difficult">Сложность проблемы от 1 до 5 : {difficult}</div>
-                <div className="how-to-fix">Пути решения проблемы: {how_to_fixed} </div>
+                <div className="short-description">Что это за проблема? {problem_short_description}</div>
+                <div className="problem-difficult">Сложность устранения проблемы от 1 до 5: {difficult}</div>
+                <div className="how-to-fix">Как решить проблему? {how_to_fixed} </div>
                 <div className="fix-price">Цена решения проблемы: {problem_price}</div>
             </div>
         </>
