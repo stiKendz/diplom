@@ -100,7 +100,52 @@
                     padding: 10px 0px 0px 20px;
 
                     font-size: 18px;
+
+                    cursor: pointer;
                 }
+                    .main-page .main-container section.filters-container .filter .items.company {
+                        flex-direction: row;
+                        flex-wrap: wrap;
+
+                        gap: 10px;
+
+                        padding: 0px;
+
+                        overflow-y: scroll;
+                        overflow-x: hidden;
+                    }
+                    .main-page .main-container section.filters-container .filter .items.company::-webkit-scrollbar {
+                        width: 4px;
+                        height: auto;
+                    }
+                    .main-page .main-container section.filters-container .filter .items.company::-webkit-scrollbar-track {
+                        background-color: white;
+                    }
+                    .main-page .main-container section.filters-container .filter .items.company::-webkit-scrollbar-thumb {
+                        background-color: #0078f0;
+                        border-radius: 20px;
+                    }
+                        .main-page .main-container section.filters-container .filter .items.company .item {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            width: 86px;
+                            height: 30px;
+                        }   
+                        .main-page .main-container section.filters-container .filter .items.company span.country-name {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 22px;
+
+                            width: 126px;
+                            height: 36px;
+
+                            color: #0078f0;
+
+                            cursor: default;
+                        }
                 .main-page .main-container section.filters-container .filter .text-addition {
                     grid-area: filter-addition;
 
