@@ -3,8 +3,8 @@ create table users_table (
 	name varchar(64) not null, -- Touge
 	surname varchar(64) not null, -- Driver
 	password varchar(128) not null,
-	email varchar(64) unique not null, -- mikhailsemenov47@yandex.ru
-	phone_number varchar(64) null -- 81234567890
+	email varchar(64) unique not null -- mikhailsemenov47@yandex.ru
+	-- phone_number varchar(64) null -- 81234567890
 );
 
 

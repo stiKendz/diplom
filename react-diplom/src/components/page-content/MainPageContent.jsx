@@ -262,8 +262,8 @@ export default function MainPageContent() {
                                                 id='price'
                                                 src={carPriceInterval}
                                                 filterName={"Выберите цену"}
-                                                minPlaceholder={'60.000'}
-                                                maxPlaceholder={'10.000.000'}
+                                                minPlaceholder={'60000'}
+                                                maxPlaceholder={'10000000'} 
                                             />
                                         </section>
                                         <div className="output-result-container">
@@ -449,7 +449,7 @@ function FilterCompany({
                 <img id={id} src={src} onClick={imageFullScreen}></img>
                 <p className="description" id={id}>{filterName}</p>
                 <div className="items company" id={id}>
-                    {itemOne && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemOne}>{itemOne}</div>}
+                    {itemOne && <div className='item any-brand' id={id} onClick={() => FiltersArrayFromContext[0] = itemOne}>{itemOne}</div>}
 
                     <span className='country-name'>Российские</span>
                     {itemOneRussia && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemOneRussia}><span className="fi fi-ru"></span>{itemOneRussia}</div>}
@@ -496,10 +496,10 @@ function FilterCompany({
                     {itemElevenUSA && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemElevenUSA}><span class="fi fi-us"></span>{itemElevenUSA}</div>}
 
                     <span className='country-name'>Корейские</span>
-                    {itemOneKorea && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemOneKorea}><span class="fi fi-kr"></span><span class="fi fi-se"></span>{itemOneKorea}</div>}
-                    {itemTwoKorea && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemTwoKorea}><span class="fi fi-kr"></span><span class="fi fi-se"></span>{itemTwoKorea}</div>}
-                    {itemThreeKorea && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemThreeKorea}><span class="fi fi-kr"></span><span class="fi fi-se"></span>{itemThreeKorea}</div>}
-                    {itemFourKorea && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemFourKorea}><span class="fi fi-kr"></span><span class="fi fi-se"></span>{itemFourKorea}</div>}
+                    {itemOneKorea && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemOneKorea}><span class="fi fi-kr"></span>{itemOneKorea}</div>}
+                    {itemTwoKorea && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemTwoKorea}><span class="fi fi-kr"></span>{itemTwoKorea}</div>}
+                    {itemThreeKorea && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemThreeKorea}><span class="fi fi-kr"></span>{itemThreeKorea}</div>}
+                    {itemFourKorea && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemFourKorea}><span class="fi fi-kr"></span>{itemFourKorea}</div>}
 
                     <span className='country-name'>Шведские</span>
                     {itemOneSweden && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemOneSweden}><span class="fi fi-se"></span>{itemOneSweden}</div>}
@@ -522,7 +522,7 @@ function FilterCompany({
                     {itemTenChina && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemTenChina}><span class="fi fi-cn"></span>{itemTenChina}</div>}
                     {itemElevenChina && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemElevenChina}><span class="fi fi-cn"></span>{itemElevenChina}</div>}
 
-                    <span className='country-name'>Британские<span class="fi fi-de"></span></span>
+                    <span className='country-name'>Британские</span>
                     {itemOneBritain && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemOneBritain}><span class="fi fi-sh"></span>{itemOneBritain}</div>}
                     {itemTwoBritain && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemTwoBritain}><span class="fi fi-sh"></span>{itemTwoBritain}</div>}
                     {itemThreeBritain && <div className='item' id={id} onClick={() => FiltersArrayFromContext[0] = itemThreeBritain}><span class="fi fi-sh"></span>{itemThreeBritain}</div>}
@@ -591,7 +591,7 @@ function FilterGearbox({id='', src='', filterName, itemOne, itemTwo, itemThree, 
                 <img id={id} src={src} onClick={imageFullScreen}></img>
                 <p className="description" id={id}>{filterName}</p>
                 <div className="items" id={id}>
-                    {itemOne && <div className='item' id={id} onClick={() => FiltersArrayFromContext[1] = itemOne}>{itemOne}</div>}
+                    {itemOne && <div className='item any-gearbox' id={id} onClick={() => FiltersArrayFromContext[1] = itemOne}>{itemOne}</div>}
                     {itemTwo && <div className='item' id={id} onClick={() => FiltersArrayFromContext[1] = itemTwo}>{itemTwo}</div>}
                     {itemThree && <div className='item' id={id} onClick={() => FiltersArrayFromContext[1] = itemThree}>{itemThree}</div>}
                     {itemFour && <div className='item' id={id} onClick={() => FiltersArrayFromContext[1] = itemFour}>{itemFour}</div>}
@@ -645,7 +645,7 @@ function FilterBodyType({id='', src='', filterName, itemOne, itemTwo, itemThree,
                 <img id={id} src={src} onClick={imageFullScreen}></img>
                 <p className="description" id={id}>{filterName}</p>
                 <div className="items" id={id}>
-                    {itemOne && <div className='item' id={id} onClick={() => FiltersArrayFromContext[2] = itemOne}>{itemOne}</div>}
+                    {itemOne && <div className='item any-bodytype' id={id} onClick={() => FiltersArrayFromContext[2] = itemOne}>{itemOne}</div>}
                     {itemTwo && <div className='item' id={id} onClick={() => FiltersArrayFromContext[2] = itemTwo}>{itemTwo}</div>}
                     {itemThree && <div className='item' id={id} onClick={() => FiltersArrayFromContext[2] = itemThree}>{itemThree}</div>}
                     {itemFour && <div className='item' id={id} onClick={() => FiltersArrayFromContext[2] = itemFour}>{itemFour}</div>}
@@ -699,7 +699,7 @@ function FilterVehicle({id='', src='', filterName, itemOne, itemTwo, itemThree, 
                 <img id={id} src={src} onClick={imageFullScreen}></img>
                 <p className="description" id={id}>{filterName}</p>
                 <div className="items" id={id}>
-                    {itemOne && <div className='item' id={id} onClick={() => FiltersArrayFromContext[3] = itemOne}>{itemOne}</div>}
+                    {itemOne && <div className='item any-vehicle' id={id} onClick={() => FiltersArrayFromContext[3] = itemOne}>{itemOne}</div>}
                     {itemTwo && <div className='item' id={id} onClick={() => FiltersArrayFromContext[3] = itemTwo}>{itemTwo}</div>}
                     {itemThree && <div className='item' id={id} onClick={() => FiltersArrayFromContext[3] = itemThree}>{itemThree}</div>}
                     {itemFour && <div className='item' id={id} onClick={() => FiltersArrayFromContext[3] = itemFour}>{itemFour}</div>}

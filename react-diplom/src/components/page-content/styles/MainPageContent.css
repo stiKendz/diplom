@@ -99,13 +99,31 @@
 
                     padding: 10px 0px 0px 20px;
 
-                    font-size: 18px;
+                    font-size: 20px;
 
                     cursor: pointer;
                 }
+                    .main-page .main-container section.filters-container .filter .items .item.any-gearbox,
+                    .main-page .main-container section.filters-container .filter .items .item.any-bodytype,
+                    .main-page .main-container section.filters-container .filter .items .item.any-vehicle {
+                        font-size: 22px;
+                        color: grey;    
+                    }
+                    .main-page .main-container section.filters-container .filter .items .item.any-gearbox:hover,
+                    .main-page .main-container section.filters-container .filter .items .item.any-bodytype:hover,
+                    .main-page .main-container section.filters-container .filter .items .item.any-vehicle:hover {
+                        transition: 0.4s ease-in;
+                        color: rgb(180, 180, 180);
+                    }
+                    .main-page .main-container section.filters-container .filter .items .item.any-gearbox:active
+                    .main-page .main-container section.filters-container .filter .items .item.any-bodytype:active
+                    .main-page .main-container section.filters-container .filter .items .item.any-vehicle:active {
+                        color: rgb(0, 187, 0);
+                    }
                     .main-page .main-container section.filters-container .filter .items.company {
-                        flex-direction: row;
-                        flex-wrap: wrap;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: start;
 
                         gap: 10px;
 
@@ -125,12 +143,20 @@
                         background-color: #0078f0;
                         border-radius: 20px;
                     }
+                        .main-page .main-container section.filters-container .filter .items.company .item.any-brand {
+                            font-size: 22px;
+                            color: grey;
+                        }
+                        .main-page .main-container section.filters-container .filter .items.company .item.any-brand:hover {
+                            transition: 0.4s ease-in;
+                            color: rgb(180, 180, 180);
+                        }
                         .main-page .main-container section.filters-container .filter .items.company .item {
                             display: flex;
                             align-items: center;
                             justify-content: center;
 
-                            width: 86px;
+                            width: 150px;
                             height: 30px;
                         }   
                         .main-page .main-container section.filters-container .filter .items.company span.country-name {
@@ -165,7 +191,7 @@
 
                         color: black;
 
-                        font-size: 18px;
+                        font-size: 20px;
 
                         outline: none;
                         text-decoration: none;

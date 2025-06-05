@@ -18,7 +18,7 @@ export default function Profile() {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
-    const [phone_number, setPhoneNumber] = useState('');
+    // const [phone_number, setPhoneNumber] = useState('');
     // const [token, getToken] = useState(() => window.localStorage.getItem('token'));
     const token = window.localStorage.getItem('token');
 
@@ -43,7 +43,7 @@ export default function Profile() {
             setName(user.name)
             setSurname(user.surname)
             setEmail(user.email)
-            setPhoneNumber(user.phone_number)
+            // setPhoneNumber(user.phone_number)
         }
     }
 
@@ -54,7 +54,7 @@ export default function Profile() {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({name, surname, email, phone_number})
+            body: JSON.stringify({name, surname, email})
         })
 
         const data = await response.json();
@@ -108,14 +108,14 @@ export default function Profile() {
                                     ></input>
                                 </div>
                             </div>
-                            <div className="phone-container">
+                            {/* <div className="phone-container">
                                 <p className='phone-number'>Номер телефона : {phone_number}</p>
                                 <div className="change-data-container">
                                     <input type='text' className='new-data' placeholder='Новые данные'
                                         onChange={e => setPhoneNumber(e.target.value)}
                                     ></input>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="buttons-container">
                                 <button className='change-data'
                                     onClick={changeUserInfo}

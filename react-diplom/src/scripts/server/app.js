@@ -820,7 +820,7 @@ app.get('/getuserinfo', async (req, res) => {
                 name: result.name,
                 surname: result.surname,
                 email: result.email,
-                phone_number: result.phone_number,
+                // phone_number: result.phone_number,
             }
         });
     } catch (err) {
@@ -833,7 +833,7 @@ app.get('/getuserinfo', async (req, res) => {
 
 // изменение информации о пользователе в профиле
 app.put('/changeuserinfo', async (req, res) => {
-    const {name, surname, email, phone_number} = req.body;
+    const {name, surname, email} = req.body;
     const token = req.headers.authorization?.split(' ')[1];
 
     const client = await pool.connect();
@@ -851,9 +851,9 @@ app.put('/changeuserinfo', async (req, res) => {
         const changeEmail = await client.query(
             'UPDATE users_table SET email = $2 WHERE user_id = $1', [userId, email]
         )
-        const changePhoneNumber = await client.query(
-            'UPDATE users_table SET phone_number = $2 WHERE user_id = $1', [userId, phone_number]
-        )
+        // const changePhoneNumber = await client.query(
+        //     'UPDATE users_table SET phone_number = $2 WHERE user_id = $1', [userId, phone_number]
+        // )
 
         res.status(200).json({message: 'Данные пользователя успешно обновлены'})
     } catch (err) {
