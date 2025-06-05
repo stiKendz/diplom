@@ -134,9 +134,90 @@ export default function MainPageContent() {
                                                 src={carBrand}
                                                 filterName={"Выберете марку автомобиля"}
                                                 itemOne={"Любая"}
-                                                itemTwo={"Peugeot"}
-                                                itemThree={"Honda"}
-                                                itemFour={"Mercedes-Benz"}
+
+                                                itemOneRussia={"ГАЗ"}
+                                                itemTwoRussia={"ВАЗ"}
+                                                itemThreeRussia={"ЗИЛ"}
+                                                itemFourRussia={"Лада"}
+                                                itemFiveRussia={"КамАЗ"}
+                                                itemSixRussia={"ИЖ"}
+                                                itemSevenRussia={"Ока"}
+                                                itemEigthRussia={"Москвич"}
+                                                itemNineRussia={"УАЗ"}
+
+                                                itemOneFrance={"Peugeot"}
+                                                itemTwoFrance={"Citroen"}
+                                                itemThreeFrance={"Renault"}
+                                                itemFourFrance={"Alpine"}
+                                                itemFiveFrance={"Bugatti"}
+
+                                                itemOneJapan={"Acura"}
+                                                itemTwoJapan={"Datsun"}
+                                                itemThreeJapan={"Honda"}
+                                                itemFourJapan={"Infiniti"}
+                                                itemFiveJapan={"Lexus"}
+                                                itemSixJapan={"Mazda"}
+                                                itemSevenJapan={"Mitsubishi"}
+                                                itemEigthJapan={"Nissan"}
+                                                itemNineJapan={"Subaru"}
+                                                itemTenJapan={"Suzuki"}
+                                                itemElevenJapan={"Toyota"}
+
+                                                itemOneUSA={"Buick"}
+                                                itemTwoUSA={"Cadillac"}
+                                                itemThreeUSA={"Chevrolet"}
+                                                itemFourUSA={"Chrysler"}
+                                                itemFiveUSA={"Dodge"}
+                                                itemSixUSA={"Ford"}
+                                                itemSevenUSA={"Hummer"}
+                                                itemEigthUSA={"Jeep"}
+                                                itemNineUSA={"Lincoln"}
+                                                itemTenUSA={"Pontiac"}
+                                                itemElevenUSA={"Tesla"}
+
+                                                itemOneKorea={"Daewoo"}
+                                                itemTwoKorea={"Genesis"}
+                                                itemThreeKorea={"Hyundai"}
+                                                itemFourKorea={"Kia"}
+                                                itemFiveKorea={"SsangYong"}
+
+                                                itemOneSweden={"Saab"}
+                                                itemTwoSweden={"Scania"}
+                                                itemThreeSweden={"Volvo"}
+
+                                                itemOneCzech={"Skoda"}
+
+                                                itemOneChina={"Changan"}
+                                                itemTwoChina={"Chery"}
+                                                itemThreeChina={"Exeed"}
+                                                itemFourChina={"Geely"}
+                                                itemFiveChina={"Haval"}
+                                                itemSixChina={"JAC"}
+                                                itemSevenChina={"Jaecoo"}
+                                                itemEigthChina={"Jetour"}
+                                                itemNineChina={"Lixiang"}
+                                                itemTenChina={"Omoda"}
+                                                itemElevenChina={"Zeekr"}
+
+                                                itemOneBritain={"Bentley"}
+                                                itemTwoBritain={"Jaguar"}
+                                                itemThreeBritain={"Land Rover"}
+                                                itemFourBritain={"Rover"}
+                                                
+                                                itemOneGermany={"Audi"}
+                                                itemTwoGermany={"BMW"}
+                                                itemThreeGermany={"MAN"}
+                                                itemFourGermany={"Maybach"}
+                                                itemFiveGermany={"Mercedes-Benz"}
+                                                itemSixGermany={"Opel"}
+                                                itemSevenGermany={"Porche"}
+                                                itemEigthGermany={"Volkswagen"}
+                                                itemNineGermany={"SsangYong"}
+
+                                                itemOneItaly={"Ferrari"}
+                                                itemTwoItaly={"Fiat"}
+                                                itemThreeItaly={"Iveco"}
+                                                itemFourItaly={"Lamborghini"}
                                             />
                                             <FilterGearbox
                                                 id="gearbox" 
