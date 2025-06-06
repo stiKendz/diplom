@@ -6,7 +6,7 @@
 .engine-add-container {
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 850px 50px;
+  grid-template-rows: 1fr auto;
 }
 .engine-add-container button.add-engine-button {
   position: relative;

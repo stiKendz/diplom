@@ -23,7 +23,7 @@ export default function AddProblemToCar() {
 
     return (
         <>
-            <div className="car-promlems-container">
+            <div className="car-problems-container">
                 <div className="car-problems-container-items">
                     <h2>Добавление проблемы автомобилю</h2>
                     <div className="car-problems-window">

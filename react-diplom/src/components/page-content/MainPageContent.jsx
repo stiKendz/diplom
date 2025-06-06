@@ -240,6 +240,8 @@ export default function MainPageContent() {
                                                 itemThree={"Хэтчбек"}
                                                 itemFour={"Универсал"}
                                                 itemFive={"Купе"}
+                                                itemSix={"Кроссовер"}
+                                                itemSeven={"Кабриолет"}
                                             />
                                             <FilterVehicle 
                                                 id="vehicle" 
@@ -618,7 +620,7 @@ function FilterGearbox({id='', src='', filterName, itemOne, itemTwo, itemThree, 
 
 
 
-function FilterBodyType({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive, itemSix}) {
+function FilterBodyType({id='', src='', filterName, itemOne, itemTwo, itemThree, itemFour, itemFive, itemSix, itemSeven}) {
     const [showAddition, setShowAddition] = useState(false);
     
     const FiltersArrayFromContext = useContext(FiltersArrayContext);
@@ -651,6 +653,7 @@ function FilterBodyType({id='', src='', filterName, itemOne, itemTwo, itemThree,
                     {itemFour && <div className='item' id={id} onClick={() => FiltersArrayFromContext[2] = itemFour}>{itemFour}</div>}
                     {itemFive && <div className='item' id={id} onClick={() => FiltersArrayFromContext[2] = itemFive}>{itemFive}</div>}
                     {itemSix && <div className='item' id={id} onClick={() => FiltersArrayFromContext[2] = itemSix}>{itemSix}</div>}
+                    {itemSeven && <div className='item' id={id} onClick={() => FiltersArrayFromContext[2] = itemSeven}>{itemSeven}</div>}
                 </div>
                 <div className="text-addition" id={id}>
                     <button className='open-addition' onClick={openAddition}>

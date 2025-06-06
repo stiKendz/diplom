@@ -3,12 +3,12 @@
     padding: 0;
   }
   
-  .car-promlems-container {
+  .car-problems-container {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 300px 50px;
+    grid-template-rows: 1fr auto;
   }
-  .car-promlems-container button.add-problem-to-car-button {
+  .car-problems-container button.add-problem-to-car-button {
     position: relative;
   
     display: flex;
@@ -29,17 +29,17 @@
     overflow: hidden;
     cursor: pointer;
   }
-  .car-promlems-container button.add-problem-to-car-button:hover {
+  .car-problems-container button.add-problem-to-car-button:hover {
     transform: scale(1.05);
     transition: ease-in 0.2s;
   }
-  .car-promlems-container button.add-problem-to-car-button:focus {
+  .car-problems-container button.add-problem-to-car-button:focus {
     transform: scale(1.05);
     transition: ease-in 0.2s;
   
     outline: none;
   }
-  .car-promlems-container button.add-problem-to-car-button:active {
+  .car-problems-container button.add-problem-to-car-button:active {
     transform: scale(1.05);
     transition: ease-in 0.2s;
   

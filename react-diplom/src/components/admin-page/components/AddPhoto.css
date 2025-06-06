@@ -1,7 +1,7 @@
 .add-photo-container {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 50px 310px;
+    grid-template-rows: 1fr auto;
 }
     .add-photo-container h2 {
         text-align: center;
@@ -54,7 +54,7 @@
             align-items: center;
         
             padding: 10px;
-            min-width: 150px;
+            min-width: 100%;
             min-height: 50px;
         
             color: #0078f0;

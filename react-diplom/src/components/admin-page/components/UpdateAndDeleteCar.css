@@ -6,7 +6,7 @@
   .delete-update-cars-container {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 230px 150px;
+    grid-template-rows: 1fr auto;
   }
   .update-car-container button.update-car-button, 
   .delete-car-container button.delete-car-button {

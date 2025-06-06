@@ -75,7 +75,7 @@
                 .show-all-container .show-all-windows-container .engines-window-container .engine-info {
                     display: flex;
                     flex-direction: row;
-                    justify-content: space-between;
+                    /* justify-content: space-between; */
 
                     gap: 10px;
 
@@ -126,13 +126,47 @@
                 .show-all-container .show-all-windows-container .problems-window-container .problem-info {
                     display: flex;
                     flex-direction: row;
-                    justify-content: space-around;
+                    
                     align-items: center;
 
                     width: 100%;
-                    gap: 10px;
+                    gap: 20px;
 
                     border-bottom: 1px solid black;
+                }
+                .show-all-container .show-all-windows-container .problems-window-container .problem-info .problem_id {
+                    width: 100px;
+
+                    text-align: center;
+                }
+                .show-all-container .show-all-windows-container .problems-window-container .problem-info .problem_name {
+                    min-width: 250px;
+
+                    text-align: left;
+                    overflow-wrap: break-word;
+                }
+                .show-all-container .show-all-windows-container .problems-window-container .problem-info .problem_short_description {
+                    max-width: 300px;
+
+                    text-align: left;
+                    overflow-wrap: break-word;
+                }
+                .show-all-container .show-all-windows-container .problems-window-container .problem-info .difficult {
+                    width: 100px;
+
+                    text-align: center;
+                }
+                .show-all-container .show-all-windows-container .problems-window-container .problem-info .how_to_fixed {
+                    max-width: 300px;
+
+                    text-align: left;
+                    overflow-wrap: break-word;
+                }
+                .show-all-container .show-all-windows-container .problems-window-container .problem-info .problem_price {
+                    min-width: 100px;
+
+                    text-align: center;
+                    overflow-wrap: break-word;
                 }
             .show-all-container .show-all-windows-container .cars-problems-window-container {
                 display: flex;

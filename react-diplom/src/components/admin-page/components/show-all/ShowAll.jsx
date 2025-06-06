@@ -242,7 +242,7 @@ export function ProblemsList() {
                         <div className="problem_short_description">Описание проблемы: {problem.problem_short_description}</div>    
                         <div className="difficult">Сложность проблемы: {problem.difficult}</div>
                         <div className="how_to_fixed">Пути решения: {problem.how_to_fixed}</div>
-                        <div className="problem_price">Цена устранения: {problem.problem_price}</div>
+                        <div className="problem_price">Цена устранения в рублях: {problem.problem_price}</div>
                     </div>
                 ))
             }

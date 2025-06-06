@@ -52,7 +52,7 @@ export default function AddCar(){
                         />
                     </div>
                     <div className="problem-parameter price">
-                        <p>Пример: 100.000тыс.руб</p>
+                        <p>Пример: 100000</p>
                         <input type="text" className="problem-price-input" placeholder="Цена решения проблемы (тыс.руб)" 
                             onChange={e => SetCarProblemRepairPrice(e.target.value)}
                         />
