@@ -13,6 +13,7 @@ export default function ShowAll() {
     const [showCars, setShowCars] = useState(false);
     const [showProblems, setShowProblems] = useState(false);
     const [showCarsProblems, setShowCarsProblems] = useState(false);
+    const [showUsers, setShowUsers] = useState(false);
     
 
     function showEnginesFunction() {
@@ -26,6 +27,9 @@ export default function ShowAll() {
     }
     function showCarsProblemsFunction() {
         setShowCarsProblems(current => !current);
+    }
+    function showUsersFunction() {
+        setShowUsers(current => !current);
     }
 
     return(
@@ -60,12 +64,20 @@ export default function ShowAll() {
                     >
                         {showCarsProblems ? 'Закрыть окно проблем автомобилей' : 'Промотреть все проблемы автомобилей'}
                     </button>
+                    <button 
+                        type="button" 
+                        className="show-users-button" 
+                        onClick={showUsersFunction}
+                    >
+                        {showUsers ? 'Закрыть окно пользователей' : 'Промотреть всех пользователей'}
+                    </button>
                 </div>
                 <div className="show-all-windows-container">
                     { showEngines && <EnginesWindow /> }
                     { showCars && <CarsWindow /> }
                     { showProblems && <ProblemsWindow />}
                     { showCarsProblems && <CarsProblemsWindow /> }
+                    { showUsers && <UsersWindow /> }
                 </div>
             </div>
         </>
@@ -106,12 +118,23 @@ function ProblemsWindow() {
     )
 }
 
-function CarsProblemsWindow({}) {
+function CarsProblemsWindow() {
     return(
         <>
             <div className="cars-problems-window-container">
                 <h1>Проблемы у автомобилей</h1>
                 <CarsAndProblemsList/>
+            </div>
+        </>
+    )
+}
+
+function UsersWindow() {
+    return(
+        <>
+            <div className="users-window-container">
+                <h1>Зарегистрированные пользователи</h1>
+                <UsersList/>
             </div>
         </>
     )
@@ -282,6 +305,74 @@ export function CarsAndProblemsList() {
                         <div className="generation">Поколение: {problemRow.generation}</div>
                         <div className="generation">ID проблемы: {problemRow.problem_id}</div>
                         <div className="problem_name">Название проблемы: {problemRow.problem_name}</div>
+                    </div>
+                ))
+            }
+        </>
+    )
+}
+
+export function UsersList() {
+    const [usersList, setUsersList] = useState([]);
+
+    useEffect(() => {
+        ShowAllUsers();
+    },[])
+
+    async function ShowAllUsers() {
+        const response = await fetch('http://localhost:3000/getallusers', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const usersData = await response.json();
+
+        if (usersData.successGetAllUsers) {
+            setUsersList(usersData.allUsers);
+        }
+
+        console.log(usersData);
+    }
+
+    async function AddAdministratorRights(user_id) {
+        const response = await fetch('http://localhost:3000/addrigthsadministrator', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({user_id: user_id})
+        })
+        const result = await response.json();
+
+        if (result.noUserIdMessage) {
+            alert('Невозможно прочесть ID пользователя')
+        } else if (result.successAddAdministratorRight) {
+            alert('Права администратора выданы');
+            ShowAllUsers();
+        }
+
+        console.log(result);
+    }
+
+    return (
+        <>
+            {
+                usersList.map((user) => (
+                    <div key={user.user_id} className="users-info">
+                        <div className="user_id">ID пользователя: {user.user_id}</div>
+                        <div className="user_role_name">Роль пользователя: {user.role_name}</div>
+                        <div className="user_name">Имя пользователя: {user.name}</div>
+                        <div className="user_surname">Фамилия пользователя: {user.surname}</div>
+                        <div className="user_email">Электронная почта пользователя: {user.email}</div>
+                        <div className="add-delete-rights-buttons">
+                            <button className='add-admin-rights' 
+                                onClick={() => AddAdministratorRights(user.user_id)}
+                            >
+                                Выдать роль администатора
+                            </button>
+                            <button className='add-delete-rights'>Убрать роль администатора</button>
+                        </div>
                     </div>
                 ))
             }

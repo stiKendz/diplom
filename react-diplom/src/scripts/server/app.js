@@ -1219,3 +1219,82 @@ app.post('/getcardescription', async(req, res) => {
         res.status(400).json({ message: 'Ошибка при получении описания автомобиля из-за ошибки на сервере' });
     }
 })
+
+
+// Получение списка всех пользователей
+app.get('/getallusers', async(req, res) => {
+    try {
+        const client = await pool.connect();
+
+        try {
+            const response = await client.query(`
+                SELECT ut.user_id, ut.name, ut.surname, ut.email, ut.password, rt.role_name
+                FROM users_table AS ut 
+                INNER JOIN roles_table AS rt 
+                ON ut.user_id = rt.user_id;
+            `);
+
+            const allUsers = response.rows;
+
+            if (allUsers.length <= 0) {
+                return res.status(200).json({noUsersMessage: 'В системе нет зарегистрированных пользователей'});
+            }
+            
+            console.log(allUsers);
+
+            return res.status(200).json({
+                successGetAllUsers: 'Список зарегистрированных пользователей получен успешно',
+                allUsers: allUsers
+            });
+        } catch (err) {
+            console.error(`Ошибка при получении всех пользователей из-за ошибки в запросе: ${err.message}`);
+            res.status(400).json({ message: 'Ошибка при получении всех пользователей из-за ошибки в запросе' });
+        } finally {
+            client.release();
+        }
+    } catch (err) {
+        console.error(`Ошибка при получении всех пользователей из-за ошибки на сервере: ${err.message}`);
+        res.status(400).json({ message: 'Ошибка при получении всех пользователей из-за ошибки на сервере' });
+    }
+})
+
+
+// Добавление роли администратора пользователю
+app.put('/addrigthsadministrator', async (req, res) => {
+    const { user_id } = req.body;
+
+    if (!user_id) {
+        return res.status(400).json({noUserIdError: 'Невозможно почесть id-пользователя'});
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const response = await client.query(`
+                UPDATE roles_table 
+                SET role_name = 'admin' 
+                WHERE user_id = $1
+                `, [user_id]
+            )
+            // const adminResult = response.rows;
+            // console.log(adminResult);
+
+            // const userID = adminResult.rows[0].user_id;
+            // const roleName = adminResult.rows[0].role_name;
+
+            return res.status(200).json({
+                successAddAdministratorRight: `Права администратора добавлены пользователю с ID ${user_id}, теперь он Администратор`
+            })
+
+        } catch (err) {
+            console.error(`Ошибка при добавлении прав администратора пользователю из-за ошибки в запросе: ${err.message}`);
+            res.status(400).json({ message: 'Ошибка при добавлении прав администратора пользователю из-за ошибки в запросе'});
+        } finally {
+            client.release();
+        }
+    } catch (err) {
+        console.error(`Ошибка при добавлении прав администратора пользователю из-за ошибки на сервере: ${err.message}`);
+        res.status(400).json({ message: 'Ошибка при добавлении прав администратора пользователю из-за ошибки на сервере'});
+    }
+})
