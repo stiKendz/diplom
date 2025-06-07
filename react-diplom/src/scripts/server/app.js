@@ -109,7 +109,7 @@ app.post('/register', async (req, res) => {
 
             // вcтака данных в таблицу roles_table, где role_name имеет default 'user'
             const userId = result.rows[0].user_id;
-            if (email === 'admin@yandex.ru') {
+            if (email === 'toguedriver@gmail.com') {
                 const role_name = 'admin';
                 await client.query(
                     'INSERT INTO roles_table (role_name, user_id) VALUES ($1, $2)',

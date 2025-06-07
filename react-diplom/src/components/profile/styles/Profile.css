@@ -65,6 +65,32 @@ main {
     gap: 20px;
     justify-content: space-around;
 }
+    .bio .email-container {
+        grid-column: span 2;
+        text-align: center;
+        padding: 10px 0;
+
+        font-size: 20px;
+    }
+    .bio .name-container,
+    .bio .secondname-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 10px;
+
+        font-size: 20px;
+    }
+        .bio .name-container input,
+        .bio .secondname-container input {
+            font-size: 18px;
+            padding: 10px;
+        }
+        .bio .email-container p.email {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
 .bio .buttons-container {
     grid-area: 3 / 1 / 4 / 3;
@@ -85,12 +111,6 @@ main {
 
 .bio .buttons-container button:hover {
     background: #0060c0;
-}
-
-.bio > div {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
 }
 
 .user-favorite-container {

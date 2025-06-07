@@ -414,7 +414,7 @@ export function UsersList() {
         <>
             {
                 usersList.map((user) => (
-                    <div key={user.user_id} className="users-info">
+                    <div key={user.user_id} className="user-info">
                         <div className="user_id">ID пользователя: {user.user_id}</div>
                         <div className="user_role_name">Роль пользователя: {user.role_name}</div>
                         <div className="user_name">Имя пользователя: {user.name}</div>
@@ -432,7 +432,7 @@ export function UsersList() {
                                     </>
                                 ) : adminStatus[user.user_id] === true ? (
                                     <>
-                                        <button className='add-delete-rights'
+                                        <button className='delete-admin-rights'
                                             onClick={() => DeleteAdministratorRights(user.user_id)}
                                         >
                                             Убрать роль администатора

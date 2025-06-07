@@ -92,7 +92,7 @@ export default function Profile() {
                                     ></input>
                                 </div>
                             </div>
-                            <div className="senondname-container">
+                            <div className="secondname-container">
                                 <p className='surname'>Фамилия : {surname}</p>
                                 <div className="change-data-container">
                                     <input type='text' className='new-data' placeholder='Новые данные'
