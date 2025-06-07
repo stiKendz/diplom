@@ -17,7 +17,7 @@ import noPhoto from '../../images/no-photos.png'
 export default function Profile() {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
-    // const [email, setEmail] = useState('');
+    const [email, setEmail] = useState('');
     // const [phone_number, setPhoneNumber] = useState('');
     // const [token, getToken] = useState(() => window.localStorage.getItem('token'));
     const token = window.localStorage.getItem('token');
@@ -100,14 +100,14 @@ export default function Profile() {
                                     ></input>
                                 </div>
                             </div>
-                            {/* <div className="email-container">
+                            <div className="email-container">
                                 <p className='email'>Электронная почта : {email}</p>
-                                <div className="change-data-container">
+                                {/* <div className="change-data-container">
                                     <input type='text' className='new-data' placeholder='Новые данные'
                                         onChange={e => setEmail(e.target.value)}
                                     ></input>
-                                </div>
-                            </div> */}
+                                </div> */}
+                            </div>
                             {/* <div className="phone-container">
                                 <p className='phone-number'>Номер телефона : {phone_number}</p>
                                 <div className="change-data-container">

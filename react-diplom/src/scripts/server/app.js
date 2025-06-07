@@ -1231,7 +1231,8 @@ app.get('/getallusers', async(req, res) => {
                 SELECT ut.user_id, ut.name, ut.surname, ut.email, ut.password, rt.role_name
                 FROM users_table AS ut 
                 INNER JOIN roles_table AS rt 
-                ON ut.user_id = rt.user_id;
+                ON ut.user_id = rt.user_id
+                ORDER BY ut.user_id;
             `);
 
             const allUsers = response.rows;
@@ -1264,7 +1265,7 @@ app.put('/addrigthsadministrator', async (req, res) => {
     const { user_id } = req.body;
 
     if (!user_id) {
-        return res.status(400).json({noUserIdError: 'Невозможно почесть id-пользователя'});
+        return res.status(400).json({noUserIdError: 'Невозможно прочесть id-пользователя'});
     }
 
     try {
@@ -1284,7 +1285,7 @@ app.put('/addrigthsadministrator', async (req, res) => {
             // const roleName = adminResult.rows[0].role_name;
 
             return res.status(200).json({
-                successAddAdministratorRight: `Права администратора добавлены пользователю с ID ${user_id}, теперь он Администратор`
+                successAddAdministratorRights: `Права администратора добавлены пользователю с ID ${user_id}, теперь он АДМИНИСТРАТОР`
             })
 
         } catch (err) {
@@ -1298,3 +1299,75 @@ app.put('/addrigthsadministrator', async (req, res) => {
         res.status(400).json({ message: 'Ошибка при добавлении прав администратора пользователю из-за ошибки на сервере'});
     }
 })
+
+
+// Замена роли администратора (admin) у пользователя на обычного пользователя (user)
+app.put('/deleterigthsadministrator', async (req, res) => {
+    const { user_id } = req.body;
+
+    if (!user_id) {
+        return res.status(400).json({noUserIdError: 'Невозможно прочесть ID пользователя'});
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const response = await client.query(`
+                UPDATE roles_table 
+                SET role_name = 'user' 
+                WHERE user_id = $1
+                `, [user_id]
+            )
+
+            return res.status(200).json({
+                successDeleteAdministratorRights: `Права администратора отозваны у пользователя с ID ${user_id}, теперь он ПОЛЬЗОВАТЕЛЬ`
+            })
+
+        } catch (err) {
+            console.error(`Ошибка при удалении прав администратора у пользователя из-за ошибки в запросе: ${err.message}`);
+            res.status(400).json({ message: 'Ошибка при удалении прав администратора у пользователя из-за ошибки в запросе'});
+        } finally {
+            client.release();
+        }
+    } catch (err) {
+        console.error(`Ошибка при удалении прав администратора у пользователя из-за ошибки на сервере: ${err.message}`);
+        res.status(400).json({ message: 'Ошибка при удалении прав администратора у пользователя из-за ошибки на сервере'});
+    }
+})
+
+
+// Проверка роли администратора у пользователя
+app.post('/checkadministratorstatus', async (req, res) => {
+    const { user_id } = req.body;
+
+    if (!user_id) {
+        return res.status(400).json({noUserIdError: 'Не получается прочесть ID пользователя'});
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const response = await client.query(`
+                SELECT role_name FROM roles_table WHERE user_id = $1`, [user_id]
+            )
+
+            const userRoleName = response.rows[0].role_name;
+
+            if (userRoleName === 'admin') {
+                return res.status(200).json({userIsAdmin: `У пользователя с ID ${user_id} имеются права администратра`})
+            } else if (userRoleName === 'user') {
+                return res.status(200).json({userIsNotAdmin: `У пользователя с ID ${user_id} нет прав администратра. Он обычный пользователь`})
+            }
+        } catch(err) {
+            console.error(`Ошибка при проверке прав администратора у пользователя из-за ошибки в запросе: ${err.message}`);
+            res.status(400).json({ message: 'Ошибка при проверке прав администратора у пользователя из-за ошибки в запросе'});
+        } finally {
+            client.release();
+        }
+    } catch(err) {
+        console.error(`Ошибка при проверке прав администратора у пользователя из-за ошибки на сервере: ${err.message}`);
+        res.status(400).json({ message: 'Ошибка при проверке прав администратора у пользователя из-за ошибки на сервере'});
+    }
+});

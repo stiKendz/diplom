@@ -314,6 +314,7 @@ export function CarsAndProblemsList() {
 
 export function UsersList() {
     const [usersList, setUsersList] = useState([]);
+    const [adminStatus, setAdminStatus] = useState({});
 
     useEffect(() => {
         ShowAllUsers();
@@ -330,9 +331,39 @@ export function UsersList() {
 
         if (usersData.successGetAllUsers) {
             setUsersList(usersData.allUsers);
+
+            // начальный статус для всех - false
+            // const initialAdminStatus = {};
+            usersData.allUsers.forEach(user => {
+                checkAdminStatus(user.user_id);
+            });
+            // setAdminStatus(initialAdminStatus);
         }
 
         console.log(usersData);
+    }
+
+    async function checkAdminStatus(user_id) {
+        const response = await fetch('http://localhost:3000/checkadministratorstatus', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({user_id: user_id})
+        });
+        const data = await response.json();
+
+        // if (data.userIsAdmin) {
+        //     setIsAdmin(true);
+        // } else if (data.userIsNotAdmin) {
+        //     setIsAdmin(false);
+        // }
+
+        // обновление статуса для пользователя
+        setAdminStatus(prev => ({
+            ...prev,
+            [user_id]: data.userIsAdmin ? true : false
+        }));
     }
 
     async function AddAdministratorRights(user_id) {
@@ -343,16 +374,40 @@ export function UsersList() {
             },
             body: JSON.stringify({user_id: user_id})
         })
-        const result = await response.json();
+        const data = await response.json();
 
-        if (result.noUserIdMessage) {
+        if (data.noUserIdMessage) {
             alert('Невозможно прочесть ID пользователя')
-        } else if (result.successAddAdministratorRight) {
+        } else if (data.successAddAdministratorRights) {
             alert('Права администратора выданы');
+            // обновление статуса
+            setAdminStatus(prev => ({ ...prev, [user_id]: true }));
             ShowAllUsers();
         }
 
-        console.log(result);
+        console.log(data);
+    }
+
+    async function DeleteAdministratorRights(user_id) {
+        const response = await fetch('http://localhost:3000/deleterigthsadministrator', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({user_id: user_id})
+        })
+        const data = await response.json();
+
+        if (data.noUserIdMessage) {
+            alert('Невозможно прочесть ID пользователя')
+        } else if (data.successDeleteAdministratorRights) {
+            alert('Права администратора сняты');
+            // обновление статуса
+            setAdminStatus(prev => ({ ...prev, [user_id]: false }));
+            ShowAllUsers();
+        }
+
+        console.log(data);
     }
 
     return (
@@ -366,12 +421,27 @@ export function UsersList() {
                         <div className="user_surname">Фамилия пользователя: {user.surname}</div>
                         <div className="user_email">Электронная почта пользователя: {user.email}</div>
                         <div className="add-delete-rights-buttons">
-                            <button className='add-admin-rights' 
-                                onClick={() => AddAdministratorRights(user.user_id)}
-                            >
-                                Выдать роль администатора
-                            </button>
-                            <button className='add-delete-rights'>Убрать роль администатора</button>
+                            {
+                                adminStatus[user.user_id] === false ? (
+                                    <>
+                                        <button className='add-admin-rights' 
+                                            onClick={() => AddAdministratorRights(user.user_id)}
+                                        >
+                                            Выдать роль администатора
+                                        </button>
+                                    </>
+                                ) : adminStatus[user.user_id] === true ? (
+                                    <>
+                                        <button className='add-delete-rights'
+                                            onClick={() => DeleteAdministratorRights(user.user_id)}
+                                        >
+                                            Убрать роль администатора
+                                        </button>
+                                    </>
+                                ) : (
+                                    <p>Сторонняя ошибка</p>
+                                )
+                            }
                         </div>
                     </div>
                 ))
