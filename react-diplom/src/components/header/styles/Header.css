@@ -58,14 +58,14 @@ header {
         align-items: center;
 
         padding: 10px;
-        width: 150px;
+        width: 200px;
         height: 50px;
 
         color: white;
         background-color: transparent;
         border: 1.5px solid white;
 
-        font-size: 14px;
+        font-size: 18px;
         user-select: none;
 
         overflow: hidden;
