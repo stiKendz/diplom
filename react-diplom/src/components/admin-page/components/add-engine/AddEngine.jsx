@@ -81,7 +81,7 @@ export default function AddEngine(){
                         />
                     </div>
                 </div>
-                {/* <button type="button" className="add-engine-button update">Изменить информацию</button> */}
+                <button type="button" className="add-engine-button delete">Удалить двигатель</button>
                 <button type="button" className="add-engine-button" onClick={AddEngine}>Добавить двигатель</button>
             </div>
         </>

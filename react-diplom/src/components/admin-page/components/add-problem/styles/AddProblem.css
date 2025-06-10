@@ -7,6 +7,8 @@
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 1fr auto;
+
+    gap: 5px;
   }
   .add-problem-container button.add-problem-button {
     position: relative;

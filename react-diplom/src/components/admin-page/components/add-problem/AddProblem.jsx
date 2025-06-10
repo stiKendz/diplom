@@ -58,6 +58,7 @@ export default function AddCar(){
                         />
                     </div>
                 </div>
+                <button type="button" className="add-problem-button delete">Удалить проблему</button>
                 <button type="button" className="add-problem-button" onClick={AddCarProblem}>Добавить проблему</button>
             </div>
         </>

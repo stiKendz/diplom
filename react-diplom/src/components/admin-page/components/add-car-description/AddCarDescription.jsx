@@ -33,6 +33,7 @@ export default function AddCar(){
                         onChange={e => SetCarIdInDescription(e.target.value)}
                     />
                 </div>
+                <button type="button" className="add-description-button delete">Удалить описание</button>
                 <button type="button" className="add-description-button" onClick={AddCarDescription}>Добавить описание</button>
             </div>
         </>
