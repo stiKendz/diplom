@@ -7,6 +7,8 @@
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: 1fr auto;
+
+  gap: 5px;
 }
 .engine-add-container button.add-engine-button {
   position: relative;

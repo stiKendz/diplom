@@ -53,7 +53,7 @@ export default function SingIn() {
                     <div className="sing-in-window-container">
                         <div className="sing-in-window">
                             <input type="email" className="email-input" placeholder="Введите адрес электронной почты" onChange={e => setEmail(e.target.value)}/>
-                            <input type="text" className="password-input" placeholder="Введите пароль" onChange={e => setPassword(e.target.value)}/>
+                            <input type="password" className="password-input" placeholder="Введите пароль" onChange={e => setPassword(e.target.value)}/>
                             <button type="button" className="sing-in-button" onClick={UserSingIn}>Войти</button>
                         </div>
                     </div>

@@ -81,7 +81,7 @@ export default function SingUp() {
                                 autoComplete="off" 
                                 onChange={e => setUserEmail(e.target.value)}
                             />
-                            <input type="text" className="password-input" placeholder="Придумайте пароль" autoComplete="off" onChange={e => setUserPassword(e.target.value)}/>
+                            <input type="password" className="password-input" placeholder="Придумайте пароль" autoComplete="off" onChange={e => setUserPassword(e.target.value)}/>
                             <button type="button" className="sing-up-button" onClick={UserSingUp}>Зарегистрироваться</button>
                         </div>
                     </div>
