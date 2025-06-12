@@ -39,79 +39,79 @@ export default function AddCar(){
                 <div className="car-parameters-container">
                     <h2>Добавление автомобиля</h2>
                     <div className="car-parameter concern">
-                        <p>пример: VAG, PSA</p>
+                        <p>Пример: VAG, PSA</p>
                         <input type="text" className="concern-input" placeholder="Концерн автомобиля:" 
                         onChange={e => setCarConcern(e.target.value)}
                         />
                     </div>
                     <div className="car-parameter brand">
-                        <p>пример: Skoda, Peugeot</p>
+                        <p>Пример: Skoda, Peugeot</p>
                         <input type="text" className="brand-input" placeholder="Бренд автомобиля:" 
                         onChange={e => SetCarBrand(e.target.value)}
                         />
                     </div>
                     <div className="car-parameter model-name">
-                        <p>пример: integra, impreza</p>
+                        <p>Пример: Integra, Impreza</p>
                         <input type="text" className="model-input" placeholder="Название модели автомобиля:" 
                         onChange={e => SetCarModelName(e.target.value)}
                         />
                     </div>
                     <div className="car-parameter generation">
-                        <p>пример: 1, 2, 3</p>
+                        <p>Пример: 1, 2, 3</p>
                         <input type="text" className="generation-input" placeholder="Поколение автомобиля:" 
                         onChange={e => SetCarGeneration(e.target.value)}
                         />
                     </div>
                     <div className="car-parameter model-number">
-                        <p>пример: DC5, GC8</p>
+                        <p>Пример: DC5, GC8</p>
                         <input type="text" className="model-number-input" placeholder="Номер модели автомобиля:" 
                         onChange={e => SetCarModelNumber(e.target.value)}
                         />
                     </div>
                     <div className="car-parameter release-date">
-                        <p>пример: 01-01-2001</p>
+                        <p>Пример: 01-01-2001</p>
                         <input type="date" className="release-date-input" placeholder="Дата запуска производства автомобиля:" 
                         onChange={e => SetCarReleaseDate(e.target.value)}
                         />
                     </div>
                     <div className="car-parameter end-release-date">
-                        <p>пример: 01-01-2002</p>
+                        <p>Пример: 01-01-2002</p>
                         <input type="date" className="end-release-date-input" placeholder="Дата окончания производства автомобиля:" 
                         onChange={e => SetCarEndReleaseDate(e.target.value)}
                         />
                     </div>
                     <div className="car-parameter engine-id">
-                        <p>пример: 1, 2, 3</p>
+                        <p>Пример: 1, 2, 3</p>
                         <input type="text" className="engine-id-input" placeholder="ID двигателя автомобиля:" 
                         onChange={e => SetCarEngineId(e.target.value)}
                         />
                     </div>
                     <div className="car-parameter gearbox">
-                        <p>пример: sequental, auto</p>
+                        <p>Пример: Автоматическая (AT)</p>
                         <input type="text" className="gearbox-input" placeholder="КПП автомобиля:" 
                         onChange={e => SetCarGearbox(e.target.value)}
                         />
                     </div>
                     <div className="car-parameter car-vehicle">
-                        <p>пример: rwd, awd</p>
+                        <p>Пример: RWD (Задний)</p>
                         <input type="text" className="vehicle-input" placeholder="Привод автомобиля:" 
                         onChange={e => SetCarVehicle(e.target.value)}
                         />
                     </div>
                     <div className="car-parameter car-body-type">
-                        <p>пример: sedan, coupe</p>
+                        <p>Пример: Седан, Купе</p>
                         <input type="text" className="body-type-input" placeholder="Кузов автомобиля:" 
                         onChange={e => SetCarBodyType(e.target.value)}
                         />
                     </div>
                     <div className="car-parameter price start">
-                        <p>пример: 100.000тыс.руб</p>
+                        <p>Пример: 100000 (указывается в рублях)</p>
                         <input type="text" className="price-input" placeholder="Цена автомобиля (минимальная):" 
                         onChange={e => SetCarPriceStart(e.target.value)}
                         />
                     </div>
                     <div className="car-parameter price end">
-                        <p>пример: 1.100.000тыс.руб</p>
+                        <p>Пример: 1100000 (указывается в рублях)</p>
                         <input type="text" className="price-input" placeholder="Цена автомобиля (максимальная):" 
                         onChange={e => SetCarPriceEnd(e.target.value)}
                         />
