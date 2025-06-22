@@ -18,6 +18,19 @@ export default function AddCar(){
         });
         const data = await response.json();
 
+        if (data.emptyInputsMessage) {
+            alert('Все поля должны быть заполнены')
+        }
+        if (data.noCarInDb) {
+            alert('В базе данных нет автомобиля с таким ID')
+        }
+        if (data.duplicateDescriptionMessage) {
+            alert('В базе данных уже есть краткое описание автомобиля с таким ID')
+        }
+        if (data.successAddDescription) {
+            alert(`Автомобилю с ID ${data.carId}, добавлено описание ${data.carDescription}`)
+        }
+
         console.log(data); 
     }
 

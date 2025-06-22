@@ -18,6 +18,22 @@ export default function AddProblemToCar() {
         });
         const data = await response.json();
 
+        if (data.emptyInputsMessage) {
+            alert('Все поля должны быть заполнены')
+        }
+        if (data.noCarInDb) {
+            alert('В базе данных не существует автомобиля с таким ID')
+        }
+        if (data.noProblemInDb) {
+            alert('В базе данных не существует проблемы с таким id')
+        }
+        if (data.dublicateProblem) {
+            alert('Такая проблема уже добавлена автомобилю')
+        }
+        if (data.successAddProblem) {
+            alert(`Проблема с ID: ${data.problemId}, добавлена автомобилю с ID ${data.carId}`)
+        }
+
         console.log(data);
     }
 

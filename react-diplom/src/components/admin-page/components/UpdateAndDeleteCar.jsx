@@ -29,6 +29,16 @@ export function UpdateCar() {
         });
         const data = await result.json();
 
+        if (data.emptyInputsMessage) {
+            alert('Все поля должны быть заполнены');
+        }
+        if (data.noCarInDb) {
+            alert('В базе данных не существует автомобиля с таким ID')
+        }
+        if (data.successUpdateModelNumber) {
+            alert('Модель автомобиля обновлена');
+        }
+
         console.log(data);
     }
 
@@ -66,6 +76,16 @@ export function DeleteCar() {
             body: JSON.stringify({car_id})
         })
         const data = await response.json();
+
+        if (data.emptyInputsMessage) {
+            alert('Все поля должны быть заполнены');
+        }
+        if (data.noCarInDb) {
+            alert('В базе данных не существует автомобиля с таким ID')
+        }
+        if (data.successDeleteCar) {
+            alert('Автомобиль удален')
+        }
 
         console.log(data);
     }

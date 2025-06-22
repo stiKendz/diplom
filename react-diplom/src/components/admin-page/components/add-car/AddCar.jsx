@@ -27,8 +27,17 @@ export default function AddCar(){
             },
             body: JSON.stringify({concern, brand, model_name, generation, model_number, release_date, end_release_date, engine_id, gearbox, car_vehicle, body_type, price_start, price_end})
         });
- 
         const data = await response.json();
+
+        if (data.emptyInputsMessage) {
+            alert('Все поля должны быть заполнены')
+        }
+        if (data.noEngineInDb) {
+            alert('В базе данных нет двигателя с таким ID')
+        }
+        if (data.successAddCar) {
+            alert('Автомобиль добавлен')
+        }
  
         console.log(data);
     }

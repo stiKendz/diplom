@@ -29,8 +29,15 @@ export default function AddPhoto() {
         const data = await response.json();
 
         if (data.emptyInputError) {
-            alert('Все поля в окне загрузкифотографии должны быть запонены');
+            alert('Все поля в окне загрузки фотографии должны быть заполнены');
         }
+        if (data.errorUploadImage) {
+            alert('Изображение не было загружено из-за проблем на сервере');
+        }
+        if (data.successUploadImage) {
+            alert('Изображение загружено');
+        }
+
         console.log(data);
     }
 

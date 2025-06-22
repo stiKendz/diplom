@@ -209,7 +209,7 @@ app.post('/addengine', async (req, res) => {
 
     for(let key in engineParams) {
         if (!engineParams[key]) {
-            return res.status(400).json({message: 'Все поля должны быть заполнены'});
+            return res.status(400).json({emptyInputsMessage: 'Все поля должны быть заполнены'});
         }
     }
 
@@ -223,7 +223,7 @@ app.post('/addengine', async (req, res) => {
         try {
             const exitingEngine = await client.query('SELECT * FROM engine_table WHERE engine_serial_name = $1',[engine_serial_name]);
             if (exitingEngine.rowCount > 0) {
-                return res.status(409).json({message: 'Двигатель с таким названием уже присутствует в базе данных'});
+                return res.status(409).json({duplicateEngineMessage: 'Двигатель с таким названием уже присутствует в базе данных'});
             };
             
 
@@ -234,7 +234,7 @@ app.post('/addengine', async (req, res) => {
             const engineId = result.rows[0].engine_id;
 
             res.status(201).json({
-                message: 'Двигатель успешно добавлен',
+                successAddEngine: 'Двигатель успешно добавлен',
                 engineId: engineId
             });
         } catch (err) {
@@ -312,7 +312,7 @@ app.post('/addcar', async (req, res) => {
 
     for (let key in carParams) {
         if (!carParams[key]) {
-            return res.status(400).json({message: 'Все поля должны быть заполнены'})
+            return res.status(400).json({emptyInputsMessage: 'Все поля должны быть заполнены'})
         };
     };
 
@@ -324,7 +324,7 @@ app.post('/addcar', async (req, res) => {
                 'SELECT * FROM cars_table WHERE model_number = $1', [model_number]
             )
             if(exitingCar.rowCount > 0) {
-                return res.status(409).json({message: 'Автомобиль с таким названием модели уже присутствует в базе двнных'});
+                return res.status(409).json({message: 'Автомобиль с таким названием модели уже присутствует в базе данных'});
             }
 
             // проверка на ноль в таблице engine_table
@@ -332,7 +332,7 @@ app.post('/addcar', async (req, res) => {
                 'SELECT * FROM engine_table where engine_id = $1', [engine_id]
             )
             if(engineCount.rowCount < 1) {
-                return res.status(400).json({message:`В базе данных нет двигателя с таким id: ${engine_id}`})
+                return res.status(400).json({noEngineInDb:`В базе данных нет двигателя с таким id: ${engine_id}`})
             }
 
             const response = await client.query(
@@ -343,7 +343,7 @@ app.post('/addcar', async (req, res) => {
             const engineId = response.rows[0].engine_id;
 
             res.status(201).json({
-                message: 'Автомбиль успешно добавлен',
+                successAddCar: 'Автомбиль успешно добавлен',
                 carId: carId,
                 engineId: engineId
             });
@@ -406,7 +406,7 @@ app.post('/addproblem', async (req, res) => {
 
     for(let key in problemParts) {
         if(!problemParts[key]) {
-            return res.status(400).json({message: 'Все поля должны быть заполнены'});
+            return res.status(400).json({emptyInputsMessage: 'Все поля должны быть заполнены'});
         };
     };
 
@@ -419,7 +419,7 @@ app.post('/addproblem', async (req, res) => {
                 [problem_name]
             )
             if (exitingProblem.rowCount > 0) {
-                return res.status(409).json({message: 'В базе данных уже имеется проблема с таким названием'});
+                return res.status(409).json({duplicateProblemMessage: 'В базе данных уже имеется проблема с таким названием'});
             };
 
             const result = await client.query(
@@ -430,7 +430,7 @@ app.post('/addproblem', async (req, res) => {
             const problemName = result.rows[0].problem_name;
 
             res.status(201).json({
-                message: 'Проблема успешно добавлена',
+                successAddProblem: 'Проблема успешно добавлена',
                 problemId: problemId,
                 problemName: problemName,
             });
@@ -479,7 +479,7 @@ app.post('/addproblemtocar', async (req, res) => {
     const {car_id, problem_id} = req.body;
 
     if (!car_id || !problem_id) {
-        return res.status(400).json({message: 'Все поля должны быть заполнены'})
+        return res.status(400).json({emptyInputsMessage: 'Все поля должны быть заполнены'})
     }
 
     try {
@@ -490,14 +490,14 @@ app.post('/addproblemtocar', async (req, res) => {
                 'SELECT * FROM cars_table WHERE car_id = $1', [car_id]
             )
             if (carRequire.rowCount < 1) {
-                return res.status(409).json({message: `В базе данных не существует автомобиля с таким id: ${car_id}`});
+                return res.status(409).json({noCarInDb: `В базе данных не существует автомобиля с таким id: ${car_id}`});
             }
 
             const problemRequire = await client.query(
                 'SELECT * FROM problems_table where problem_id = $1', [problem_id]
             )
             if (problemRequire.rowCount < 1) {
-                return res.status(409).json({message: `В базе данных не существует проблемы с таким id: ${problem_id}`});
+                return res.status(409).json({noProblemInDb: `В базе данных не существует проблемы с таким id: ${problem_id}`});
             }
 
             // проверка на совпадения составного первичного ключа
@@ -506,7 +506,7 @@ app.post('/addproblemtocar', async (req, res) => {
                 [car_id, problem_id]
             )
             if (primaryKeyRequire.rowCount > 0) {
-                return res.status(409).json({message: `Проблема с id - ${problem_id} уже добавлена автомобилю с id - ${car_id}`})
+                return res.status(409).json({dublicateProblem: `Проблема с id - ${problem_id} уже добавлена автомобилю с id - ${car_id}`})
             }
 
             const result = await client.query(
@@ -517,7 +517,7 @@ app.post('/addproblemtocar', async (req, res) => {
             const problemId = result.rows[0].problem_id;
 
             res.status(201).json({
-                message: 'Проблемы и автомобили',
+                successAddProblem: 'Проблемы и автомобили',
                 carId: carId,
                 problemId: problemId
             });
@@ -569,7 +569,7 @@ app.post('/addcardescription', async (req, res) => {
     const {description, car_id} = req.body
 
     if (!description || !car_id) {
-        res.status(400).json({message: 'Все поля должны быть заполнены'});
+        res.status(400).json({emptyInputsMessage: 'Все поля должны быть заполнены'});
     }
 
     try {
@@ -581,7 +581,7 @@ app.post('/addcardescription', async (req, res) => {
                 [car_id]
             )
             if (carReuqire.rowCount < 1) {
-                return res.status(400).json({message: `В базе данных нет автомобиля с таким id: ${car_id}`});
+                return res.status(400).json({noCarInDb: `В базе данных нет автомобиля с таким id: ${car_id}`});
             }
 
             const descriptionRequire = await client.query(
@@ -589,7 +589,7 @@ app.post('/addcardescription', async (req, res) => {
                 [car_id]
             )
             if (descriptionRequire.rowCount > 0) {
-                return res.status(400).json({message: `В базе данных уже есть краткое описание автомобиля с id: ${car_id}`});
+                return res.status(400).json({duplicateDescriptionMessage: `В базе данных уже есть краткое описание автомобиля с id: ${car_id}`});
             }
 
             const response = await client.query(
@@ -599,7 +599,7 @@ app.post('/addcardescription', async (req, res) => {
             const carId = response.rows[0].car_id;
             
             res.status(200).json({
-                message: 'Описание успешно добавлено',
+                successAddDescription: 'Описание успешно добавлено',
                 carDescription: carDescription,
                 carId: carId
             });
@@ -716,7 +716,7 @@ app.put('/updatemodel', async (req, res) => {
     const {car_id, model_number} = req.body;
 
     if (!car_id || !model_number) {
-        return res.status(400).json({message: 'Все поля должны быть заполнены'})
+        return res.status(400).json({emptyInputsMessage: 'Все поля должны быть заполнены'})
     }
 
     try {
@@ -727,7 +727,7 @@ app.put('/updatemodel', async (req, res) => {
                 'SELECT * FROM cars_table WHERE car_id = $1', [car_id]
             )
             if (exitingCar.rowCount < 1) {
-                return res.status(400).json({message: 'В базе данных не существует автомобиля с таким ID'})
+                return res.status(400).json({noCarInDb: 'В базе данных не существует автомобиля с таким ID'})
             }
 
             const exitingModelNumber = await client.query(
@@ -744,7 +744,7 @@ app.put('/updatemodel', async (req, res) => {
             const modelNumber = response.rows[0].model_number;
 
             res.status(201).json({
-                message: 'Обновленная машина',
+                successUpdateModelNumber: 'Обновленная машина',
                 carId: carId,
                 modelNumber: modelNumber
             });
@@ -765,7 +765,7 @@ app.delete('/deletecar', async (req, res) => {
     const {car_id} = req.body;
 
     if (!car_id) {
-        return res.status(400).json({message: 'Поле не может быть пустым'})
+        return res.status(400).json({emptyInputsMessage: 'Поле не может быть пустым'})
     }
 
     try {
@@ -776,7 +776,7 @@ app.delete('/deletecar', async (req, res) => {
                 'SELECT * FROM cars_table WHERE car_id = $1', [car_id]
             )
             if (exitingCar.rowCount < 1) {
-                return res.status(400).json({message: `В базе данных не существует автомобиля в таким id: ${car_id}`})
+                return res.status(400).json({noCarInDb: `В базе данных не существует автомобиля в таким id: ${car_id}`})
             }
 
             const result = await client.query(
@@ -785,7 +785,7 @@ app.delete('/deletecar', async (req, res) => {
             const carId = result.rows[0].car_id;
 
             res.status(201).json({
-                message: 'Удаленный автомобиль',
+                successDeleteCar: 'Удаленный автомобиль',
                 carId: carId
             });
         } catch(err) {
@@ -1373,7 +1373,7 @@ app.post('/checkadministratorstatus', async (req, res) => {
 });
 
 
-// Удаления двигателя
+// Удаление двигателя
 app.delete('/deleteengine', async (req, res) => {
     const {engine_serial_name} = req.body;
 
@@ -1415,12 +1415,12 @@ app.delete('/deleteengine', async (req, res) => {
 })
 
 
-// Удаления описания у автомобиля
+// Удаление описания у автомобиля
 app.delete('/deletecardescription', async (req, res) => {
     const {car_id} = req.body;
 
     if (!car_id) {
-        return res.status(400).json({emptyInputsMessage: 'Все поля должны быть заполнены'})
+        return res.status(400).json({emptyInputsMessage: 'Нужно ввести ID автомобиля для заполнения'})
     }
 
     try {
@@ -1445,6 +1445,51 @@ app.delete('/deletecardescription', async (req, res) => {
             res.status(201).json({
                 seccessDeleteCarDescription: `Описание автомобиля с ID: ${carId} - удалено. Описание: ${carDescription}`,
                 carId: carId
+            });
+        } catch(err) {
+            console.log(`Ошибка удаления описания автомобиля из-за ошибки в запросе: ${err.message}`);
+            return res.status(500).json({message: 'Ошибка удаления описания автомобиля из-за ошибки в запросе'});
+        } finally {
+            client.release();
+        }
+    } catch(err) {
+        console.log(`Ошибка удаления описания автомобиля из-за ошибки на сервере: ${err.message}`);
+        return res.status(500).json({message: 'Ошибка удаления описания автомобиля из-за ошибки на сервере'});
+    };
+})
+
+
+// Удаление проблемы
+app.delete('/deleteproblem', async (req, res) => {
+    const {problem_name} = req.body;
+
+    if (!problem_name) {
+        return res.status(400).json({emptyInputMessage: 'Нужно ввести название проблемы для её удаления'})
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const exitingCarProblem = await client.query(
+                'SELECT problem_id FROM problems_table WHERE problem_name = $1', [problem_name]
+            )
+            if (exitingCarProblem.rowCount < 1) {
+                return res.status(400).json({noProblemInDb: `Проблемы с таким названием не существует в базе данных`})
+            }
+
+            const result = await client.query(
+                `DELETE FROM problems_table
+                WHERE problem_name = $1
+                RETURNING problem_id, problem_name;`, [problem_name]
+            )
+            const problemId = result.rows[0].problem_id;
+            const problemName = result.rows[0].problem_name;
+
+            res.status(201).json({
+                successDeleteProblem: `Проблема с названием ${problemName} - удалена. ID проблемы: ${problemId}`,
+                problemId: problemId,
+                problemName: problemName
             });
         } catch(err) {
             console.log(`Ошибка удаления описания автомобиля из-за ошибки в запросе: ${err.message}`);

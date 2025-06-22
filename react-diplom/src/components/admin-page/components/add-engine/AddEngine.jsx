@@ -22,8 +22,17 @@ export default function AddEngine(){
             },
             body: JSON.stringify({engine_serial_name, engine_size, engine_type, engine_nano, engine_horse_power, engine_expenditure_city, engine_expenditure_track, camshaft_system})
         });
-
         const data = await response.json();
+
+        if (data.emptyInputsMessage) {
+            alert('Все поля должны быть заполнены')
+        }
+        if (data.duplicateEngineMessage) {
+            alert('В базе данных уже существует такой двигатель')
+        }
+        if (data.successAddEngine) {
+            alert('Двигатель добавлен')
+        }
 
         console.log(data);
     }
