@@ -1371,3 +1371,89 @@ app.post('/checkadministratorstatus', async (req, res) => {
         res.status(400).json({ message: 'Ошибка при проверке прав администратора у пользователя из-за ошибки на сервере'});
     }
 });
+
+
+// Удаления двигателя
+app.delete('/deleteengine', async (req, res) => {
+    const {engine_serial_name} = req.body;
+
+    if (!engine_serial_name) {
+        return res.status(400).json({emptyInputMessage: 'Поле не может быть пустым'})
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const exitingEngineId = await client.query(
+                'SELECT engine_id FROM engine_table WHERE engine_serial_name = $1', [engine_serial_name]
+            )
+            if (exitingEngineId.rowCount < 1) {
+                return res.status(400).json({noEngineInDb: `В базе данных не существует такого двигателя`})
+            }
+            const engine_id = exitingEngineId.rows[0].engine_id;
+
+            const result = await client.query(
+                'DELETE FROM engine_table WHERE engine_id = $1 RETURNING engine_id', [engine_id]
+            )
+            const engineId = result.rows[0].engine_id;
+
+            res.status(201).json({
+                seccessDeleteEngine: `Удаленный двигатель: ${engine_serial_name} ID: ${engineId}`,
+                engineId: engineId
+            });
+        } catch(err) {
+            console.log(`Ошибка удаления двигателя из-за ошибки в запросе: ${err.message}`);
+            return res.status(500).json({message: 'Ошибка удаления двигателя из-за ошибки в запросе'});
+        } finally {
+            client.release();
+        }
+    } catch(err) {
+        console.log(`Ошибка удаления двигателя из-за ошибки на сервере: ${err.message}`);
+        return res.status(500).json({message: 'Ошибка удаления двигателя из-за ошибки на сервере'});
+    };
+})
+
+
+// Удаления описания у автомобиля
+app.delete('/deletecardescription', async (req, res) => {
+    const {car_id} = req.body;
+
+    if (!car_id) {
+        return res.status(400).json({emptyInputsMessage: 'Все поля должны быть заполнены'})
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const exitingCarDescription = await client.query(
+                'SELECT description FROM car_short_description_table WHERE car_id = $1', [car_id]
+            )
+            if (exitingCarDescription.rowCount < 1) {
+                return res.status(400).json({noCarDescriptionInDb: `В базе данных не существует такого автомобиля и его описания`})
+            }
+
+            const result = await client.query(
+                `DELETE FROM car_short_description_table 
+                WHERE car_id = $1
+                RETURNING car_id, description`, [car_id]
+            )
+            const carDescription = result.rows[0].description;
+            const carId = result.rows[0].car_id;
+
+            res.status(201).json({
+                seccessDeleteCarDescription: `Описание автомобиля с ID: ${carId} - удалено. Описание: ${carDescription}`,
+                carId: carId
+            });
+        } catch(err) {
+            console.log(`Ошибка удаления описания автомобиля из-за ошибки в запросе: ${err.message}`);
+            return res.status(500).json({message: 'Ошибка удаления описания автомобиля из-за ошибки в запросе'});
+        } finally {
+            client.release();
+        }
+    } catch(err) {
+        console.log(`Ошибка удаления описания автомобиля из-за ошибки на сервере: ${err.message}`);
+        return res.status(500).json({message: 'Ошибка удаления описания автомобиля из-за ошибки на сервере'});
+    };
+})

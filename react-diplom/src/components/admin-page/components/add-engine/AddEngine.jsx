@@ -27,6 +27,30 @@ export default function AddEngine(){
 
         console.log(data);
     }
+
+    async function DeleteEngine() {
+        const response = await fetch('http://localhost:3000/deleteengine', {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({engine_serial_name})
+        });
+
+        const data = await response.json();
+        if (data.emptyInputMessage) {
+            alert('Поле с названием модели двигателя не может быть пустым')
+        }
+        if (data.noEngineInDb) {
+            alert('В базе данных не существует такого двигателя')
+        }
+        if (data.seccessDeleteEngine) {
+            alert('Двигатель удален')
+        }
+
+        console.log(data);
+    }
+
     return(
         <>
             <div className="engine-add-container">
@@ -81,7 +105,7 @@ export default function AddEngine(){
                         />
                     </div>
                 </div>
-                <button type="button" className="add-engine-button delete">Удалить двигатель</button>
+                <button type="button" className="add-engine-button delete" onClick={DeleteEngine}>Удалить двигатель</button>
                 <button type="button" className="add-engine-button" onClick={AddEngine}>Добавить двигатель</button>
             </div>
         </>

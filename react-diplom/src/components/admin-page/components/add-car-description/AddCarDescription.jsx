@@ -20,6 +20,29 @@ export default function AddCar(){
 
         console.log(data); 
     }
+
+    async function DeleteCarDescription() {
+        const response = await fetch('http://localhost:3000/deletecardescription', {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({car_id})
+        });
+        const data = await response.json();
+
+        if (data.emptyInputsMessage) {
+            alert('Поле с ID автомобиля должно быть заполнено');
+        }
+        if (data.noCarDescriptionInDb) {
+            alert('В базе данных не существует такого автомобиля и его описания');
+        }
+        if (data.seccessDeleteCarDescription) {
+            alert(`Описание автомобиля с ID:${data.carId} - удалено`);
+        }
+
+        console.log(data); 
+    }
     
     return(
         <>
@@ -33,7 +56,7 @@ export default function AddCar(){
                         onChange={e => SetCarIdInDescription(e.target.value)}
                     />
                 </div>
-                <button type="button" className="add-description-button delete">Удалить описание</button>
+                <button type="button" className="add-description-button delete" onClick={DeleteCarDescription}>Удалить описание</button>
                 <button type="button" className="add-description-button" onClick={AddCarDescription}>Добавить описание</button>
             </div>
         </>

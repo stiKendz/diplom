@@ -42,11 +42,10 @@
   outline: none;
 }
 .engine-add-container button.add-engine-button:active {
-  transform: scale(1.05);
-  transition: ease-in 0.2s;
-
-  outline: none;
-}
+    transform: scale(0.98) translateY(2px);
+    transition: 0.1s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
 
   .engine-parameters-container {
     display: flex;
